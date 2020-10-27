@@ -1,10 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-import { Test } from './component/test';
+import Route from './Route'
+import EnrollCard from './modules/EnrollCard'
+import Login from './Route/Login'
+import DetailCard from './modules/DetailCard'
 
-function App() {
+const App = () => {
   return (
-    <Test/>
+    <div style={{fontFamily: 'kanit'}}>
+      {/* <Route /> */}
+      {/* <DetailCard /> */}
+      <EnrollCard />
+      {/* <Login /> */}
+    </div>
   );
 }
 
