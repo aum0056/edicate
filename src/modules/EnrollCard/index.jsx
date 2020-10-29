@@ -1,14 +1,62 @@
-import React from "react";
-import {DropdownButton, Dropdown} from 'react-bootstrap'
+import React, { useState } from "react";
+import dropdown from "../../images/down-arrow.svg";
+import EnrollClick from "../EnrollClick";
+import { EnrollBox, DropdownCustom, EnrollBox2 } from "./styled";
+import testdata from "../../testdata.json";
 
-const EnrollCard = () => {
+const EnrollCard = (props) => {
+  const { NameGroup } = props;
+  const [test, setTest] = useState(false);
+  const onClicktestClick = () => {
+    setTest(!test);
+  };
+  const testStudentSubject = testdata.SubjectDetail;
+
+  const keepFunction = () => {
+    return (
+      <div>
+        {test ? (
+          <EnrollBox2>
+            <div>กลุ่ม{NameGroup}</div>
+            <div style={{ display: "flex" }}>
+              <div>
+                {testStudentSubject
+                  .filter((data) => data.group === NameGroup)
+                  .map((filterCredit) => filterCredit.credit)
+                  .reduce((pre, cur) => pre + cur, 0)}
+                /9
+              </div>
+              <DropdownCustom src={dropdown} alt="dropdown" />
+            </div>
+          </EnrollBox2>
+        ) : (
+          <EnrollBox>
+            <div>กลุ่ม{NameGroup}</div>
+            <div style={{ display: "flex" }}>
+              <div>
+                {testStudentSubject
+                  .filter((data) => data.group === NameGroup)
+                  .map((filterCredit) => filterCredit.credit)
+                  .reduce((pre, cur) => pre + cur, 0)}
+                /9
+              </div>
+              <DropdownCustom
+                style={{ transform: "scaleY(-1)" }}
+                src={dropdown}
+                alt="dropdown"
+              />
+            </div>
+          </EnrollBox>
+        )}
+      </div>
+    );
+  };
   return (
-    <DropdownButton id="dropdown-basic-button" title="Dropdown button">
-      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-      <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-      <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-    </DropdownButton>
+    <div onClick={onClicktestClick}>
+      {keepFunction()}
+      {test ? <EnrollClick NameGroup={NameGroup} /> : null}
+    </div>
   );
 };
 
-export default EnrollCard
+export default EnrollCard;

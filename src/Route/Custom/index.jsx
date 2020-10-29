@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Row, Col, Container, Nav } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import Detail from '../../images/detail.svg';
 import eduDetail from '../../images/eduDetail.svg';
 import Exit from '../../images/exit.svg';

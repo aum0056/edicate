@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Container, Form } from "react-bootstrap";
+import { Container, Form, Button } from "react-bootstrap";
 
 export const ContainerCustom = styled(Container)`
   padding: 0 30px;
@@ -8,7 +8,8 @@ export const ContainerCustom = styled(Container)`
 `;
 
 export const FormCustom = styled(Form.Control)`
-  margin-top: 15px;
+  max-width: 350px;
+  margin-top: 15px !important;
 `;
 
 export const FormGroup = styled(Form)`
@@ -19,6 +20,7 @@ export const FormGroup = styled(Form)`
     border: 1px solid #c4c4c4;
     color: #c4c4c4;
     height: 40px;
+    margin: auto;
   }
 `;
 
@@ -28,16 +30,13 @@ export const FontCustom = styled.div`
   text-align: center;
 `;
 
-export const CheckBox = styled.div`
-  display: block;
+export const ButtonCustom = styled(Button)`
+  color: #fff;
+  background-color: #02bc77 !important;
+  height: 50px;
+  margin: 30px 0px;
   width: 100%;
-  height: 40px;
-  padding: 0.375rem 0.75rem;
-  color: #ffffff;
-  background-color: #02bc77;
-  border-radius: 0.25rem;
-  margin: 25px 0;
-  text-align: center;
+  max-width: 350px;
 `;
 
 export const LogoBox = styled.img`

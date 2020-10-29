@@ -8,7 +8,8 @@ export const DetailBox = styled.div`
   display: flex;
   align-items: center;
   padding: 32px;
-  box-shadow: 3px 5px 5px #c4c4c4, 5px -30px 60px #ebebeb;
+  box-shadow: 3px 5px 5px #c4c4c4, 5px 5px 10px #ebebeb;
+  margin: 60px 0 40px 0;
 `;
 export const Picbox = styled.img`
   padding-right: 24px;
