@@ -3,6 +3,7 @@ import EnrollCard from './modules/EnrollCard'
 import Login from './Route/Login'
 import DetailCard from './modules/DetailCard'
 import Custom from './Route/Custom'
+import data from './testdata.json'
 
 const App = () => {
   return (
@@ -11,7 +12,7 @@ const App = () => {
       {/* <DetailCard /> */}
       {/* <EnrollCard /> */}
       {/* <Login /> */}
-      <Custom/>
+      {/* <Custom/> */}
     </div>
   );
 }
