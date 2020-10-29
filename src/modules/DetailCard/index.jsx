@@ -2,7 +2,8 @@ import React from "react";
 import { DetailBox, Picbox, TextBox } from "./styled";
 import profile from "../../images/profile.svg";
 
-const DetailCard = () => {
+const DetailCard = (props) => {
+  const {genderThai, genderEng, Thainame, Engname, id, faculty, department, idDepartment} = props
   return (
     <DetailBox>
       <div>
@@ -10,12 +11,12 @@ const DetailCard = () => {
       </div>
       <TextBox>
         <div>
-          <div>นายจิตดี จิตอ่อนหวังอ่อน</div>
-          <div>Mr. xxxxxxxx xxxxxxxxxxxxxxx</div>
+          <div>{genderThai}{Thainame}</div>
+          <div>{genderEng}. {Engname}</div>
         </div>
         <div style={{textAlign: 'right'}}>
-          <div>601xxxxxxx</div>
-          <div>คณะวิศวกรรมศาสตร์ สาขาวิศวกรรมคอมพิวเตอร์ (E09)</div>
+          <div>{id}</div>
+          <div>คณะ{faculty} สาขาวิศวกรรม{department} ({idDepartment})</div>
         </div>
       </TextBox>
     </DetailBox>

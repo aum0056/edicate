@@ -1,25 +1,37 @@
-[
+{
+  "DataDetail": [
     {
-        "type": 1,
-        "id":6010504767,
-        "name": "นรเศรษฐ์ โพธิ์ทอง" ,
-        "engname": "noraset potong",
-        "faculty": "วิศวกรรมศาสตร์",
-        "department": "คอมพิวเตอร์"
-    },
-    {
-        "type": 2,
-        "id": "01459101-60",
-        "name": "จิตวิทยาเพื่อชีวิตสมัยใหม่" ,
-        "credit": 3,
-        "group" :"อยู่ดีมีสุข"
-    },
-    {
-        "type": 2,
-        "id": "01999011-60",
-        "name": "อาหารเพื่อสุขภาพ" ,
-        "credit": 3,
-        "group" :"อยู่ดีมีสุข"
+      "id": 6010504767,
+      "genderThai": "นาย",
+      "genderEng": "Mr",
+      "Thainame": "นรเศรษฐ์ โพธิ์ทอง",
+      "Engname": "Noraset Potong",
+      "faculty": "วิศวกรรมศาสตร์",
+      "department": "คอมพิวเตอร์",
+      "idDepartment": "E09"
     }
-
-]
+  ],
+  "SubjectDetail": [
+    {
+      "id": "01459101-60",
+      "Thainame": "จิตวิทยาเพื่อชีวิตสมัยใหม่",
+      "Engname": "Psychology for Modern Life",
+      "credit": 3,
+      "group": "อยู่ดีมีสุข"
+    },
+    {
+      "id": "01999011-60",
+      "Thainame": "อาหารเพื่อสุขภาพ",
+      "Engname": "Health for Life",
+      "credit": 3,
+      "group": "อยู่ดีมีสุข"
+    },
+    {
+      "id": "01999011-60",
+      "Thainame": "อาหารเพื่อสุขภาพ",
+      "Engname": "Health for Life",
+      "credit": 3,
+      "group": "เสรี"
+    }
+  ]
+}

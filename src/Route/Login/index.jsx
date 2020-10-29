@@ -4,13 +4,11 @@ import {
   FormCustom,
   FormGroup,
   FontCustom,
-  CheckBox,
   LogoBox,
   ButtonCustom,
 } from "./styled";
 import logo from "../../images/logoEdicate.svg";
 import { useHistory } from "react-router-dom";
-import { Button } from "react-bootstrap";
 
 const Login = () => {
   //   const history = useHistory();

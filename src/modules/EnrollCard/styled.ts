@@ -9,6 +9,7 @@ export const EnrollBox = styled.div`
   height: 60px;
   border-radius: 0.25rem;
   border: 0.5px solid #c4c4c4;
+  margin-top: 20px;
 `;
 
 export const DropdownCustom = styled.img`
