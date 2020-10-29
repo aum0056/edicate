@@ -2,7 +2,7 @@ import Route from './Route'
 import EnrollCard from './modules/EnrollCard'
 import Login from './Route/Login'
 import DetailCard from './modules/DetailCard'
-import Custom from './modules/Custom'
+import Custom from './Route/Custom'
 
 const App = () => {
   return (
