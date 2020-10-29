@@ -11,10 +11,10 @@ import logo from "../../images/logoEdicate.svg";
 import { useHistory } from "react-router-dom";
 
 const Login = () => {
-  //   const history = useHistory();
-  //   const OnClickTest = () => {
-  //     history.push({ pathname: "/activity" });
-  //   };
+  const history = useHistory();
+  const OnClickCustom = () => {
+    history.push({ pathname: "/custom" });
+  };
   return (
     <ContainerCustom>
       <LogoBox src={logo} alt="logo" />
@@ -22,7 +22,7 @@ const Login = () => {
         <FormCustom type="text" placeholder="รหัสบัญชี" />
         <FormCustom type="password" placeholder="รหัสผ่าน" />
       </FormGroup>
-      <div style={{textAlign: "center"}}>
+      <div onClick={OnClickCustom} style={{ textAlign: "center" }}>
         <ButtonCustom variant="success">เข้าสู่ระบบ</ButtonCustom>
       </div>
       <FontCustom>ลืมรหัสผ่าน ?</FontCustom>

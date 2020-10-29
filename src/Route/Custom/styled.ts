@@ -1,33 +1,26 @@
 import styled from "styled-components";
-import { Container, Nav, Button } from "react-bootstrap";
-
-export const Navbar = styled(Nav)`
-    font-size: 30px;
-    height: 80px;
-    background-color: #02BC77;
-`;
+import { Container, Button } from "react-bootstrap";
 
 export const MidContainer = styled(Container)`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%)
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const CustomButton = styled(Button)`
-    width: 350px;
-    height: 400px;
-`;
-
-export const ExitBotton = styled.img`
-    position: absolute;
-    right: 30px;
-    top: 26px;
-    cursor: pointer;
+  width: 350px;
+  height: 400px;
 `;
 
 export const FontBox = styled.div`
-    font-size: 32px;
-    margin-top: 50px;
+  font-size: 32px;
+  margin-top: 50px;
+`;
+
+export const HoverImg = styled.img`
+  .svg:hover {
+    fill: red;
+  }
 `;
