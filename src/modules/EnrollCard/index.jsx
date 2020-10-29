@@ -1,16 +1,46 @@
 import React from "react";
 import dropdown from "../../images/down-arrow.svg";
-import { EnrollBox, DropdownCustom } from "./styled";
+import { EnrollBox, DropdownCustom, EnrollBox2 } from "./styled";
 
-const EnrollCard = () => {
+const EnrollCard = (props) => {
+  const { isClick } = props;
+
   return (
-    <EnrollBox>
-      <div>tuop</div>
-      <div style={{display: 'flex'}}>
-        <div>0/3</div>
-        <DropdownCustom src={dropdown} alt="dropdown" />
-      </div>
-    </EnrollBox>
+    <div>
+      {isClick ? (
+        <EnrollBox2>
+          <div>tuop</div>
+          <div style={{ display: "flex" }}>
+            <div>0/3</div>
+            {isClick ? (
+              <DropdownCustom src={dropdown} alt="dropdown" />
+            ) : (
+              <DropdownCustom
+                style={{ transform: "scaleY(-1)" }}
+                src={dropdown}
+                alt="dropdown"
+              />
+            )}
+          </div>
+        </EnrollBox2>
+      ) : (
+        <EnrollBox>
+          <div>tuop</div>
+          <div style={{ display: "flex" }}>
+            <div>0/3</div>
+            {isClick ? (
+              <DropdownCustom src={dropdown} alt="dropdown" />
+            ) : (
+              <DropdownCustom
+                style={{ transform: "scaleY(-1)" }}
+                src={dropdown}
+                alt="dropdown"
+              />
+            )}
+          </div>
+        </EnrollBox>
+      )}
+    </div>
   );
 };
 

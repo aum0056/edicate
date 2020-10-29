@@ -4,6 +4,7 @@ import Login from './Route/Login'
 import DetailCard from './modules/DetailCard'
 import EnrollClick from './modules/EnrollClick'
 import Custom from './Route/Custom'
+import DetailPage from './Route/DetailPage'
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       {/* <Login /> */}
       {/* <Custom/> */}
       {/* <EnrollClick /> */}
+      <DetailPage />
     </div>
   );
 }
