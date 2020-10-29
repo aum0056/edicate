@@ -6,9 +6,11 @@ import {
   FontCustom,
   CheckBox,
   LogoBox,
+  ButtonCustom,
 } from "./styled";
 import logo from "../../images/logoEdicate.svg";
 import { useHistory } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const Login = () => {
   //   const history = useHistory();
@@ -20,9 +22,11 @@ const Login = () => {
       <LogoBox src={logo} alt="logo" />
       <FormGroup>
         <FormCustom type="text" placeholder="รหัสบัญชี" />
-        <FormCustom type="text" placeholder="รหัสผ่าน" />
+        <FormCustom type="password" placeholder="รหัสผ่าน" />
       </FormGroup>
-      <CheckBox>เข้าสู่ระบบ</CheckBox>
+      <div style={{textAlign: "center"}}>
+        <ButtonCustom variant="success">เข้าสู่ระบบ</ButtonCustom>
+      </div>
       <FontCustom>ลืมรหัสผ่าน ?</FontCustom>
     </ContainerCustom>
   );

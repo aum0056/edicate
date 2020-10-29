@@ -1,10 +1,17 @@
 import React from "react";
-import {EnrollBox} from './styled'
+import dropdown from "../../images/down-arrow.svg";
+import { EnrollBox, DropdownCustom } from "./styled";
 
 const EnrollCard = () => {
   return (
-    <EnrollBox>tuop</EnrollBox>
+    <EnrollBox>
+      <div>tuop</div>
+      <div style={{display: 'flex'}}>
+        <div>0/3</div>
+        <DropdownCustom src={dropdown} alt="dropdown" />
+      </div>
+    </EnrollBox>
   );
 };
 
-export default EnrollCard
+export default EnrollCard;
