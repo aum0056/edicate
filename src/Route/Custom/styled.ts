@@ -20,7 +20,7 @@ export const FontBox = styled.div`
 `;
 
 export const HoverImg = styled.img`
-  .svg:hover {
-    fill: red;
+  &:hover {
+    color: red;
   }
 `;

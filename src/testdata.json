@@ -27,11 +27,32 @@
       "group": "อยู่ดีมีสุข"
     },
     {
-      "id": "01999011-60",
-      "Thainame": "อาหารเพื่อสุขภาพ",
-      "Engname": "Health for Life",
+      "id": "01385361-60",
+      "Thainame": "ดนตรีพื้นเมืองไทยภาคกลาง",
+      "Engname": "Central Thai Folk Music",
       "credit": 3,
       "group": "เสรี"
+    },
+    {
+      "id": "01999141-60",
+      "Thainame": "มนุษย์กับสังคม",
+      "Engname": "Man & Society",
+      "credit": 3,
+      "group": "พลเมืองไทยและพลเมืองโลก"
+    },
+    {
+      "id": "01355204-60",
+      "Thainame": "การฟัง-การพูดภาษาอังกฤษเบื้องตัน",
+      "Engname": "Fundamental English Listening-Speaking",
+      "credit": 3,
+      "group": "ภาษาและการสื่อสาร"
+    },
+    {
+      "id": "01355113-60",
+      "Thainame": "ภาษาอังกฤษพื้นฐาน 3",
+      "Engname": "Foundation English 3",
+      "credit": 3,
+      "group": "ภาษาและการสื่อสาร"
     }
   ]
 }
