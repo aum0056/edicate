@@ -3,6 +3,7 @@ import dropdown from "../../images/down-arrow.svg";
 import EnrollClick from "../EnrollClick";
 import { EnrollBox, DropdownCustom, EnrollBox2 } from "./styled";
 import testdata from "../../testdata.json";
+import creditdata from "../../genEdCredit.json";
 
 const EnrollCard = (props) => {
   const { NameGroup } = props;
@@ -24,7 +25,9 @@ const EnrollCard = (props) => {
                   .filter((data) => data.group === NameGroup)
                   .map((filterCredit) => filterCredit.credit)
                   .reduce((pre, cur) => pre + cur, 0)}
-                /9
+                /{creditdata
+                  .filter((data) => data.name === NameGroup)
+                  .map((filterCredit) => filterCredit.credit)}
               </div>
               <DropdownCustom src={dropdown} alt="dropdown" />
             </div>
@@ -38,7 +41,9 @@ const EnrollCard = (props) => {
                   .filter((data) => data.group === NameGroup)
                   .map((filterCredit) => filterCredit.credit)
                   .reduce((pre, cur) => pre + cur, 0)}
-                /9
+                /{creditdata
+                  .filter((data) => data.name === NameGroup)
+                  .map((filterCredit) => filterCredit.credit)}
               </div>
               <DropdownCustom
                 style={{ transform: "scaleY(-1)" }}

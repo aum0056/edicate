@@ -4,6 +4,7 @@ import Login from './Route/Login'
 import DetailCard from './modules/DetailCard'
 import EnrollClick from './modules/EnrollClick'
 import Custom from './Route/Custom'
+import data from './testdata.json'
 import DetailPage from './Route/DetailPage'
 
 const App = () => {
