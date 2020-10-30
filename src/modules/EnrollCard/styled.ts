@@ -19,3 +19,6 @@ export const EnrollBox2 = styled(EnrollBox)`
   border-bottom-left-radius: 0rem;
   border-bottom-right-radius: 0rem;
 `
+export const CondiBox = styled.div`
+  color: ${props => props.theme.main}
+`;
