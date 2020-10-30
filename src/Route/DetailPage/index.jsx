@@ -2,18 +2,14 @@ import React from "react";
 import DetailCard from "../../modules/DetailCard";
 import EnrollCard from "../../modules/EnrollCard";
 import { TextBox, ContainerCustom } from "./styled";
-import Exit from "../../images/exit.svg";
-import { Navbar, ExitBotton } from "../Custom/styled";
 import testdata from "../../testdata.json";
+import Navbar from '../../modules/Navbar'
 
 const DetailPage = () => {
   const testStudentDetail = testdata.DataDetail;
   return (
     <div>
-      <Navbar className="justify-content-center">
-        <div style={{ margin: "auto", color: "white" }}>ข้อมูลนิสิต</div>
-        <ExitBotton src={Exit} alt="Exit" />
-      </Navbar>
+      <Navbar NamePage="ข้อมูลนิสิต" />
       <ContainerCustom>
         {testStudentDetail.map((detail) => (
           <DetailCard
@@ -34,7 +30,7 @@ const DetailPage = () => {
         <EnrollCard NameGroup="สุนทรียศาสตร์" />
         <EnrollCard NameGroup="อยู่ดีมีสุข" />
         <EnrollCard NameGroup="เสรี" />
-        <div style={{marginBottom: "60px"}}></div>
+        <div style={{ marginBottom: "60px" }}></div>
       </ContainerCustom>
     </div>
   );

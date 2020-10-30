@@ -10,13 +10,13 @@ import DetailPage from './Route/DetailPage'
 const App = () => {
   return (
     <div style={{fontFamily: 'kanit'}}>
-      {/* <Route /> */}
+      <Route />
       {/* <DetailCard /> */}
       {/* <EnrollCard /> */}
       {/* <Login /> */}
       {/* <Custom/> */}
       {/* <EnrollClick /> */}
-      <DetailPage />
+      {/* <DetailPage /> */}
     </div>
   );
 }
