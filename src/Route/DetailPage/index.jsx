@@ -24,12 +24,12 @@ const DetailPage = () => {
           />
         ))}
         <TextBox>รายวิชาที่นิสิตลงทะเบียน</TextBox>
-        <EnrollCard NameGroup="พลเมืองไทยและพลเมืองโลก" />
-        <EnrollCard NameGroup="ภาษาและการสื่อสาร" />
-        <EnrollCard NameGroup="ศาสตร์แห่งผู้ประกอบการ" />
-        <EnrollCard NameGroup="สุนทรียศาสตร์" />
-        <EnrollCard NameGroup="อยู่ดีมีสุข" />
-        <EnrollCard NameGroup="เสรี" />
+        <EnrollCard NameGroup="พลเมืองไทยและพลเมืองโลก" NumPattern={1} />
+        <EnrollCard NameGroup="ภาษาและการสื่อสาร" NumPattern={1} />
+        <EnrollCard NameGroup="ศาสตร์แห่งผู้ประกอบการ" NumPattern={1} />
+        <EnrollCard NameGroup="สุนทรียศาสตร์" NumPattern={1} />
+        <EnrollCard NameGroup="อยู่ดีมีสุข" NumPattern={1} />
+        <EnrollCard NameGroup="เสรี" NumPattern={1} />
         <div style={{ marginBottom: "60px" }}></div>
       </ContainerCustom>
     </div>

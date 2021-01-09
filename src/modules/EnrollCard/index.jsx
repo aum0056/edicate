@@ -1,55 +1,53 @@
 import React, { useState } from "react";
 import dropdown from "../../images/down-arrow.svg";
 import EnrollClick from "../EnrollClick";
-import { EnrollBox, DropdownCustom, EnrollBox2,CondiBox } from "./styled";
+import { EnrollBox, DropdownCustom, EnrollBox2, CondiBox } from "./styled";
 import testdata from "../../testdata.json";
 import creditdata from "../../genEdCredit.json";
 
 const EnrollCard = (props) => {
-  const { NameGroup } = props;
-  const [test, setTest] = useState(false);
-  const onClicktestClick = () => {
-    setTest(!test);
+  const { NameGroup, NumPattern } = props;
+  const [isClick, setIsClick] = useState(false);
+  const onClickDropdown = () => {
+    setIsClick(!isClick);
   };
-const testStudentSubject = testdata.SubjectDetail;
+  const testStudentSubject = testdata.SubjectDetail;
 
-const credit = testStudentSubject
-  .filter((data) => data.group === NameGroup)
-  .map((filterCredit) => filterCredit.credit)
-  .reduce((pre, cur) => pre + cur, 0)
+  const credit = testStudentSubject
+    .filter((data) => data.group === NameGroup)
+    .map((filterCredit) => filterCredit.credit)
+    .reduce((pre, cur) => pre + cur, 0);
 
-const totalcredit = creditdata
-  .filter((data) => data.name === NameGroup)
-  .map((filterCredit) => filterCredit.credit)
-  .reduce((pre, cur) => pre + cur, 0)
+  const totalcredit = creditdata
+    .filter((data) => data.name === NameGroup)
+    .map((filterCredit) => filterCredit.credit)
+    .reduce((pre, cur) => pre + cur, 0);
 
-const isEqual = credit === totalcredit
+  const isEqual = credit === totalcredit;
 
-const theme = {
-  main: "mediumseagreen"
-};
+  const theme = {
+    main: "mediumseagreen",
+  };
 
   const keepFunction = () => {
     return (
       <div>
-        {test ? (
+        {isClick ? (
           <EnrollBox2>
             <div>กลุ่ม{NameGroup}</div>
             <div style={{ display: "flex" }}>
-              <CondiBox theme={isEqual&&theme}>
-                  {credit}
-                /{totalcredit}
+              <CondiBox theme={isEqual && theme}>
+                {credit}/{totalcredit}
               </CondiBox>
               <DropdownCustom src={dropdown} alt="dropdown" />
             </div>
           </EnrollBox2>
         ) : (
-          <EnrollBox >
+          <EnrollBox>
             <div>กลุ่ม{NameGroup}</div>
             <div style={{ display: "flex" }}>
-              <CondiBox theme={isEqual&&theme}>
-                  {credit}
-                /{totalcredit}
+              <CondiBox theme={isEqual && theme}>
+                {credit}/{totalcredit}
               </CondiBox>
               <DropdownCustom
                 style={{ transform: "scaleY(-1)" }}
@@ -63,9 +61,11 @@ const theme = {
     );
   };
   return (
-    <div onClick={onClicktestClick}>
+    <div onClick={onClickDropdown}>
       {keepFunction()}
-      {test ? <EnrollClick NameGroup={NameGroup} /> : null}
+      {isClick ? (
+        <EnrollClick NameGroup={NameGroup} NumPattern={NumPattern} />
+      ) : null}
     </div>
   );
 };

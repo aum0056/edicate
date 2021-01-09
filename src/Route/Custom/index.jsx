@@ -11,6 +11,9 @@ const Custom = () => {
   const OnClickDetail = () => {
     history.push({ pathname: "/Detail" });
   };
+  const OnClickSubject = () => {
+    history.push({ pathname: "/Subject" });
+  };
   return (
     <div>
       <Navbar NamePage="ระบบจัดการวิชาบูรณาการ" />
@@ -21,7 +24,7 @@ const Custom = () => {
             <FontBox>ตรวจสอบข้อมูลนิสิต</FontBox>
           </CustomButton>
           <Col md={1} />
-          <CustomButton variant="outline-secondary">
+          <CustomButton onClick={OnClickSubject} variant="outline-secondary">
             <HoverImg src={eduDetail} alt="eduDetail" />
             <FontBox>ข้อมูลรายวิชา</FontBox>
           </CustomButton>

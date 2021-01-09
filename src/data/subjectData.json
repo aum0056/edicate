@@ -1,0 +1,298 @@
+{
+    "SubjectDetail" : [
+        {
+            "id" : "01175111-59",
+            "thainame" : "กรีฑาลู่-ลานเพื่อสุขภาพ",
+            "engname" : "Track and Field for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175112-59",
+            "thainame" : "แบดมินตันเพื่อสุขภาพ",
+            "engname" : "Badminton for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175113-59",
+            "thainame" : "เทนนิสเพื่อสุขภาพ",
+            "engname" : "Tennis for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175114-59",
+            "thainame" : "เทเบิลเทนนิสเพื่อสุขภาพ",
+            "engname" : "Table Tennis for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175115-59",
+            "thainame" : "ฝึกสมาธิด้วยกิจกรรมยิงปืน",
+            "engname" : "Meditation with Shooting Activity",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175117-59",
+            "thainame" : "ฝึกสมาธิด้วยกิจกรรมยิงธนู",
+            "engname" : "Meditation with Archery Activity",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175118-59",
+            "thainame" : "แชร์บอลเพื่อสุขภาพ",
+            "engname" : "Chair Ball for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175119-59",
+            "thainame" : "เปตองเพื่อสุขภาพ",
+            "engname" : "Pétanque for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175121-59",
+            "thainame" : "บาสเกตบอลเพื่อสุขภาพ",
+            "engname" : "Basketball for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175122-59",
+            "thainame" : "ฟุตบอลเพื่อสุขภาพ",
+            "engname" : "Soccer for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175123-59",
+            "thainame" : "วอลเลย์บอลเพื่อสุขภาพ",
+            "engname" : "Volleyball for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175124-59",
+            "thainame" : "แฮนด์บอลเพื่อสุขภาพ",
+            "engname" : "Handball for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175124-59",
+            "thainame" : "แฮนด์บอลเพื่อสุขภาพ",
+            "engname" : "Handball for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175125-59",
+            "thainame" : "ซอฟท์บอลเพื่อสุขภาพ",
+            "engname" : "Softball for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175126-59",
+            "thainame" : "ตะกร้อเพื่อสุขภาพ",
+            "engname" : "Takraw for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175127-59",
+            "thainame" : "ฮอกกี้เพื่อสุขภาพ",
+            "engname" : "Hockey for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175128-59",
+            "thainame" : "รักบี้ฟุตบอลเพื่อสุขภาพ",
+            "engname" : "Rugby Football for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175129-59",
+            "thainame" : "ฟุตซอลเพื่อสุขภาพ",
+            "engname" : "Futsal for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175131-59",
+            "thainame" : "ว่ายน้ำเพื่อสุขภาพ",
+            "engname" : "Swimming for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175133-59",
+            "thainame" : "กระโดดน้ำ",
+            "engname" : "Diving",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175134-59",
+            "thainame" : "โปโลน้ำ",
+            "engname" : "Water Polo",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175141-59",
+            "thainame" : "การเต้นแอโรบิกเพื่อสุขภาพ",
+            "engname" : "Aerobic Dance for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175142-59",
+            "thainame" : "การเต้นรำพื้นเมืองตามวัฒนธรรมท้องถิ่นเพื่อสุขภาพ",
+            "engname" : "Folk Dance by Local Culture for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175143-59",
+            "thainame" : "การเต้นลีลาศเพื่อสุขภาพ",
+            "engname" : "Social Dance for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175144-59",
+            "thainame" : "รำไทยเพื่อสุขภาพ",
+            "engname" : "Thai Classical Dance for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175151-59",
+            "thainame" : "ศิลปะการป้องกันตัวและการต่อสู้ด้วยดาบไทย",
+            "engname" : "Martial Art with Thai Sword",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175152-59",
+            "thainame" : "ศิลปะการป้องกันตัวและการต่อสู้ด้วยดาบสากล",
+            "engname" : "Martial Art with Fencing",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175153-59",
+            "thainame" : "ศิลปะการป้องกันตัวและการต่อสู้ด้วยมวยไทย",
+            "engname" : "Martial Art with Thai Boxing",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175154-59",
+            "thainame" : "ศิลปะการป้องกันตัวและการต่อสู้ด้วยมวยสากล",
+            "engname" : "Martial Art with Boxing",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175155-59",
+            "thainame" : "ศิลปะการป้องกันตัวและการต่อสู้ด้วยยูโด",
+            "engname" : "Martial Art with Judo",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175156-59",
+            "thainame" : "ศิลปะการป้องกันตัวและการต่อสู้ด้วยไอกิโด",
+            "engname" : "Martial Art with Aikido",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175157-59",
+            "thainame" : "ศิลปะการป้องกันตัวและการต่อสู้ด้วยกระบี่กระบอง",
+            "engname" : "Martial Art with Krabi-Krabong",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175159-59",
+            "thainame" : "ศิลปะการป้องกันตัวและการต่อสู้ด้วยคาราเต้",
+            "engname" : "Martial Art with Karate",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175161-59",
+            "thainame" : "ฝึกสมองด้วยการเล่นบริดจ์",
+            "engname" : "Brain Training with Playing Bridge",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175162-59",
+            "thainame" : "โบว์ลิ่งเพื่อสุขภาพ",
+            "engname" : "Bowling for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175163-59",
+            "thainame" : "กอล์ฟเพื่อสุขภาพ",
+            "engname" : "Golf for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175164-59",
+            "thainame" : "จักรยานเพื่อสุขภาพ",
+            "engname" : "Cycling for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175165-59",
+            "thainame" : "การฝึกด้วยน้ำหนักเพื่อสุขภาพ",
+            "engname" : "Weight Training for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175166-59",
+            "thainame" : "ศิลปะการป้องกันตัวและการต่อสู้ด้วยเทควันโด",
+            "engname" : "Martial Art with Taekwondo",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175167-59",
+            "thainame" : "โยคะเพื่อสุขภาพ",
+            "engname" : "Yoga for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175168-59",
+            "thainame" : "การวิ่งเหยาะเพื่อสุขภาพ",
+            "engname" : "Jogging for Health",
+            "credit" : 1,
+            "group" : "อยู่ดีมีสุข"
+        },
+        {
+            "id" : "01175169-59",
+            "thainame" : "การออกกำลังกายเพื่อพัฒนาสุขภาพแบบองค์รวม",
+            "engname" : "Exercise for developing Holistic Health",
+            "credit" : 2,
+            "group" : "อยู่ดีมีสุข"
+        }
+    ]
+}

@@ -10,6 +10,7 @@ export const ContainerCustom = styled(Container)`
 export const FormCustom = styled(Form.Control)`
   max-width: 350px;
   margin-top: 15px !important;
+  color: #000000 !important;
 `;
 
 export const FormGroup = styled(Form)`
@@ -28,6 +29,7 @@ export const FontCustom = styled.div`
   color: #1451ee;
   font-size: 14px;
   text-align: center;
+  cursor: pointer;
 `;
 
 export const ButtonCustom = styled(Button)`

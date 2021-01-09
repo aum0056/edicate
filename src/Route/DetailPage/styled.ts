@@ -4,9 +4,9 @@ import { Container } from 'react-bootstrap'
 export const TextBox = styled.div`
     font-size: 24px;
     margin-bottom: 10px;
+    cursor: pointer;
 `
 
 export const ContainerCustom = styled(Container)`
   padding: 0 50px !important;
-
 `

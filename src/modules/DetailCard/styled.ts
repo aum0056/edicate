@@ -20,4 +20,5 @@ export const TextBox = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  cursor: pointer;
 `;

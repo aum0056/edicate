@@ -1,6 +1,6 @@
 import React from "react";
 import Exit from "../../images/exit.svg";
-import { NavCustom, ExitBotton } from "./styled";
+import { NavCustom, ExitBotton, TextCustom } from "./styled";
 import { useHistory } from "react-router-dom";
 
 const Navbar = ({ NamePage }) => {
@@ -10,7 +10,7 @@ const Navbar = ({ NamePage }) => {
   };
   return (
     <NavCustom sticky="top" className="justify-content-center">
-      <div style={{ margin: "auto", color: "white" }}>{NamePage}</div>
+      <TextCustom>{NamePage}</TextCustom>
       <ExitBotton onClick={OnClickLogin} src={Exit} alt="Exit" />
     </NavCustom>
   );

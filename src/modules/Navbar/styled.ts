@@ -13,3 +13,9 @@ export const ExitBotton = styled.img`
     top: 26px;
     cursor: pointer;
 `;
+
+export const TextCustom = styled.div`
+    margin: auto;
+    color: white;
+    cursor: pointer;
+`
