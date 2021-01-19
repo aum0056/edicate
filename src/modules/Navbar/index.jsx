@@ -5,7 +5,8 @@ import { useHistory } from "react-router-dom";
 
 const Navbar = ({ NamePage }) => {
   const history = useHistory();
-  const OnClickLogin = () => {
+  const OnClickLogin = (event) => {
+    localStorage.clear();
     history.push({ pathname: "/" });
   };
   return (

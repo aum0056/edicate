@@ -6,6 +6,10 @@ import {
   FontCustom,
   LogoBox,
   ButtonCustom,
+  ModalCustom,
+  TextModal,
+  CloseButton,
+  ButtonBox,
 } from "./styled";
 import logo from "../../images/logoEdicate.svg";
 import { useHistory } from "react-router-dom";
@@ -15,26 +19,56 @@ const Login = () => {
   const history = useHistory();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [show, setShow] = useState(false);
+  const [fail, setFail] = useState(false);
+
+  const AlertLogin = () => {
+    const handleClose = () => setShow(false);
+    return (
+      <ModalCustom centered show={show} onHide={handleClose}>
+        <TextModal style={{fontSize: "22px"}}>ไม่สามารถเข้าสู่ระบบได้</TextModal>
+        <TextModal style={{fontSize: "16px", color: "#8B8B8B"}}>รหัสผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง</TextModal>
+        <ButtonBox>
+          <CloseButton onClick={handleClose}>Close</CloseButton>
+        </ButtonBox>
+      </ModalCustom>
+    );
+  };
+
   const OnClickSendDatatoBack = (event) => {
     event.preventDefault();
     axios({
       method: "post",
+      headers: { "content-type": "application/json" },
       url: "http://localhost:8000/login",
       data: {
         username: username,
         password: password,
       },
-    }).then((res) => {
-      console.log(res.data);
-    });
-    history.push({ pathname: "/custom" });
+    })
+      .then((res) => {
+        localStorage.setItem("x-access-token", res.data["x-access-token"]);
+        if (res.status === 200) {
+          setFail(false);
+          history.push({ pathname: "/custom" });
+        }
+      })
+      .catch((err) => {
+        if (err) {
+          setFail(true);
+          setShow(true);
+        }
+      });
   };
+
   const OnChangeSetUsername = (event) => {
     setUsername(event.target.value);
   };
+
   const OnChangeSetPassword = (event) => {
     setPassword(event.target.value);
   };
+  
   return (
     <ContainerCustom>
       <LogoBox src={logo} alt="logo" />
@@ -55,7 +89,10 @@ const Login = () => {
       <div onClick={OnClickSendDatatoBack} style={{ textAlign: "center" }}>
         <ButtonCustom variant="success">เข้าสู่ระบบ</ButtonCustom>
       </div>
-      <FontCustom>ลืมรหัสผ่าน ?</FontCustom>
+      <FontCustom>
+        <a href="https://accounts.ku.ac.th/private/login">ลืมรหัสผ่าน ?</a>
+      </FontCustom>
+      <div>{fail ? AlertLogin() : null}</div>
     </ContainerCustom>
   );
 };
