@@ -10,13 +10,21 @@ export const MidContainer = styled(Container)`
 `;
 
 export const CustomButton = styled(Button)`
-  width: 350px;
+  width: 325px;
   height: 400px;
+  @media (max-width: 767px) {
+    height: fit-content;
+    width: 100%;
+    margin: 20px 30px;
+  }
 `;
 
 export const FontBox = styled.div`
   font-size: 32px;
   margin-top: 50px;
+  @media (max-width: 767px) {
+    margin: 20px 0;
+  }
 `;
 
 export const HoverImg = styled.img`

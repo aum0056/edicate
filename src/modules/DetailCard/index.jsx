@@ -1,6 +1,7 @@
 import React from "react";
 import { DetailBox, Picbox, TextBox } from "./styled";
 import profile from "../../images/profile.svg";
+import { useMediaQuery } from "react-responsive";
 
 const DetailCard = (props) => {
   const {
@@ -14,6 +15,10 @@ const DetailCard = (props) => {
     department,
     idDepartment,
   } = props;
+
+  const isDesktop = useMediaQuery({
+    query: "(min-device-width: 992px)",
+  });
 
   return (
     <DetailBox>
@@ -32,14 +37,25 @@ const DetailCard = (props) => {
             {EngLastname}
           </div>
         </div>
-        <div style={{ textAlign: "right" }}>
-          <div>{id}</div>
-          <div>
-            {faculty ? "คณะ" + faculty : null}{" "}
-            {department ? "สาขา" + department : null}{" "}
-            {idDepartment ? "(" + idDepartment + ")" : null}
+        {isDesktop ? (
+          <div style={{ textAlign: "right" }}>
+            <div>{id}</div>
+            <div>
+              {faculty ? "คณะ" + faculty : null}{" "}
+              {department ? "สาขา" + department : null}{" "}
+              {idDepartment ? "(" + idDepartment + ")" : null}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div>
+            <div>{id}</div>
+            <div>
+              {faculty ? "คณะ" + faculty : null}{" "}
+              {department ? "สาขา" + department : null}{" "}
+              {idDepartment ? "(" + idDepartment + ")" : null}
+            </div>
+          </div>
+        )}
       </TextBox>
     </DetailBox>
   );
