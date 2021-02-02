@@ -3,14 +3,15 @@ import { Route, Redirect } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const expireToken =
-    jwt_decode(localStorage.getItem("x-access-token")).exp >= Date.now() / 1000;
+  // const expireToken =
+  //   jwt_decode(localStorage.getItem("x-access-token")).exp >= Date.now() / 1000;
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        localStorage.getItem("x-access-token") && expireToken ? (
+        // localStorage.getItem("x-access-token") && expireToken ? (
+        localStorage.getItem("x-access-token") ? (
           <Component {...props} />
         ) : (
           <Redirect to="/" />

@@ -4,10 +4,12 @@ import EnrollCard from "../../modules/EnrollCard";
 import { TextBox, ContainerCustom } from "./styled";
 import Navbar from "../../modules/Navbar";
 import axios from "axios";
+import SkeletonDetail from "../../modules/SkeletonDetail";
 
 const DetailPage = () => {
   const [kdata, setKData] = useState();
   const [baseDetail, setBaseDetail] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios({
@@ -19,6 +21,7 @@ const DetailPage = () => {
     }).then((res) => {
       setKData(res.data.data);
       setBaseDetail(res.data.baseDetail);
+      setIsLoading(false);
     });
   }, []);
 
@@ -26,17 +29,21 @@ const DetailPage = () => {
     <div>
       <Navbar NamePage="ข้อมูลนิสิต" />
       <ContainerCustom>
-        <DetailCard
-          genderThai={baseDetail?.titleTh || ""}
-          ThaiFirstname={baseDetail?.firstNameTh || ""}
-          ThaiLastname={baseDetail?.lastNameTh || ""}
-          EngFirstname={baseDetail?.firstNameEn || ""}
-          EngLastname={baseDetail?.lastNameEn || ""}
-          id={baseDetail?.idcode || ""}
-          faculty={kdata?.results?.education[0]?.facultyNameTh || ""}
-          department={kdata?.results?.education[0]?.departmentNameTh || ""}
-          idDepartment={kdata?.results?.education[0]?.majorCode || ""}
-        />
+        {isLoading ? (
+          <SkeletonDetail />
+        ) : (
+          <DetailCard
+            genderThai={baseDetail?.titleTh || ""}
+            ThaiFirstname={baseDetail?.firstNameTh || ""}
+            ThaiLastname={baseDetail?.lastNameTh || ""}
+            EngFirstname={baseDetail?.firstNameEn || ""}
+            EngLastname={baseDetail?.lastNameEn || ""}
+            id={baseDetail?.idcode || ""}
+            faculty={kdata?.results?.education[0]?.facultyNameTh || ""}
+            department={kdata?.results?.education[0]?.departmentNameTh || ""}
+            idDepartment={kdata?.results?.education[0]?.majorCode || ""}
+          />
+        )}
         <TextBox>รายวิชาที่นิสิตลงทะเบียน</TextBox>
         <EnrollCard NameGroup="พลเมืองไทยและพลเมืองโลก" NumPattern={1} />
         <EnrollCard NameGroup="ภาษาและการสื่อสาร" NumPattern={1} />

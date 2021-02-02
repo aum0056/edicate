@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import dropdown from "../../images/down-arrow.svg";
 import EnrollClick from "../EnrollClick";
 import {
@@ -10,10 +10,12 @@ import {
 } from "./styled";
 import testdata from "../../testdata.json";
 import creditdata from "../../genEdCredit.json";
+import axios from "axios";
 
 const EnrollCard = (props) => {
   const { NameGroup, NumPattern } = props;
   const [isClick, setIsClick] = useState(false);
+  const [creditP, setCredit] = useState();
   const onClickDropdown = () => {
     setIsClick(!isClick);
   };
@@ -28,6 +30,20 @@ const EnrollCard = (props) => {
     .filter((data) => data.name === NameGroup)
     .map((filterCredit) => filterCredit.credit)
     .reduce((pre, cur) => pre + cur, 0);
+
+  // useEffect(() => {
+  //   axios({
+  //     method: "POST",
+  //     url: "http://localhost:8000/detail",
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+  //     },
+  //   }).then((res) => {
+  //     console.log(res.data.subject[1].credit);
+  //     setCredit(res.data.subject)
+  //   });
+  // }, []);
+
 
   const ColorNumber = () => {
     if (credit === totalcredit) {
