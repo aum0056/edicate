@@ -17,6 +17,12 @@ export const FormGroup = styled(Form)`
     margin: auto;
     font-size: 20px;
     padding: 5px 30px;
+    @media (max-width: 560px) {
+      font-size: 3.57vw; 
+    }
+    @media (max-width: 420px) {
+      font-size: 14px; 
+    }
   }
 `;
 
@@ -24,4 +30,10 @@ export const TextCustom = styled.div`
     margin-top: 40px;
     font-size: 24px;
     cursor: pointer;
+    @media (max-width: 560px) {
+      font-size: 4.29vw; 
+    }
+    @media (max-width: 420px) {
+      font-size: 18px; 
+    }
 `

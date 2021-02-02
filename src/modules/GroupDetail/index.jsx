@@ -1,7 +1,7 @@
 import React from "react";
 import { TextCustom } from "./styled";
 import RenderGroup from "../RenderGroup";
-import RenderSubjectCard from '../RenderSubjectCard'
+import RenderSubjectCard from "../RenderSubjectCard";
 
 const GroupDetail = () => {
   return (

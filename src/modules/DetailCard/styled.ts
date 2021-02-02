@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
 export const DetailBox = styled.div`
-  display: flex;
+  @media (min-width: 768px) {
+    display: flex;
+  }
+  @media (max-width: 767px) {
+    text-align: center;
+  }
   align-items: center;
   border-radius: 0.25rem;
   border: 0.5px solid #c4c4c4;
@@ -9,19 +14,34 @@ export const DetailBox = styled.div`
   margin: 60px 0 40px 0;
   height: fit-content;
   padding: 20px;
-  font-size: 20px;
 `;
 export const Picbox = styled.img`
-  padding-right: 24px;
+  @media (min-width: 768px) {
+    padding-right: 24px;
+  }
+  @media (min-width: 992px) {
+    width: 85px;
+    height: 85px;
+  }
+  @media (max-width: 991px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 export const TextBox = styled.div`
-  display: flex;
+  @media (min-width: 992px) {
+    display: flex;
+  }
   align-items: center;
   justify-content: space-between;
   width: 100%;
   cursor: pointer;
-  @media (max-width: 425px) {
+  @media (max-width: 560px) {
+    font-size: 3.57vw;
+  }
+  @media (max-width: 413px) {
     font-size: 14px;
   }
+  font-size: 20px;
 `;

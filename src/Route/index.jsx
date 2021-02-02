@@ -4,15 +4,16 @@ import Login from "./Login";
 import Custom from "./Custom";
 import DetailPage from "./DetailPage";
 import SearchPage from "./SearchPage";
+import PrivateRoute from "./PrivateRoute";
 
 const Routes = () => {
   return (
     <Router>
-          <Route exact path="/" component={Login} />
-          <Route path="/login" component={Login} />
-          <Route path="/custom" component={Custom} />
-          <Route path="/Detail" component={DetailPage} />
-          <Route path="/Subject" component={SearchPage} />
+      <Route exact path="/" component={Login} />
+      <PrivateRoute path="/login" component={Login} />
+      <PrivateRoute path="/custom" component={Custom} />
+      <PrivateRoute path="/Detail" component={DetailPage} />
+      <PrivateRoute path="/Subject" component={SearchPage} />
     </Router>
   );
 };

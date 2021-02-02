@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import dropdown from "../../images/down-arrow.svg";
 import EnrollClick from "../EnrollClick";
-import { EnrollBox, DropdownCustom, EnrollBox2, CondiBox } from "./styled";
+import {
+  EnrollBox,
+  DropdownCustom,
+  EnrollBox2,
+  CondiBox,
+  DropdownClick,
+} from "./styled";
 import testdata from "../../testdata.json";
 import creditdata from "../../genEdCredit.json";
 
@@ -23,10 +29,29 @@ const EnrollCard = (props) => {
     .map((filterCredit) => filterCredit.credit)
     .reduce((pre, cur) => pre + cur, 0);
 
-  const isEqual = credit === totalcredit;
-
-  const theme = {
-    main: "mediumseagreen",
+  const ColorNumber = () => {
+    if (credit === totalcredit) {
+      return (
+        <CondiBox style={{ color: "#02BC77" }}>
+          <div>{credit}</div>
+          <div>/{totalcredit}</div>
+        </CondiBox>
+      );
+    } else if (credit < totalcredit) {
+      return (
+        <CondiBox>
+          <div style={{ color: "#8B8B8B" }}>{credit}</div>
+          <div>/{totalcredit}</div>
+        </CondiBox>
+      );
+    } else {
+      return (
+        <CondiBox>
+          <div style={{ color: "#FD0404" }}>{credit}</div>
+          <div>/{totalcredit}</div>
+        </CondiBox>
+      );
+    }
   };
 
   const keepFunction = () => {
@@ -35,25 +60,21 @@ const EnrollCard = (props) => {
         {isClick ? (
           <EnrollBox2>
             <div>กลุ่ม{NameGroup}</div>
-            <div style={{ display: "flex" }}>
-              <CondiBox theme={isEqual && theme}>
-                {credit}/{totalcredit}
-              </CondiBox>
-              <DropdownCustom src={dropdown} alt="dropdown" />
-            </div>
+            <CondiBox>
+              {ColorNumber()}
+              {credit === 0 ? (
+                <DropdownCustom src={dropdown} alt="dropdown" />
+              ) : (
+                <DropdownClick src={dropdown} alt="dropdownClick" />
+              )}
+            </CondiBox>
           </EnrollBox2>
         ) : (
           <EnrollBox>
             <div>กลุ่ม{NameGroup}</div>
             <div style={{ display: "flex" }}>
-              <CondiBox theme={isEqual && theme}>
-                {credit}/{totalcredit}
-              </CondiBox>
-              <DropdownCustom
-                style={{ transform: "scaleY(-1)" }}
-                src={dropdown}
-                alt="dropdown"
-              />
+              {ColorNumber()}
+              <DropdownCustom src={dropdown} alt="dropdown" />
             </div>
           </EnrollBox>
         )}

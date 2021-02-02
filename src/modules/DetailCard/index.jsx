@@ -20,6 +20,10 @@ const DetailCard = (props) => {
     query: "(min-device-width: 992px)",
   });
 
+  const isLaptop = useMediaQuery({
+    query: "(min-device-width: 768px)",
+  });
+
   return (
     <DetailBox>
       <div>
@@ -49,11 +53,21 @@ const DetailCard = (props) => {
         ) : (
           <div>
             <div>{id}</div>
-            <div>
-              {faculty ? "คณะ" + faculty : null}{" "}
-              {department ? "สาขา" + department : null}{" "}
-              {idDepartment ? "(" + idDepartment + ")" : null}
-            </div>
+            {isLaptop ? (
+              <div>
+                {faculty ? "คณะ" + faculty : null}{" "}
+                {department ? "สาขา" + department : null}{" "}
+                {idDepartment ? "(" + idDepartment + ")" : null}
+              </div>
+            ) : (
+              <div>
+                <div>{faculty ? "คณะ" + faculty : null}</div>
+                <div>
+                  {department ? "สาขา" + department : null}{" "}
+                  {idDepartment ? "(" + idDepartment + ")" : null}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </TextBox>

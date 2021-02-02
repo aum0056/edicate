@@ -26,8 +26,12 @@ const Login = () => {
     const handleClose = () => setShow(false);
     return (
       <ModalCustom centered show={show} onHide={handleClose}>
-        <TextModal style={{fontSize: "22px"}}>ไม่สามารถเข้าสู่ระบบได้</TextModal>
-        <TextModal style={{fontSize: "16px", color: "#8B8B8B"}}>รหัสผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง</TextModal>
+        <TextModal style={{ fontSize: "22px" }}>
+          ไม่สามารถเข้าสู่ระบบได้
+        </TextModal>
+        <TextModal style={{ fontSize: "16px", color: "#8B8B8B" }}>
+          รหัสผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง
+        </TextModal>
         <ButtonBox>
           <CloseButton onClick={handleClose}>Close</CloseButton>
         </ButtonBox>
@@ -36,7 +40,7 @@ const Login = () => {
   };
 
   const OnClickSendDatatoBack = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     axios({
       method: "post",
       headers: { "content-type": "application/json" },
@@ -68,7 +72,13 @@ const Login = () => {
   const OnChangeSetPassword = (event) => {
     setPassword(event.target.value);
   };
-  
+
+  const KeyPress = (event) => {
+    if (event.key === "Enter") {
+      OnClickSendDatatoBack()
+    }
+  };
+
   return (
     <ContainerCustom>
       <LogoBox src={logo} alt="logo" />
@@ -78,12 +88,14 @@ const Login = () => {
           placeholder="รหัสบัญชี"
           value={username}
           onChange={OnChangeSetUsername}
+          onKeyPress={KeyPress}
         />
         <FormCustom
           type="password"
           placeholder="รหัสผ่าน"
           value={password}
           onChange={OnChangeSetPassword}
+          onKeyPress={KeyPress}
         />
       </FormGroup>
       <div onClick={OnClickSendDatatoBack} style={{ textAlign: "center" }}>
