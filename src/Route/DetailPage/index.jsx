@@ -11,15 +11,15 @@ const DetailPage = () => {
 
   useEffect(() => {
     axios({
-        method: "POST",
-        url: "http://localhost:8000/detail",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-        },
-      }).then((res) => {
-        setKData(res.data.data);
-        setBaseDetail(res.data.baseDetail);
-      });
+      method: "POST",
+      url: "http://localhost:8000/detail",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+      },
+    }).then((res) => {
+      setKData(res.data.data);
+      setBaseDetail(res.data.baseDetail);
+    });
   }, []);
 
   return (
@@ -27,15 +27,15 @@ const DetailPage = () => {
       <Navbar NamePage="ข้อมูลนิสิต" />
       <ContainerCustom>
         <DetailCard
-          genderThai={baseDetail?.titleTh || ''}
-          ThaiFirstname={baseDetail?.firstNameTh || ''}
-          ThaiLastname={baseDetail?.lastNameTh || ''}
-          EngFirstname={baseDetail?.firstNameEn || ''}
-          EngLastname={baseDetail?.lastNameEn || ''}
-          id={baseDetail?.idcode || ''}
-          faculty={kdata?.results?.education[0]?.facultyNameTh || ''}
-          department={kdata?.results?.education[0]?.departmentNameTh || ''}
-          idDepartment={kdata?.results?.education[0]?.majorCode || ''}
+          genderThai={baseDetail?.titleTh || ""}
+          ThaiFirstname={baseDetail?.firstNameTh || ""}
+          ThaiLastname={baseDetail?.lastNameTh || ""}
+          EngFirstname={baseDetail?.firstNameEn || ""}
+          EngLastname={baseDetail?.lastNameEn || ""}
+          id={baseDetail?.idcode || ""}
+          faculty={kdata?.results?.education[0]?.facultyNameTh || ""}
+          department={kdata?.results?.education[0]?.departmentNameTh || ""}
+          idDepartment={kdata?.results?.education[0]?.majorCode || ""}
         />
         <TextBox>รายวิชาที่นิสิตลงทะเบียน</TextBox>
         <EnrollCard NameGroup="พลเมืองไทยและพลเมืองโลก" NumPattern={1} />
