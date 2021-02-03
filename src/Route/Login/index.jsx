@@ -40,7 +40,6 @@ const Login = () => {
   };
 
   const OnClickSendDatatoBack = (event) => {
-    // event.preventDefault();
     axios({
       method: "post",
       headers: { "content-type": "application/json" },

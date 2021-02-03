@@ -1,27 +1,33 @@
 import React, { useState } from "react";
 import { FormCustom, FormGroup, TextCustom } from "./styled";
-import RenderSubjectCard from "../RenderSubjectCard";
-// import axios from "axios"
+import axios from "axios";
 
 const SearchDetail = () => {
   const [subjectCode, setSubjectCode] = useState("");
   const OnChangeSetSubjectCode = (event) => {
     setSubjectCode(event.target.value);
+    if (event.target.value.length > 4) {
+      axios({
+        method: "POST",
+        url: "http://localhost:8000/search",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+        },
+        data: {
+          subjectCode: event.target.value,
+        },
+      }).then((res) => {
+        // setSubjectCode(event.target.value);
+        // console.log(subjectCode);
+      });
+    }
+  };
 
-    // useEffect(() => {
-    //   axios({
-    //       method: "POST",
-    //       url: "http://localhost:8000/detail",
-    //       headers: {
-    //         Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-    //       },
-    // data : {
-    //   subjectCode: event.target.value
-    // }
-    //     }).then((res) => {
-      // setSubjectCode(event.target.value);
-    //     });
-    // }, []);
+  const KeyPress = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      return false;
+    }
   };
 
   return (
@@ -33,9 +39,11 @@ const SearchDetail = () => {
           placeholder="ชื่อวิชา หรือ รหัสวิชา"
           value={subjectCode}
           onChange={OnChangeSetSubjectCode}
+          onKeyPress={KeyPress}
         />
       </FormGroup>
-      <RenderSubjectCard />
+      <TextCustom>รายวิชาบูรณาการที่เปิดให้ลงทะเบียน</TextCustom>
+      {/* <RenderSubjectCard /> */}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { ContainerCustom } from "./styled";
 
 const SearchPage = () => {
   const [tabState, setTabState] = useState(1);
+  
   return (
     <div>
       <Navbar NamePage="รายวิชาบูรณาการ" />
