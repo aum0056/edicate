@@ -7,63 +7,63 @@ import {
   EnrollBox2,
   CondiBox,
   DropdownClick,
+  SkeletonEnrollBox,
 } from "./styled";
-import testdata from "../../testdata.json";
 import creditdata from "../../genEdCredit.json";
 import axios from "axios";
+import Skeleton from "react-loading-skeleton";
 
 const EnrollCard = (props) => {
   const { NameGroup, NumPattern } = props;
   const [isClick, setIsClick] = useState(false);
-  const [creditP, setCredit] = useState();
+  const [credit, setCredit] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const onClickDropdown = () => {
     setIsClick(!isClick);
   };
-  const testStudentSubject = testdata.SubjectDetail;
-
-  const credit = testStudentSubject
-    .filter((data) => data.group === NameGroup)
-    .map((filterCredit) => filterCredit.credit)
-    .reduce((pre, cur) => pre + cur, 0);
 
   const totalcredit = creditdata
     .filter((data) => data.name === NameGroup)
     .map((filterCredit) => filterCredit.credit)
     .reduce((pre, cur) => pre + cur, 0);
 
-  // useEffect(() => {
-  //   axios({
-  //     method: "POST",
-  //     url: "http://localhost:8000/detail",
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-  //     },
-  //   }).then((res) => {
-  //     console.log(res.data.subject[1].credit);
-  //     setCredit(res.data.subject)
-  //   });
-  // }, []);
+  useEffect(() => {
+    axios({
+      method: "POST",
+      url: "http://localhost:8000/detail",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+      },
+    }).then((res) => {
+      setCredit(res.data.subject);
+      setIsLoading(false);
+    });
+  }, []);
 
+  const creditUse = credit
+    .filter((data) => data.group === NameGroup)
+    .map((filterCredit) => filterCredit.credit)
+    .reduce((pre, cur) => pre + cur, 0);
 
   const ColorNumber = () => {
-    if (credit === totalcredit) {
+    if (creditUse === totalcredit) {
       return (
         <CondiBox style={{ color: "#02BC77" }}>
-          <div>{credit}</div>
+          <div>{creditUse}</div>
           <div>/{totalcredit}</div>
         </CondiBox>
       );
-    } else if (credit < totalcredit) {
+    } else if (creditUse < totalcredit) {
       return (
         <CondiBox>
-          <div style={{ color: "#8B8B8B" }}>{credit}</div>
+          <div style={{ color: "#8B8B8B" }}>{creditUse}</div>
           <div>/{totalcredit}</div>
         </CondiBox>
       );
     } else {
       return (
         <CondiBox>
-          <div style={{ color: "#FD0404" }}>{credit}</div>
+          <div style={{ color: "#FD0404" }}>{creditUse}</div>
           <div>/{totalcredit}</div>
         </CondiBox>
       );
@@ -78,7 +78,7 @@ const EnrollCard = (props) => {
             <div>กลุ่ม{NameGroup}</div>
             <CondiBox>
               {ColorNumber()}
-              {credit === 0 ? (
+              {creditUse === 0 ? (
                 <DropdownCustom src={dropdown} alt="dropdown" />
               ) : (
                 <DropdownClick src={dropdown} alt="dropdownClick" />
@@ -99,7 +99,14 @@ const EnrollCard = (props) => {
   };
   return (
     <div onClick={onClickDropdown}>
-      {keepFunction()}
+      {isLoading ? (
+        <SkeletonEnrollBox>
+          <Skeleton count={1} width={150} />
+          <Skeleton count={1} />
+        </SkeletonEnrollBox>
+      ) : (
+        <div>{keepFunction()}</div>
+      )}
       {isClick ? (
         <EnrollClick NameGroup={NameGroup} NumPattern={NumPattern} />
       ) : null}

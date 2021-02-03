@@ -1,40 +1,52 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Bigbox, BigboxSearch, RowHeadCustom, RowDetailCustom } from "./styled";
 import { Col, Row } from "react-bootstrap";
-import testdata from "../../testdata.json";
 import { useMediaQuery } from "react-responsive";
+import axios from "axios";
 
 const EnrollClick = (props) => {
   const { NameGroup, NumPattern } = props;
-  const testStudentSubject = testdata.SubjectDetail;
+  const [subjectDetail, setSubjectDetail] = useState([])
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 768px)",
   });
 
-  const Subject = (subjectShow) => {
+  useEffect(() => {
+    axios({
+      method: "POST",
+      url: "http://localhost:8000/detail",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+      },
+    }).then((res) => {
+      setSubjectDetail(res.data.subject);
+    });
+  }, []);
+
+  const Subject = (subjectDetail) => {
     return (
       <div>
         {isDesktop ? (
           <div>
             <RowHeadCustom>
-              <Col xs={3}>
-                <div style={{ color: "#02BC77" }}>{subjectShow.id}</div>
+              <Col xs={2}>
+                <div style={{ color: "#02BC77" }}>{subjectDetail.id}</div>
               </Col>
-              <Col xs={5}>
-                <div>{subjectShow.Thainame}</div>
+              <Col xs={6}>
+                <div>{subjectDetail.thainame}</div>
               </Col>
               <Col xs={4} style={{ textAlign: "right" }}>
                 <div style={{ color: "#FD0404" }}>
-                  {subjectShow.credit} หน่วยกิต
+                  {subjectDetail.credit} หน่วยกิต
                 </div>
               </Col>
             </RowHeadCustom>
             <Row>
-              <Col md={{ span: 5, offset: 3 }}>
-                <div>{subjectShow.Engname}</div>
+              <Col md={{ span: 6, offset: 2 }}>
+                <div>{subjectDetail.engname}</div>
               </Col>
               <Col xs={4} style={{ textAlign: "right" }}>
-                <div>กลุ่ม{subjectShow.group}</div>
+                <div>กลุ่ม{subjectDetail.group}</div>
               </Col>
             </Row>
           </div>
@@ -42,17 +54,17 @@ const EnrollClick = (props) => {
           <div>
             <RowHeadCustom>
               <Col xs={6}>
-                <div style={{ color: "#02BC77" }}>{subjectShow.id}</div>
+                <div style={{ color: "#02BC77" }}>{subjectDetail.id}</div>
               </Col>
               <Col xs={6} style={{ textAlign: "right" }}>
                 <div style={{ color: "#FD0404" }}>
-                  {subjectShow.credit} หน่วยกิต
+                  {subjectDetail.credit} หน่วยกิต
                 </div>
               </Col>
             </RowHeadCustom>
-            <RowDetailCustom>{subjectShow.Thainame}</RowDetailCustom>
-            <RowDetailCustom>{subjectShow.Engname}</RowDetailCustom>
-            <RowDetailCustom>กลุ่ม{subjectShow.group}</RowDetailCustom>
+            <RowDetailCustom>{subjectDetail.thainame}</RowDetailCustom>
+            <RowDetailCustom>{subjectDetail.engname}</RowDetailCustom>
+            <RowDetailCustom>กลุ่ม{subjectDetail.group}</RowDetailCustom>
           </div>
         )}
       </div>
@@ -61,7 +73,7 @@ const EnrollClick = (props) => {
 
   return (
     <div>
-      {testStudentSubject
+      {subjectDetail
         .filter((subject) => subject.group === NameGroup)
         .map((subjectShow) => (
           <div>
