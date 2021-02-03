@@ -6,12 +6,11 @@ const RenderGroup = () => {
   return (
     <Form.Group>
       <FormCustom as="select">
-        <option>กลุ่มพลเมืองไทยและพลเมืองโลก</option>
-        <option>กลุ่มภาษาและการสื่อสาร</option>
-        <option>กลุ่มศาสตร์แห่งผู้ประกอบการ</option>
-        <option>กลุ่มสุนทรีศาสตร์</option>
-        <option>กลุ่มอยู่ดีมีสุข</option>
-        <option>กลุ่มเสรี</option>
+        <option>กลุ่มสาระพลเมืองไทยและพลเมืองโลก</option>
+        <option>กลุ่มสาระภาษาและการสื่อสาร</option>
+        <option>กลุ่มสาระศาสตร์แห่งผู้ประกอบการ</option>
+        <option>กลุ่มสาระสุนทรีศาสตร์</option>
+        <option>กลุ่มสาระอยู่ดีมีสุข</option>
       </FormCustom>
     </Form.Group>
   );
