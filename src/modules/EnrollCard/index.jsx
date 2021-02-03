@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import dropdown from "../../images/down-arrow.svg";
 import EnrollClick from "../EnrollClick";
 import {
@@ -8,16 +8,14 @@ import {
   CondiBox,
   DropdownClick,
   SkeletonEnrollBox,
+  EnrollHap,
 } from "./styled";
 import creditdata from "../../genEdCredit.json";
-import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 
 const EnrollCard = (props) => {
-  const { NameGroup, NumPattern } = props;
+  const { NumPattern, subjectGroup, NameGroup, isLoading } = props;
   const [isClick, setIsClick] = useState(false);
-  const [credit, setCredit] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const onClickDropdown = () => {
     setIsClick(!isClick);
   };
@@ -27,43 +25,46 @@ const EnrollCard = (props) => {
     .map((filterCredit) => filterCredit.credit)
     .reduce((pre, cur) => pre + cur, 0);
 
-  useEffect(() => {
-    axios({
-      method: "POST",
-      url: "http://localhost:8000/detail",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-      },
-    }).then((res) => {
-      setCredit(res.data.subject);
-      setIsLoading(false);
-    });
-  }, []);
-
-  const creditUse = credit
-    .filter((data) => data.group === NameGroup)
-    .map((filterCredit) => filterCredit.credit)
+  const credits = subjectGroup
+    .map((filterSubjectGroup) => filterSubjectGroup.credit)
     .reduce((pre, cur) => pre + cur, 0);
 
-  const ColorNumber = () => {
-    if (creditUse === totalcredit) {
+  const HapiIsHapi = subjectGroup.filter((data) => !data.id.includes("01175"));
+  const ExIsHapi = subjectGroup.filter((data) => data.id.includes("01175"));
+
+  if (ExIsHapi.length > 1) {
+    HapiIsHapi.concat(ExIsHapi.slice(1));
+    ExIsHapi.slice(0, 1);
+  }
+
+  const CreditHapi = HapiIsHapi.map((map) => map.credit).reduce(
+    (pre, cur) => pre + cur,
+    0
+  );
+  const CreditEx = ExIsHapi.map((map) => map.credit).reduce(
+    (pre, cur) => pre + cur,
+    0
+  );
+
+  const ColorNumber = (credits, totalcredit) => {
+    if (credits === totalcredit) {
       return (
         <CondiBox style={{ color: "#02BC77" }}>
-          <div>{creditUse}</div>
+          <div>{credits}</div>
           <div>/{totalcredit}</div>
         </CondiBox>
       );
-    } else if (creditUse < totalcredit) {
+    } else if (credits < totalcredit) {
       return (
         <CondiBox>
-          <div style={{ color: "#8B8B8B" }}>{creditUse}</div>
+          <div style={{ color: "#8B8B8B" }}>{credits}</div>
           <div>/{totalcredit}</div>
         </CondiBox>
       );
     } else {
       return (
         <CondiBox>
-          <div style={{ color: "#FD0404" }}>{creditUse}</div>
+          <div style={{ color: "#FD0404" }}>{credits}</div>
           <div>/{totalcredit}</div>
         </CondiBox>
       );
@@ -75,10 +76,10 @@ const EnrollCard = (props) => {
       <div>
         {isClick ? (
           <EnrollBox2>
-            <div>กลุ่ม{NameGroup}</div>
+            <div>กลุ่มสาระ{NameGroup}</div>
             <CondiBox>
-              {ColorNumber()}
-              {creditUse === 0 ? (
+              {ColorNumber(credits, totalcredit)}
+              {credits === 0 ? (
                 <DropdownCustom src={dropdown} alt="dropdown" />
               ) : (
                 <DropdownClick src={dropdown} alt="dropdownClick" />
@@ -87,9 +88,9 @@ const EnrollCard = (props) => {
           </EnrollBox2>
         ) : (
           <EnrollBox>
-            <div>กลุ่ม{NameGroup}</div>
+            <div>กลุ่มสาระ{NameGroup}</div>
             <div style={{ display: "flex" }}>
-              {ColorNumber()}
+              {ColorNumber(credits, totalcredit)}
               <DropdownCustom src={dropdown} alt="dropdown" />
             </div>
           </EnrollBox>
@@ -97,6 +98,66 @@ const EnrollCard = (props) => {
       </div>
     );
   };
+
+  const HappinessCondition = () => {
+    return (
+      <div>
+        {NameGroup === "อยู่ดีมีสุข" ? (
+          <div>
+            <EnrollHap>
+              <div>กิจกรรมพลศึกษา</div>
+              {ColorNumber(CreditEx, 1)}
+            </EnrollHap>
+            <div>
+              {ExIsHapi.map((filterSubject) => (
+                <EnrollClick
+                  NameGroup={NameGroup}
+                  NumPattern={NumPattern}
+                  id={filterSubject.id}
+                  thainame={filterSubject.thainame}
+                  engname={filterSubject.engname}
+                  group={filterSubject.group}
+                  credit={filterSubject.credit}
+                />
+              ))}
+            </div>
+            <EnrollHap>
+              <div>กลุ่มอยู่ดีมีสุข</div>
+              {ColorNumber(CreditHapi, 5)}
+            </EnrollHap>
+            <div>
+              {HapiIsHapi.map((filterSubject) => (
+                <EnrollClick
+                  NameGroup={NameGroup}
+                  NumPattern={NumPattern}
+                  id={filterSubject.id}
+                  thainame={filterSubject.thainame}
+                  engname={filterSubject.engname}
+                  group={filterSubject.group}
+                  credit={filterSubject.credit}
+                />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div>
+            {subjectGroup.map((filterSubject) => (
+              <EnrollClick
+                NameGroup={NameGroup}
+                NumPattern={NumPattern}
+                id={filterSubject.id}
+                thainame={filterSubject.thainame}
+                engname={filterSubject.engname}
+                group={filterSubject.group}
+                credit={filterSubject.credit}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div onClick={onClickDropdown}>
       {isLoading ? (
@@ -107,9 +168,7 @@ const EnrollCard = (props) => {
       ) : (
         <div>{keepFunction()}</div>
       )}
-      {isClick ? (
-        <EnrollClick NameGroup={NameGroup} NumPattern={NumPattern} />
-      ) : null}
+      {isClick ? <div>{HappinessCondition()}</div> : null}
     </div>
   );
 };

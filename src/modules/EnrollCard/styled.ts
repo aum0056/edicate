@@ -57,3 +57,10 @@ export const SkeletonEnrollBox = styled.div`
   cursor: pointer;
   font-size: 14px;
 `;
+
+export const EnrollHap = styled(EnrollBox2)`
+  margin-top: 0px;
+  border-top: none;
+  border-top-left-radius: 0rem;
+  border-top-right-radius: 0rem;
+`

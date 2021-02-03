@@ -10,6 +10,7 @@ const DetailPage = () => {
   const [kdata, setKData] = useState();
   const [baseDetail, setBaseDetail] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [subjects, setsubjects] = useState([]);
 
   useEffect(() => {
     axios({
@@ -22,8 +23,25 @@ const DetailPage = () => {
       setKData(res.data.data);
       setBaseDetail(res.data.baseDetail);
       setIsLoading(false);
+      setsubjects(res.data.subject);
     });
   }, []);
+
+  const CitizenGroup = subjects.filter(
+    (data) => data.group === "พลเมืองไทยและพลเมืองโลก"
+  );
+  const LanguageGroup = subjects.filter(
+    (data) => (data.group === "ภาษากับการสื่อสาร" && data.id !== "01355111")
+  );
+  const EnterpreneurGroup = subjects.filter(
+    (data) => data.group === "ศาสตร์แห่งผู้ประกอบการ"
+  );
+  const AestheticsGroup = subjects.filter(
+    (data) => data.group === "สุนทรียศาสตร์"
+  );
+  const HapinessGroup = subjects.filter(
+    (data) => data.group === "อยู่ดีมีสุข"
+  );
 
   return (
     <div>
@@ -46,12 +64,11 @@ const DetailPage = () => {
         )}
         <TextBox>รายวิชาที่นิสิตลงทะเบียน</TextBox>
         <div style={{ marginBottom: "60px" }}>
-          <EnrollCard NameGroup="พลเมืองไทยและพลเมืองโลก" NumPattern={1} />
-          <EnrollCard NameGroup="ภาษากับการสื่อสาร" NumPattern={1} />
-          <EnrollCard NameGroup="ศาสตร์แห่งผู้ประกอบการ" NumPattern={1} />
-          <EnrollCard NameGroup="สุนทรียศาสตร์" NumPattern={1} />
-          <EnrollCard NameGroup="อยู่ดีมีสุข" NumPattern={1} />
-          <EnrollCard NameGroup="เสรี" NumPattern={1} />
+          <EnrollCard NameGroup="พลเมืองไทยและพลเมืองโลก" subjectGroup={CitizenGroup} NumPattern={1} isLoading={isLoading} />
+          <EnrollCard NameGroup="ภาษากับการสื่อสาร" subjectGroup={LanguageGroup} NumPattern={1} isLoading={isLoading} />
+          <EnrollCard NameGroup="ศาสตร์แห่งผู้ประกอบการ" subjectGroup={EnterpreneurGroup} NumPattern={1} isLoading={isLoading} />
+          <EnrollCard NameGroup="สุนทรียศาสตร์" subjectGroup={AestheticsGroup} NumPattern={1} isLoading={isLoading} />
+          <EnrollCard NameGroup="อยู่ดีมีสุข" subjectGroup={HapinessGroup} NumPattern={1} isLoading={isLoading} />
         </div>
       </ContainerCustom>
     </div>
