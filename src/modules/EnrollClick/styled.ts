@@ -6,7 +6,6 @@ export const Bigbox = styled(Container)`
   border: 1px solid #c4c4c4;
   border-top: none;
   cursor: pointer;
-  -webkit-transition: height .3s ease;
 `;
 
 export const BigboxSearch = styled(Bigbox)`

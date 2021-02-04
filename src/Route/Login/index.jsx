@@ -74,7 +74,7 @@ const Login = () => {
 
   const KeyPress = (event) => {
     if (event.key === "Enter") {
-      OnClickSendDatatoBack()
+      OnClickSendDatatoBack();
     }
   };
 

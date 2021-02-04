@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { FormCustom, FormGroup, TextCustom } from "./styled";
+import SkeletonEnrollClick from "../SkeletonEnrollClick"
 import axios from "axios";
 
 const SearchDetail = () => {
   const [subjectCode, setSubjectCode] = useState("");
+  const [isLoading, setIsLoading] = useState(true)
   const OnChangeSetSubjectCode = (event) => {
     setSubjectCode(event.target.value);
     if (event.target.value.length > 4) {
@@ -17,8 +19,7 @@ const SearchDetail = () => {
           subjectCode: event.target.value,
         },
       }).then((res) => {
-        // setSubjectCode(event.target.value);
-        // console.log(subjectCode);
+        setIsLoading(false)
       });
     }
   };
@@ -43,6 +44,9 @@ const SearchDetail = () => {
         />
       </FormGroup>
       <TextCustom>รายวิชาบูรณาการที่เปิดให้ลงทะเบียน</TextCustom>
+      {isLoading ? (
+        <SkeletonEnrollClick />
+      ) : null}
       {/* <RenderSubjectCard /> */}
     </div>
   );
