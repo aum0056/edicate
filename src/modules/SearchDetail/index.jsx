@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { FormCustom, FormGroup, TextCustom } from "./styled";
-import SkeletonEnrollClick from "../SkeletonEnrollClick"
+import SkeletonEnrollClick from "../SkeletonEnrollClick";
 import axios from "axios";
+import EnrollClick from "../EnrollClick";
 
 const SearchDetail = () => {
   const [subjectCode, setSubjectCode] = useState("");
-  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isStart, setIsStart] = useState(false);
   const OnChangeSetSubjectCode = (event) => {
     setSubjectCode(event.target.value);
     if (event.target.value.length > 4) {
@@ -19,8 +22,12 @@ const SearchDetail = () => {
           subjectCode: event.target.value,
         },
       }).then((res) => {
-        setIsLoading(false)
+        setIsLoading(false);
+        setData(res.data);
       });
+      setIsStart(true);
+    } else {
+      setIsStart(false);
     }
   };
 
@@ -45,9 +52,19 @@ const SearchDetail = () => {
       </FormGroup>
       <TextCustom>รายวิชาบูรณาการที่เปิดให้ลงทะเบียน</TextCustom>
       {isLoading ? (
-        <SkeletonEnrollClick />
-      ) : null}
-      {/* <RenderSubjectCard /> */}
+        <div>{isStart ? <SkeletonEnrollClick /> : null}</div>
+      ) : (
+        data.map((dataSearch) => (
+          <EnrollClick
+            id={dataSearch.id}
+            thainame={dataSearch.thainame}
+            engname={dataSearch.engname}
+            group={dataSearch.group}
+            credit={dataSearch.credit}
+            NumPattern={0}
+          />
+        ))
+      )}
     </div>
   );
 };
