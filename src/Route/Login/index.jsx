@@ -22,23 +22,6 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const [fail, setFail] = useState(false);
 
-  const AlertLogin = () => {
-    const handleClose = () => setShow(false);
-    return (
-      <ModalCustom centered show={show} onHide={handleClose}>
-        <TextModal style={{ fontSize: "22px" }}>
-          ไม่สามารถเข้าสู่ระบบได้
-        </TextModal>
-        <TextModal style={{ fontSize: "16px", color: "#8B8B8B" }}>
-          รหัสผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง
-        </TextModal>
-        <ButtonBox>
-          <CloseButton onClick={handleClose}>Close</CloseButton>
-        </ButtonBox>
-      </ModalCustom>
-    );
-  };
-
   const OnClickSendDatatoBack = (event) => {
     axios({
       method: "post",
@@ -62,6 +45,23 @@ const Login = () => {
           setShow(true);
         }
       });
+  };
+
+  const AlertLogin = () => {
+    const handleClose = () => setShow(false);
+    return (
+      <ModalCustom centered show={show} onHide={handleClose}>
+        <TextModal style={{ fontSize: "22px" }}>
+          ไม่สามารถเข้าสู่ระบบได้
+        </TextModal>
+        <TextModal style={{ fontSize: "16px", color: "#8B8B8B" }}>
+          รหัสผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง
+        </TextModal>
+        <ButtonBox>
+          <CloseButton onClick={handleClose}>Close</CloseButton>
+        </ButtonBox>
+      </ModalCustom>
+    );
   };
 
   const OnChangeSetUsername = (event) => {

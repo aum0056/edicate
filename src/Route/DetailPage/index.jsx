@@ -5,43 +5,50 @@ import { TextBox, ContainerCustom } from "./styled";
 import Navbar from "../../modules/Navbar";
 import axios from "axios";
 import SkeletonDetail from "../../modules/SkeletonDetail";
+import SkeletonEnrollBoxs from "../../modules/SkeletonEnrollBoxs";
 
 const DetailPage = () => {
-  const [kdata, setKData] = useState();
-  const [baseDetail, setBaseDetail] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [subjects, setsubjects] = useState([]);
+  const [keepBigData, setKeepBigData] = useState({
+    detailData: null,
+    courseData: null,
+  });
 
   useEffect(() => {
-    axios({
-      method: "POST",
-      url: "http://localhost:8000/detail",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-      },
-    }).then((res) => {
-      setKData(res.data.data);
-      setBaseDetail(res.data.baseDetail);
+    const FetchData = async () => {
+      const detailBigData = await axios({
+        method: "POST",
+        url: "http://localhost:8000/detail",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+        },
+      });
+      const courseBigData = await axios({
+        method: "POST",
+        url: "http://localhost:8000/genedcourse",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+        },
+      });
+      setKeepBigData({
+        detailData: detailBigData.data,
+        courseData: courseBigData.data,
+      });
       setIsLoading(false);
-      setsubjects(res.data.subject);
-    });
+    };
+    FetchData();
   }, []);
+  console.log(keepBigData);
 
-  const CitizenGroup = subjects.filter(
-    (data) => data.group === "พลเมืองไทยและพลเมืองโลก"
-  );
-  const LanguageGroup = subjects.filter(
-    (data) => (data.group === "ภาษากับการสื่อสาร" && data.id !== "01355111")
-  );
-  const EnterpreneurGroup = subjects.filter(
-    (data) => data.group === "ศาสตร์แห่งผู้ประกอบการ"
-  );
-  const AestheticsGroup = subjects.filter(
-    (data) => data.group === "สุนทรียศาสตร์"
-  );
-  const HapinessGroup = subjects.filter(
-    (data) => data.group === "อยู่ดีมีสุข"
-  );
+
+  const GroupData = (groupName) => {
+    if (isLoading === false) {
+      const subjectGroup = keepBigData.detailData.subject.filter(
+        (data) => data.group === groupName && data.id !== "01355111"
+      );
+      return subjectGroup;
+    }
+  };
 
   return (
     <div>
@@ -51,24 +58,39 @@ const DetailPage = () => {
           <SkeletonDetail />
         ) : (
           <DetailCard
-            genderThai={baseDetail?.titleTh || ""}
-            ThaiFirstname={baseDetail?.firstNameTh || ""}
-            ThaiLastname={baseDetail?.lastNameTh || ""}
-            EngFirstname={baseDetail?.firstNameEn || ""}
-            EngLastname={baseDetail?.lastNameEn || ""}
-            id={baseDetail?.idcode || ""}
-            faculty={kdata?.results?.education[0]?.facultyNameTh || ""}
-            department={kdata?.results?.education[0]?.departmentNameTh || ""}
-            idDepartment={kdata?.results?.education[0]?.majorCode || ""}
+            genderThai={keepBigData.detailData.baseDetail.titleTh}
+            ThaiFirstname={keepBigData.detailData.baseDetail.firstNameTh}
+            ThaiLastname={keepBigData.detailData.baseDetail.lastNameTh}
+            EngFirstname={keepBigData.detailData.baseDetail.firstNameEn}
+            EngLastname={keepBigData.detailData.baseDetail.lastNameEn}
+            id={keepBigData.detailData.baseDetail.idcode}
+            faculty={
+              keepBigData.detailData.data.results.education[0].facultyNameTh
+            }
+            department={
+              keepBigData.detailData.data.results.education[0].departmentNameTh
+            }
+            idDepartment={
+              keepBigData.detailData.data.results.education[0].majorCode
+            }
           />
         )}
         <TextBox>รายวิชาที่นิสิตลงทะเบียน</TextBox>
         <div style={{ marginBottom: "60px" }}>
-          <EnrollCard NameGroup="พลเมืองไทยและพลเมืองโลก" subjectGroup={CitizenGroup} NumPattern={1} isLoading={isLoading} />
-          <EnrollCard NameGroup="ภาษากับการสื่อสาร" subjectGroup={LanguageGroup} NumPattern={1} isLoading={isLoading} />
-          <EnrollCard NameGroup="ศาสตร์แห่งผู้ประกอบการ" subjectGroup={EnterpreneurGroup} NumPattern={1} isLoading={isLoading} />
-          <EnrollCard NameGroup="สุนทรียศาสตร์" subjectGroup={AestheticsGroup} NumPattern={1} isLoading={isLoading} />
-          <EnrollCard NameGroup="อยู่ดีมีสุข" subjectGroup={HapinessGroup} NumPattern={1} isLoading={isLoading} />
+          {isLoading ? (
+            <SkeletonEnrollBoxs />
+          ) : (
+            <div>
+              {keepBigData.courseData[0].group.map((groupName) => (
+                <EnrollCard
+                  type={keepBigData.courseData[0].type}
+                  NameGroup={groupName}
+                  subjectGroup={GroupData(groupName)}
+                  NumPattern={1}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </ContainerCustom>
     </div>

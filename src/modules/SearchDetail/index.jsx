@@ -6,7 +6,7 @@ import EnrollClick from "../EnrollClick";
 
 const SearchDetail = () => {
   const [subjectCode, setSubjectCode] = useState("");
-  const [data, setData] = useState([]);
+  const [dataSubject, setDataSubject] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isStart, setIsStart] = useState(false);
   const OnChangeSetSubjectCode = (event) => {
@@ -23,7 +23,7 @@ const SearchDetail = () => {
         },
       }).then((res) => {
         setIsLoading(false);
-        setData(res.data);
+        setDataSubject(res.data);
       });
       setIsStart(true);
     } else {
@@ -31,6 +31,7 @@ const SearchDetail = () => {
     }
   };
 
+  console.log(dataSubject);
   const KeyPress = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -54,13 +55,13 @@ const SearchDetail = () => {
       {isLoading ? (
         <div>{isStart ? <SkeletonEnrollClick /> : null}</div>
       ) : (
-        data.map((dataSearch) => (
+        dataSubject.map((dataSubjectSearch) => (
           <EnrollClick
-            id={dataSearch.id}
-            thainame={dataSearch.thainame}
-            engname={dataSearch.engname}
-            group={dataSearch.group}
-            credit={dataSearch.credit}
+            id={dataSubjectSearch.id}
+            thainame={dataSubjectSearch.thainame}
+            engname={dataSubjectSearch.engname}
+            group={dataSubjectSearch.group}
+            credit={dataSubjectSearch.credit}
             NumPattern={0}
           />
         ))

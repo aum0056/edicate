@@ -11,7 +11,7 @@ export const Bigbox = styled(Container)`
 export const BigboxSearch = styled(Bigbox)`
   border-top: 1px solid #c4c4c4;
   border-radius: 5px;
-  margin-bottom: 20px;
+  margin: 10px 0 20px 0;
 `;
 
 export const RowHeadCustom = styled(Row)`

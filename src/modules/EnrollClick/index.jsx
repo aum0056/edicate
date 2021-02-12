@@ -4,7 +4,16 @@ import { Col, Row } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
 
 const EnrollClick = (props) => {
-  const { NumPattern, id, thainame, engname, group, credit } = props;
+  const {
+    NumPattern,
+    id,
+    thainame,
+    engname,
+    group,
+    credit,
+    colorState,
+    // type
+  } = props;
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 768px)",
   });
@@ -30,7 +39,10 @@ const EnrollClick = (props) => {
                 <div>{engname}</div>
               </Col>
               <Col xs={4} style={{ textAlign: "right" }}>
-                <div>กลุ่มสาระ{group}</div>
+                <div>
+                  กลุ่มสาระ
+                  {group}
+                </div>
               </Col>
             </Row>
           </div>
@@ -42,7 +54,7 @@ const EnrollClick = (props) => {
               </Col>
               <Col xs={6} style={{ textAlign: "right" }}>
                 <div style={{ color: "#FD0404" }}>{credit} หน่วยกิต</div>
-              </Col>
+              </Col>ง
             </RowHeadCustom>
             <RowDetailCustom>{thainame}</RowDetailCustom>
             <RowDetailCustom>{engname}</RowDetailCustom>
@@ -58,7 +70,15 @@ const EnrollClick = (props) => {
       {NumPattern ? (
         <Bigbox fluid>{Subject()}</Bigbox>
       ) : (
-        <BigboxSearch fluid>{Subject()}</BigboxSearch>
+        <div>
+          {colorState ? (
+            <div style={{ color: "#c4c4c4" }}>
+              <BigboxSearch fluid>{Subject()}</BigboxSearch>
+            </div>
+          ) : (
+            <BigboxSearch fluid>{Subject()}</BigboxSearch>
+          )}
+        </div>
       )}
     </div>
   );

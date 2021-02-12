@@ -7,14 +7,12 @@ import {
   EnrollBox2,
   CondiBox,
   DropdownClick,
-  SkeletonEnrollBox,
   EnrollHap,
 } from "./styled";
 import creditdata from "../../genEdCredit.json";
-import Skeleton from "react-loading-skeleton";
 
 const EnrollCard = (props) => {
-  const { NumPattern, subjectGroup, NameGroup, isLoading } = props;
+  const { NumPattern, subjectGroup, NameGroup, type } = props;
   const [isClick, setIsClick] = useState(false);
   const onClickDropdown = () => {
     setIsClick(!isClick);
@@ -88,7 +86,10 @@ const EnrollCard = (props) => {
           </EnrollBox2>
         ) : (
           <EnrollBox>
-            <div>กลุ่มสาระ{NameGroup}</div>
+            <div>
+              {type}
+              {NameGroup}
+            </div>
             <div style={{ display: "flex" }}>
               {ColorNumber(credits, totalcredit)}
               <DropdownCustom src={dropdown} alt="dropdown" />
@@ -160,14 +161,7 @@ const EnrollCard = (props) => {
 
   return (
     <div onClick={onClickDropdown}>
-      {isLoading ? (
-        <SkeletonEnrollBox>
-          <Skeleton count={1} width={150} />
-          <Skeleton count={1} />
-        </SkeletonEnrollBox>
-      ) : (
-        <div>{keepFunction()}</div>
-      )}
+      <div>{keepFunction()}</div>
       {isClick ? <div>{HappinessCondition()}</div> : null}
     </div>
   );
