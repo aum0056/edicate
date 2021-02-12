@@ -4,7 +4,8 @@ import SkeletonEnrollClick from "../SkeletonEnrollClick";
 import axios from "axios";
 import EnrollClick from "../EnrollClick";
 
-const SearchDetail = () => {
+const SearchDetail = (props) => {
+  const { groupData, groupStudyId } = props;
   const [subjectCode, setSubjectCode] = useState("");
   const [dataSubject, setDataSubject] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +32,6 @@ const SearchDetail = () => {
     }
   };
 
-  console.log(dataSubject);
   const KeyPress = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -63,6 +63,8 @@ const SearchDetail = () => {
             group={dataSubjectSearch.group}
             credit={dataSubjectSearch.credit}
             NumPattern={0}
+            type={groupData[0].type}
+            colorState={groupStudyId.includes(dataSubjectSearch.id)}
           />
         ))
       )}

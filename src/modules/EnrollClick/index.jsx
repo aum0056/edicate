@@ -1,5 +1,11 @@
 import React from "react";
-import { Bigbox, BigboxSearch, RowHeadCustom, RowDetailCustom } from "./styled";
+import {
+  Bigbox,
+  BigboxSearch,
+  RowHeadCustom,
+  RowDetailCustom,
+  ColorTheme,
+} from "./styled";
 import { Col, Row } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
 
@@ -12,11 +18,19 @@ const EnrollClick = (props) => {
     group,
     credit,
     colorState,
-    // type
+    type,
   } = props;
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 768px)",
   });
+
+  const RedTheme = {
+    main: "#FD0404",
+  };
+
+  const GreenTheme = {
+    main: "#02BC77",
+  };
 
   const Subject = () => {
     return (
@@ -25,13 +39,13 @@ const EnrollClick = (props) => {
           <div>
             <RowHeadCustom>
               <Col xs={2}>
-                <div style={{ color: "#02BC77" }}>{id}</div>
+                <ColorTheme theme={GreenTheme}>{id}</ColorTheme>
               </Col>
               <Col xs={6}>
                 <div>{thainame}</div>
               </Col>
               <Col xs={4} style={{ textAlign: "right" }}>
-                <div style={{ color: "#FD0404" }}>{credit} หน่วยกิต</div>
+                <ColorTheme theme={RedTheme}>{credit} หน่วยกิต</ColorTheme>
               </Col>
             </RowHeadCustom>
             <Row>
@@ -40,7 +54,7 @@ const EnrollClick = (props) => {
               </Col>
               <Col xs={4} style={{ textAlign: "right" }}>
                 <div>
-                  กลุ่มสาระ
+                  {type}
                   {group}
                 </div>
               </Col>
@@ -50,15 +64,18 @@ const EnrollClick = (props) => {
           <div>
             <RowHeadCustom>
               <Col xs={6}>
-                <div style={{ color: "#02BC77" }}>{id}</div>
+                <ColorTheme theme={GreenTheme}>{id}</ColorTheme>
               </Col>
               <Col xs={6} style={{ textAlign: "right" }}>
-                <div style={{ color: "#FD0404" }}>{credit} หน่วยกิต</div>
-              </Col>ง
+                <ColorTheme theme={RedTheme}>{credit} หน่วยกิต</ColorTheme>
+              </Col>
             </RowHeadCustom>
             <RowDetailCustom>{thainame}</RowDetailCustom>
             <RowDetailCustom>{engname}</RowDetailCustom>
-            <RowDetailCustom>กลุ่มสาระ{group}</RowDetailCustom>
+            <RowDetailCustom>
+              {type}
+              {group}
+            </RowDetailCustom>
           </div>
         )}
       </div>
@@ -76,7 +93,7 @@ const EnrollClick = (props) => {
               <BigboxSearch fluid>{Subject()}</BigboxSearch>
             </div>
           ) : (
-            <BigboxSearch fluid>{Subject()}</BigboxSearch>
+          <BigboxSearch fluid>{Subject()}</BigboxSearch>
           )}
         </div>
       )}

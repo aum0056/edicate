@@ -64,7 +64,7 @@ const SearchPage = () => {
         </div>
         <div>
           {tabState === 1 ? (
-            <SearchDetail />
+            <SearchDetail groupData={keepBigData.courseData} groupStudyId={collectId()} />
           ) : (
             <GroupDetail groupData={keepBigData.courseData} groupStudyId={collectId()} />
           )}

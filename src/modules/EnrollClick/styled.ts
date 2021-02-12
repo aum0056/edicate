@@ -34,3 +34,7 @@ export const RowDetailCustom = styled.div`
     font-size: 12px;
   }
 `;
+
+export const ColorTheme = styled.div`
+  color: ${props => props.theme.main};
+`

@@ -38,8 +38,6 @@ const DetailPage = () => {
     };
     FetchData();
   }, []);
-  console.log(keepBigData);
-
 
   const GroupData = (groupName) => {
     if (isLoading === false) {

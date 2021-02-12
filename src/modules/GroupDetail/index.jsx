@@ -69,6 +69,7 @@ const GroupDetail = (props) => {
             credit={dataGroup.credit}
             NumPattern={0}
             colorState={groupStudyId.includes(dataGroup.id)}
+            type={groupData[0].type}
           />
         ))
       )}
