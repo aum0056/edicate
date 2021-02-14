@@ -35,6 +35,6 @@ export const RowDetailCustom = styled.div`
   }
 `;
 
-export const ColorTheme = styled.div`
-  color: ${props => props.theme.main};
-`
+export const ColorTheme = styled.div<{customColor: boolean}>`
+  color: ${(props) => props.customColor ? "#c4c4c4" : props.theme.main};
+`;

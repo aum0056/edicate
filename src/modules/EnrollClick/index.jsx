@@ -39,13 +39,13 @@ const EnrollClick = (props) => {
           <div>
             <RowHeadCustom>
               <Col xs={2}>
-                <ColorTheme theme={GreenTheme}>{id}</ColorTheme>
+                <ColorTheme theme={GreenTheme} customColor={colorState}>{id}</ColorTheme>
               </Col>
               <Col xs={6}>
                 <div>{thainame}</div>
               </Col>
               <Col xs={4} style={{ textAlign: "right" }}>
-                <ColorTheme theme={RedTheme}>{credit} หน่วยกิต</ColorTheme>
+                <ColorTheme theme={RedTheme} customColor={colorState}>{credit} หน่วยกิต</ColorTheme>
               </Col>
             </RowHeadCustom>
             <Row>
@@ -64,10 +64,10 @@ const EnrollClick = (props) => {
           <div>
             <RowHeadCustom>
               <Col xs={6}>
-                <ColorTheme theme={GreenTheme}>{id}</ColorTheme>
+                <ColorTheme theme={GreenTheme} customColor={colorState}>{id}</ColorTheme>
               </Col>
               <Col xs={6} style={{ textAlign: "right" }}>
-                <ColorTheme theme={RedTheme}>{credit} หน่วยกิต</ColorTheme>
+                <ColorTheme theme={RedTheme} customColor={colorState}>{credit} หน่วยกิต</ColorTheme>
               </Col>
             </RowHeadCustom>
             <RowDetailCustom>{thainame}</RowDetailCustom>
@@ -93,7 +93,7 @@ const EnrollClick = (props) => {
               <BigboxSearch fluid>{Subject()}</BigboxSearch>
             </div>
           ) : (
-          <BigboxSearch fluid>{Subject()}</BigboxSearch>
+            <BigboxSearch fluid>{Subject()}</BigboxSearch>
           )}
         </div>
       )}

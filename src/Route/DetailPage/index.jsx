@@ -79,8 +79,9 @@ const DetailPage = () => {
             <SkeletonEnrollBoxs />
           ) : (
             <div>
-              {keepBigData.courseData[0].group.map((groupName) => (
+              {keepBigData.courseData[0].group.map((groupName, index) => (
                 <EnrollCard
+                  key={index}
                   type={keepBigData.courseData[0].type}
                   NameGroup={groupName}
                   subjectGroup={GroupData(groupName)}

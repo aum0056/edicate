@@ -18,22 +18,48 @@ export const FormGroup = styled(Form)`
     font-size: 20px;
     padding: 5px 30px;
     @media (max-width: 560px) {
-      font-size: 3.57vw; 
+      font-size: 3.57vw;
     }
     @media (max-width: 420px) {
-      font-size: 14px; 
+      font-size: 14px;
     }
   }
 `;
 
 export const TextCustom = styled.div`
-    margin-top: 40px;
-    font-size: 24px;
-    cursor: pointer;
-    @media (max-width: 560px) {
-      font-size: 4.29vw; 
-    }
-    @media (max-width: 420px) {
-      font-size: 18px; 
-    }
+  margin-top: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  @media (max-width: 560px) {
+    font-size: 4.29vw;
+  }
+  @media (max-width: 420px) {
+    font-size: 18px;
+  }
+`;
+
+export const NotFoundCustom = styled.div`
+  margin-top: 70px;
+  font-size: 20px;
+  cursor: pointer;
+  @media (max-width: 560px) {
+    font-size: 3.57vw;
+  }
+  @media (max-width: 420px) {
+    font-size: 14px;
+  }
+  text-align: center;
+  color: #c4c4c4;
+`;
+
+export const CondiCustom = styled.div`
+  font-size: 18px;
+  @media (max-width: 560px) {
+    font-size: 3.2vw;
+  }
+  @media (max-width: 413px) {
+    font-size: 12px;
+  }
+  cursor: pointer;
+  color: #FD0404;
 `

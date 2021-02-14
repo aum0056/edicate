@@ -33,3 +33,15 @@ export const FormCustom = styled(Form.Control)`
 export const FormGroupCustom = styled(Form.Group)`
   width: 100%;
 `;
+
+export const CondiCustom = styled.div`
+  font-size: 18px;
+  @media (max-width: 560px) {
+    font-size: 3.2vw;
+  }
+  @media (max-width: 413px) {
+    font-size: 12px;
+  }
+  cursor: pointer;
+  color: #FD0404;
+`

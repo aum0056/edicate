@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextCustom, FormCustom } from "./styled";
+import { TextCustom, FormCustom, CondiCustom } from "./styled";
 import { Form } from "react-bootstrap";
 import SkeletonEnrollClick from "../SkeletonEnrollClick";
 import EnrollClick from "../EnrollClick";
@@ -32,9 +32,53 @@ const GroupDetail = (props) => {
 
   const onClickChoose = (event) => {
     setsubjectGroup(event.target.value);
-    if (subjectGroup === "") {
+    if (event.target.value !== "") {
       setIsStart(true);
     }
+  };
+
+  const hasCredit = () => {
+    return (
+      <div>
+        {subjectInGroup
+          .filter((dataFilter) => groupStudyId.includes(dataFilter.id))
+          .map((dataGroup, index) => (
+            <EnrollClick
+              key={index}
+              id={dataGroup.id}
+              thainame={dataGroup.thainame}
+              engname={dataGroup.engname}
+              group={dataGroup.group}
+              credit={dataGroup.credit}
+              NumPattern={0}
+              colorState={true}
+              type={groupData[0].type}
+            />
+          ))}
+      </div>
+    );
+  };
+
+  const hasNotCredit = () => {
+    return (
+      <div>
+        {subjectInGroup
+          .filter((dataFilter) => !groupStudyId.includes(dataFilter.id))
+          .map((dataGroup, index) => (
+            <EnrollClick
+              key={index}
+              id={dataGroup.id}
+              thainame={dataGroup.thainame}
+              engname={dataGroup.engname}
+              group={dataGroup.group}
+              credit={dataGroup.credit}
+              NumPattern={0}
+              colorState={false}
+              type={groupData[0].type}
+            />
+          ))}
+      </div>
+    );
   };
 
   return (
@@ -46,8 +90,8 @@ const GroupDetail = (props) => {
             <option value="" hidden>
               กรุณาเลือกหมวด
             </option>
-            {groupData[0].group.map((data) => (
-              <option value={data}>
+            {groupData[0].group.map((data, index) => (
+              <option value={data} key={index}>
                 {groupData[0].type}
                 {data}
               </option>
@@ -60,18 +104,17 @@ const GroupDetail = (props) => {
       {isLoading ? (
         <div>{isStart ? <SkeletonEnrollClick /> : null}</div>
       ) : (
-        subjectInGroup.map((dataGroup) => (
-          <EnrollClick
-            id={dataGroup.id}
-            thainame={dataGroup.thainame}
-            engname={dataGroup.engname}
-            group={dataGroup.group}
-            credit={dataGroup.credit}
-            NumPattern={0}
-            colorState={groupStudyId.includes(dataGroup.id)}
-            type={groupData[0].type}
-          />
-        ))
+        <div>
+          {isStart ? (
+            <div>
+              <CondiCustom>
+                *หมายเหตุ : สีเทาหมายถึงรายวิชาที่ผ่านการลงทะเบียน
+              </CondiCustom>
+              <div>{hasCredit()}</div>
+              <div>{hasNotCredit()}</div>
+            </div>
+          ) : null}
+        </div>
       )}
     </div>
   );
