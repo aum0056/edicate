@@ -29,11 +29,12 @@ const SearchDetail = (props) => {
           subjectCode: event.target.value,
         },
       }).then((res) => {
-        setIsLoading(false);
         setDataSubject(res.data);
+        setIsLoading(false);
       });
       setIsStart(true);
     } else {
+      setIsLoading(true);
       setIsStart(false);
     }
   };
@@ -52,7 +53,7 @@ const SearchDetail = (props) => {
           .filter((dataFilter) => groupStudyId.includes(dataFilter.id))
           .map((dataGroup, index) => (
             <EnrollClick
-              key = {index}
+              key={index}
               id={dataGroup.id}
               thainame={dataGroup.thainame}
               engname={dataGroup.engname}

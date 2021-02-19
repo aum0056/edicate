@@ -7,42 +7,134 @@ import {
   EnrollBox2,
   CondiBox,
   DropdownClick,
-  EnrollHap,
+  EnrollHead,
 } from "./styled";
-import creditdata from "../../genEdCredit.json";
 
 const EnrollCard = (props) => {
-  const { NumPattern, subjectGroup, NameGroup, type } = props;
+  const { NumPattern, subjectGroup, NameGroup, type, courseData } = props;
   const [isClick, setIsClick] = useState(false);
   const onClickDropdown = () => {
     setIsClick(!isClick);
   };
 
-  const totalcredit = creditdata
-    .filter((data) => data.name === NameGroup)
-    .map((filterCredit) => filterCredit.credit)
-    .reduce((pre, cur) => pre + cur, 0);
-
-  const credits = subjectGroup
+  const allCredits = subjectGroup
     .map((filterSubjectGroup) => filterSubjectGroup.credit)
     .reduce((pre, cur) => pre + cur, 0);
 
-  const HapiIsHapi = subjectGroup.filter((data) => !data.id.includes("01175"));
-  const ExIsHapi = subjectGroup.filter((data) => data.id.includes("01175"));
+  const totalcreditUse = () => {
+    const totalcredit = courseData[0].group.filter(
+      (data) => data.nameGroup === NameGroup
+    );
+    return totalcredit[0].credit;
+  };
 
-  if (ExIsHapi.length > 1) {
-    HapiIsHapi.concat(ExIsHapi.slice(1));
-    ExIsHapi.slice(0, 1);
-  }
+  const Header = courseData[0].group
+    .filter((data) => data.nameGroup === NameGroup)
+    .map((data) => data.fixedSubject);
 
-  const CreditHapi = HapiIsHapi.map((map) => map.credit).reduce(
-    (pre, cur) => pre + cur,
-    0
-  );
-  const CreditEx = ExIsHapi.map((map) => map.credit).reduce(
-    (pre, cur) => pre + cur,
-    0
-  );
+  const SubjectInHeader = (NameHeader, id) => {
+    const CheckSubject = Header[0]
+      .filter((data) => data.name === NameHeader)
+      .map((dataIdInHeader) => dataIdInHeader.subjectId)
+      .flat(2)
+      .map((data) => new RegExp(data).test(id));
+    return CheckSubject;
+  };
+
+  const checkSubjectInHeader = (NameHeader, allCreditInGroup) => {
+    const check = subjectGroup.map((dataSubject) =>
+      SubjectInHeader(NameHeader, dataSubject.id)
+        .filter((data) => data)
+        .map((data) => dataSubject.id)
+        .map((data) => haveIdIncludes(data, NameHeader, allCreditInGroup))
+    );
+    return check;
+  };
+
+  const haveIdIncludes = (dataId, NameHeader, allCreditInGroup) => {
+    const haveHeader = subjectGroup.filter((data, index) =>
+      data.id.includes(dataId)
+    );
+    const creditHave = haveHeader
+      .map((data) => data.credit)
+      .reduce((pre, cur) => pre + cur, 0);
+    
+    const haveNotHeader = subjectGroup.filter(
+      (data) => !data.id.includes(dataId)
+    );
+    const creditNotHave = haveNotHeader
+      .map((data) => data.credit)
+      .reduce((pre, cur) => pre + cur, 0);
+
+    return (
+      <div>
+        <EnrollHead>
+          <div>{NameHeader}</div>
+          <div>{ColorNumber(creditHave, allCreditInGroup)}</div>
+        </EnrollHead>
+        {haveHeader.map((dataSubject, index) => (
+          <EnrollClick
+            key={index}
+            NameGroup={NameGroup}
+            NumPattern={NumPattern}
+            id={dataSubject.id}
+            thainame={dataSubject.thainame}
+            engname={dataSubject.engname}
+            group={dataSubject.group}
+            credit={dataSubject.credit}
+            type={type}
+          />
+        ))}
+        <EnrollHead>
+          <div>กลุ่ม{NameGroup}</div>
+          <div>{ColorNumber(creditNotHave, totalcreditUse()-allCreditInGroup)}</div>
+        </EnrollHead>
+        {haveNotHeader.map((dataSubject, index) => (
+          <EnrollClick
+            key={index}
+            NameGroup={NameGroup}
+            NumPattern={NumPattern}
+            id={dataSubject.id}
+            thainame={dataSubject.thainame}
+            engname={dataSubject.engname}
+            group={dataSubject.group}
+            credit={dataSubject.credit}
+            type={type}
+          />
+        ))}
+      </div>
+    );
+  };
+
+  const box = () => {
+    return (
+      <div>
+        {Header[0].length > 0 ? (
+          <div>
+            {Header[0].map((data) => (
+              <div>{checkSubjectInHeader(data.name, data.credit)}</div>
+            ))}
+          </div>
+        ) : (
+          <div>
+            {subjectGroup.map((dataSubject, index) => (
+              <EnrollClick
+                key={index}
+                NameGroup={NameGroup}
+                NumPattern={NumPattern}
+                id={dataSubject.id}
+                thainame={dataSubject.thainame}
+                engname={dataSubject.engname}
+                group={dataSubject.group}
+                credit={dataSubject.credit}
+                type={type}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   const ColorNumber = (credits, totalcredit) => {
     if (credits === totalcredit) {
@@ -74,10 +166,13 @@ const EnrollCard = (props) => {
       <div>
         {isClick ? (
           <EnrollBox2>
-            <div>กลุ่มสาระ{NameGroup}</div>
+            <div>
+              {type}
+              {NameGroup}
+            </div>
             <CondiBox>
-              {ColorNumber(credits, totalcredit)}
-              {credits === 0 ? (
+              {ColorNumber(allCredits, totalcreditUse())}
+              {allCredits === 0 ? (
                 <DropdownCustom src={dropdown} alt="dropdown" />
               ) : (
                 <DropdownClick src={dropdown} alt="dropdownClick" />
@@ -91,7 +186,7 @@ const EnrollCard = (props) => {
               {NameGroup}
             </div>
             <div style={{ display: "flex" }}>
-              {ColorNumber(credits, totalcredit)}
+              {ColorNumber(allCredits, totalcreditUse())}
               <DropdownCustom src={dropdown} alt="dropdown" />
             </div>
           </EnrollBox>
@@ -100,69 +195,10 @@ const EnrollCard = (props) => {
     );
   };
 
-  const HappinessCondition = () => {
-    return (
-      <div>
-        {NameGroup === "อยู่ดีมีสุข" ? (
-          <div>
-            <EnrollHap>
-              <div>กิจกรรมพลศึกษา</div>
-              {ColorNumber(CreditEx, 1)}
-            </EnrollHap>
-            <div>
-              {ExIsHapi.map((filterSubject) => (
-                <EnrollClick
-                  NameGroup={NameGroup}
-                  NumPattern={NumPattern}
-                  id={filterSubject.id}
-                  thainame={filterSubject.thainame}
-                  engname={filterSubject.engname}
-                  group={filterSubject.group}
-                  credit={filterSubject.credit}
-                />
-              ))}
-            </div>
-            <EnrollHap>
-              <div>กลุ่มอยู่ดีมีสุข</div>
-              {ColorNumber(CreditHapi, 5)}
-            </EnrollHap>
-            <div>
-              {HapiIsHapi.map((filterSubject) => (
-                <EnrollClick
-                  NameGroup={NameGroup}
-                  NumPattern={NumPattern}
-                  id={filterSubject.id}
-                  thainame={filterSubject.thainame}
-                  engname={filterSubject.engname}
-                  group={filterSubject.group}
-                  credit={filterSubject.credit}
-                />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div>
-            {subjectGroup.map((filterSubject) => (
-              <EnrollClick
-                NameGroup={NameGroup}
-                NumPattern={NumPattern}
-                id={filterSubject.id}
-                thainame={filterSubject.thainame}
-                engname={filterSubject.engname}
-                group={filterSubject.group}
-                credit={filterSubject.credit}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  };
-
   return (
     <div onClick={onClickDropdown}>
       <div>{keepFunction()}</div>
-      {isClick ? <div>{HappinessCondition()}</div> : null}
+      {isClick ? <div>{box()}</div> : null}
     </div>
   );
 };

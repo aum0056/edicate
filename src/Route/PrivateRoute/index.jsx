@@ -12,6 +12,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     return expireToken
   };
 
+
   return (
     <Route
       {...rest}

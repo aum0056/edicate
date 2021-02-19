@@ -86,6 +86,7 @@ const DetailPage = () => {
                   NameGroup={groupName}
                   subjectGroup={GroupData(groupName)}
                   NumPattern={1}
+                  courseData={keepBigData.detailData.course}
                 />
               ))}
             </div>

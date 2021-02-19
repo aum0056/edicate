@@ -25,8 +25,8 @@ const GroupDetail = (props) => {
         },
       });
       setSubjectInGroup(data.data);
-      setIsLoading(false);
     };
+    setIsLoading(false);
     FetchData();
   }, [subjectGroup]);
 
@@ -85,33 +85,35 @@ const GroupDetail = (props) => {
     <div>
       <TextCustom>หมวดหมู่</TextCustom>
       <Form.Group>
-        {isLoading ? null : (
-          <FormCustom as="select" onClick={onClickChoose}>
-            <option value="" hidden>
-              กรุณาเลือกหมวด
+        <FormCustom as="select" onClick={onClickChoose}>
+          <option value="" hidden>
+            กรุณาเลือกหมวด
+          </option>
+          {groupData[0].group.map((data, index) => (
+            <option value={data} key={index}>
+              {groupData[0].type}
+              {data}
             </option>
-            {groupData[0].group.map((data, index) => (
-              <option value={data} key={index}>
-                {groupData[0].type}
-                {data}
-              </option>
-            ))}
-          </FormCustom>
-        )}
+          ))}
+        </FormCustom>
       </Form.Group>
 
       <TextCustom>รายวิชาบูรณาการที่เปิดให้ลงทะเบียน</TextCustom>
-      {isLoading ? (
-        <div>{isStart ? <SkeletonEnrollClick /> : null}</div>
-      ) : (
+      {isLoading ? null : (
         <div>
           {isStart ? (
             <div>
-              <CondiCustom>
-                *หมายเหตุ : สีเทาหมายถึงรายวิชาที่ผ่านการลงทะเบียน
-              </CondiCustom>
-              <div>{hasCredit()}</div>
-              <div>{hasNotCredit()}</div>
+              {subjectInGroup.length === 0 ? (
+                <SkeletonEnrollClick />
+              ) : (
+                <div>
+                  <CondiCustom>
+                    *หมายเหตุ : สีเทาหมายถึงรายวิชาที่ผ่านการลงทะเบียน
+                  </CondiCustom>
+                  <div>{hasCredit()}</div>
+                  <div>{hasNotCredit()}</div>
+                </div>
+              )}
             </div>
           ) : null}
         </div>

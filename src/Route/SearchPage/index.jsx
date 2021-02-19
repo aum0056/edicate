@@ -5,9 +5,11 @@ import SearchDetail from "../../modules/SearchDetail";
 import GroupDetail from "../../modules/GroupDetail";
 import { ContainerCustom } from "./styled";
 import axios from "axios";
+import SkeletonSearchPage from "../../modules/SkeletonSearchPage";
 
 const SearchPage = () => {
   const [tabState, setTabState] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const [keepBigData, setKeepBigData] = useState({
     detailData: null,
     courseData: null,
@@ -33,12 +35,13 @@ const SearchPage = () => {
         detailData: detailBigData.data.subject,
         courseData: courseBigData.data,
       });
+      setIsLoading(false);
     };
     FetchData();
   }, []);
 
   const collectId = () => {
-    if (keepBigData.detailData !== null) {
+    if (!isLoading) {
       const keep = keepBigData.detailData.map((data) => data.id);
       return keep;
     }
@@ -47,29 +50,37 @@ const SearchPage = () => {
   return (
     <div>
       <Navbar NamePage="รายวิชาบูรณาการ" />
-      <ContainerCustom>
-        <div style={{ display: "flex" }}>
-          <ChooseButton
-            chooseName="รายวิชา"
-            click={tabState === 1}
-            onClick={setTabState}
-            tabId={1}
-          />
-          <ChooseButton
-            chooseName="หมวดหมู่"
-            click={tabState === 2}
-            onClick={setTabState}
-            tabId={2}
-          />
-        </div>
-        <div>
-          {tabState === 1 ? (
-            <SearchDetail groupData={keepBigData.courseData} groupStudyId={collectId()} />
-          ) : (
-            <GroupDetail groupData={keepBigData.courseData} groupStudyId={collectId()} />
-          )}
-        </div>
-      </ContainerCustom>
+      {isLoading ? <SkeletonSearchPage /> : (
+        <ContainerCustom>
+          <div style={{ display: "flex" }}>
+            <ChooseButton
+              chooseName="รายวิชา"
+              click={tabState === 1}
+              onClick={setTabState}
+              tabId={1}
+            />
+            <ChooseButton
+              chooseName="หมวดหมู่"
+              click={tabState === 2}
+              onClick={setTabState}
+              tabId={2}
+            />
+          </div>
+          <div>
+            {tabState === 1 ? (
+              <SearchDetail
+                groupData={keepBigData.courseData}
+                groupStudyId={collectId()}
+              />
+            ) : (
+              <GroupDetail
+                groupData={keepBigData.courseData}
+                groupStudyId={collectId()}
+              />
+            )}
+          </div>
+        </ContainerCustom>
+      )}
     </div>
   );
 };

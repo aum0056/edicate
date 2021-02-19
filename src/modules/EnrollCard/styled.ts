@@ -48,7 +48,7 @@ export const DropdownClick = styled(DropdownCustom)`
   transform: rotate(180deg);
 `;
 
-export const EnrollHap = styled(EnrollBox2)`
+export const EnrollHead = styled(EnrollBox2)`
   margin-top: 0px;
   border-top: none;
   border-top-left-radius: 0rem;
