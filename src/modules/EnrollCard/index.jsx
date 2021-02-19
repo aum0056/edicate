@@ -32,87 +32,63 @@ const EnrollCard = (props) => {
     .filter((data) => data.nameGroup === NameGroup)
     .map((data) => data.fixedSubject);
 
-  const SubjectInHeader = (NameHeader, id) => {
-    const CheckSubject = Header[0]
-      .filter((data) => data.name === NameHeader)
-      .map((dataIdInHeader) => dataIdInHeader.subjectId)
-      .flat(2)
-      .map((data) => new RegExp(data).test(id));
-    return CheckSubject;
-  };
+  const InCludeRender = () => {
+    const fixSubjectMap = (NameHeader) => {
+      const checkSubject = Header[0].filter((data) => data.name === NameHeader);
+      const Checkregex = (id) =>
+        checkSubject[0].subjectId.map((data) => new RegExp(data).test(id));
+      const renderGroup = subjectGroup.map((dataS) =>
+        Checkregex(dataS.id)
+          .filter((data) => data)
+          .map((data) => dataS.id)
+      );
+      const include = subjectGroup.filter((data) =>
+        renderGroup.flat(1).includes(data.id)
+      );
 
-  const checkSubjectInHeader = (NameHeader, allCreditInGroup) => {
-    const check = subjectGroup.map((dataSubject) =>
-      SubjectInHeader(NameHeader, dataSubject.id)
-        .filter((data) => data)
-        .map((data) => dataSubject.id)
-        .map((data) => haveIdIncludes(data, NameHeader, allCreditInGroup))
-    );
-    return check;
-  };
+      return include;
+    };
 
-  const haveIdIncludes = (dataId, NameHeader, allCreditInGroup) => {
-    const haveHeader = subjectGroup.filter((data, index) =>
-      data.id.includes(dataId)
-    );
-    const creditHave = haveHeader
-      .map((data) => data.credit)
-      .reduce((pre, cur) => pre + cur, 0);
-    
-    const haveNotHeader = subjectGroup.filter(
-      (data) => !data.id.includes(dataId)
-    );
-    const creditNotHave = haveNotHeader
-      .map((data) => data.credit)
-      .reduce((pre, cur) => pre + cur, 0);
+    const creditInclude = (NameHeader) => {
+      const credit = fixSubjectMap(NameHeader)
+        .map((data) => data.credit)
+        .reduce((pre, cur) => pre + cur, 0);
+      return credit;
+    };
+    const renderSubjectInclude = (NameHeader) => {
+      return (
+        <div>
+          {fixSubjectMap(NameHeader).map((dataSubject,index) => (
+            <EnrollClick
+              key={index}
+              NameGroup={NameGroup}
+              NumPattern={NumPattern}
+              id={dataSubject.id}
+              thainame={dataSubject.thainame}
+              engname={dataSubject.engname}
+              group={dataSubject.group}
+              credit={dataSubject.credit}
+              type={type}
+            />
+          ))}
+        </div>
+      );
+    };
 
-    return (
-      <div>
-        <EnrollHead>
-          <div>{NameHeader}</div>
-          <div>{ColorNumber(creditHave, allCreditInGroup)}</div>
-        </EnrollHead>
-        {haveHeader.map((dataSubject, index) => (
-          <EnrollClick
-            key={index}
-            NameGroup={NameGroup}
-            NumPattern={NumPattern}
-            id={dataSubject.id}
-            thainame={dataSubject.thainame}
-            engname={dataSubject.engname}
-            group={dataSubject.group}
-            credit={dataSubject.credit}
-            type={type}
-          />
-        ))}
-        <EnrollHead>
-          <div>กลุ่ม{NameGroup}</div>
-          <div>{ColorNumber(creditNotHave, totalcreditUse()-allCreditInGroup)}</div>
-        </EnrollHead>
-        {haveNotHeader.map((dataSubject, index) => (
-          <EnrollClick
-            key={index}
-            NameGroup={NameGroup}
-            NumPattern={NumPattern}
-            id={dataSubject.id}
-            thainame={dataSubject.thainame}
-            engname={dataSubject.engname}
-            group={dataSubject.group}
-            credit={dataSubject.credit}
-            type={type}
-          />
-        ))}
-      </div>
-    );
-  };
-
-  const box = () => {
     return (
       <div>
         {Header[0].length > 0 ? (
           <div>
             {Header[0].map((data) => (
-              <div>{checkSubjectInHeader(data.name, data.credit)}</div>
+              <div>
+                <EnrollHead>
+                  <div>{data.name}</div>
+                  <div>
+                    {ColorNumber(creditInclude(data.name), data.credit)}
+                  </div>
+                </EnrollHead>
+                {renderSubjectInclude(data.name)}
+              </div>
             ))}
           </div>
         ) : (
@@ -134,6 +110,65 @@ const EnrollCard = (props) => {
         )}
       </div>
     );
+  };
+
+  const NotIncludeRender = () => {
+    const fixSubjectMap = Header[0].map((data) => data.subjectId).flat(1);
+    if (fixSubjectMap.length > 0) {
+      const checkRegEx = (id) =>
+        fixSubjectMap.map((data) => new RegExp(data).test(id));
+      const renderGroup = subjectGroup.map((dataS) =>
+        checkRegEx(dataS.id)
+          .filter((data) => data)
+          .map((data) => dataS.id)
+      );
+      const notInclude = subjectGroup.filter(
+        (data) => !renderGroup.flat(1).includes(data.id)
+      );
+      const creditNotInclude = notInclude
+        .map((data) => data.credit)
+        .reduce((pre, cur) => pre + cur, 0);
+
+      const include = subjectGroup.filter((data) =>
+        renderGroup.flat(1).includes(data.id)
+      );
+      const creditInclude = include
+        .map((data) => data.credit)
+        .reduce((pre, cur) => pre + cur, 0);
+
+      return (
+        <div>
+          {creditNotInclude > 0 ? (
+            <div>
+              <EnrollHead>
+                <div>กลุ่ม{NameGroup}</div>
+                <div>
+                  {ColorNumber(
+                    creditNotInclude,
+                    totalcreditUse() - creditInclude
+                  )}
+                </div>
+              </EnrollHead>
+              <div>
+                {notInclude.map((dataSubject, index) => (
+                  <EnrollClick
+                    key={index}
+                    NameGroup={NameGroup}
+                    NumPattern={NumPattern}
+                    id={dataSubject.id}
+                    thainame={dataSubject.thainame}
+                    engname={dataSubject.engname}
+                    group={dataSubject.group}
+                    credit={dataSubject.credit}
+                    type={type}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : null}
+        </div>
+      );
+    }
   };
 
   const ColorNumber = (credits, totalcredit) => {
@@ -161,7 +196,7 @@ const EnrollCard = (props) => {
     }
   };
 
-  const keepFunction = () => {
+  const barCustom = () => {
     return (
       <div>
         {isClick ? (
@@ -197,8 +232,13 @@ const EnrollCard = (props) => {
 
   return (
     <div onClick={onClickDropdown}>
-      <div>{keepFunction()}</div>
-      {isClick ? <div>{box()}</div> : null}
+      <div>{barCustom()}</div>
+      {isClick ? (
+        <div>
+          {InCludeRender()}
+          {NotIncludeRender()}
+        </div>
+      ) : null}
     </div>
   );
 };
