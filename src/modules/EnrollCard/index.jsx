@@ -79,8 +79,8 @@ const EnrollCard = (props) => {
       <div>
         {Header[0].length > 0 ? (
           <div>
-            {Header[0].map((data) => (
-              <div>
+            {Header[0].map((data,index) => (
+              <div key={index}>
                 <EnrollHead>
                   <div>{data.name}</div>
                   <div>

@@ -73,8 +73,9 @@ const SearchDetail = (props) => {
       <div>
         {dataSubject
           .filter((dataFilter) => !groupStudyId.includes(dataFilter.id))
-          .map((dataGroup) => (
+          .map((dataGroup,index) => (
             <EnrollClick
+              key={index}
               id={dataGroup.id}
               thainame={dataGroup.thainame}
               engname={dataGroup.engname}
