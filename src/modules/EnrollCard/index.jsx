@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import dropdown from "../../images/down-arrow.svg";
 import EnrollClick from "../EnrollClick";
 import {
@@ -13,8 +13,14 @@ import {
 const EnrollCard = (props) => {
   const { NumPattern, subjectGroup, NameGroup, type, courseData } = props;
   const [isClick, setIsClick] = useState(false);
+  const ref = useRef(null);
   const onClickDropdown = () => {
     setIsClick(!isClick);
+    ref.current.scrollIntoView({
+      behavior: "smooth",
+      // block: 'start',
+      // inline: "nearest"
+    });
   };
 
   const allCredits = subjectGroup
@@ -46,7 +52,11 @@ const EnrollCard = (props) => {
         renderGroup.flat(1).includes(data.id)
       );
 
-      return include;
+      if (NameHeader === "กิจกรรมพลศึกษา") {
+        return [include[0]];
+      } else {
+        return include;
+      }
     };
 
     const creditInclude = (NameHeader) => {
@@ -58,7 +68,7 @@ const EnrollCard = (props) => {
     const renderSubjectInclude = (NameHeader) => {
       return (
         <div>
-          {fixSubjectMap(NameHeader).map((dataSubject,index) => (
+          {fixSubjectMap(NameHeader).map((dataSubject, index) => (
             <EnrollClick
               key={index}
               NameGroup={NameGroup}
@@ -79,7 +89,7 @@ const EnrollCard = (props) => {
       <div>
         {Header[0].length > 0 ? (
           <div>
-            {Header[0].map((data,index) => (
+            {Header[0].map((data, index) => (
               <div key={index}>
                 <EnrollHead>
                   <div>{data.name}</div>
@@ -112,7 +122,7 @@ const EnrollCard = (props) => {
     );
   };
 
-  const NotIncludeRender = () => {
+  const NotIncludeRender = (NameHeader) => {
     const fixSubjectMap = Header[0].map((data) => data.subjectId).flat(1);
     if (fixSubjectMap.length > 0) {
       const checkRegEx = (id) =>
@@ -125,6 +135,7 @@ const EnrollCard = (props) => {
       const notInclude = subjectGroup.filter(
         (data) => !renderGroup.flat(1).includes(data.id)
       );
+
       const creditNotInclude = notInclude
         .map((data) => data.credit)
         .reduce((pre, cur) => pre + cur, 0);
@@ -231,7 +242,7 @@ const EnrollCard = (props) => {
   };
 
   return (
-    <div onClick={onClickDropdown}>
+    <div onClick={onClickDropdown} ref={ref}>
       <div>{barCustom()}</div>
       {isClick ? (
         <div>
