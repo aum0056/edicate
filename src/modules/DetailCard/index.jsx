@@ -1,6 +1,5 @@
 import React from "react";
 import { DetailBox, Picbox, TextBox } from "./styled";
-import profile from "../../images/profile.svg";
 import { useMediaQuery } from "react-responsive";
 
 const DetailCard = (props) => {
@@ -14,6 +13,7 @@ const DetailCard = (props) => {
     faculty,
     department,
     idDepartment,
+    pic
   } = props;
 
   const isDesktop = useMediaQuery({
@@ -27,7 +27,7 @@ const DetailCard = (props) => {
   return (
     <DetailBox>
       <div>
-        <Picbox src={profile} alt="profile" />
+        <Picbox src={pic} alt="profile" />
       </div>
       <TextBox>
         <div>

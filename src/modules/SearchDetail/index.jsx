@@ -46,49 +46,13 @@ const SearchDetail = (props) => {
     }
   };
 
-  const hasCredit = () => {
-    return (
-      <div>
-        {dataSubject
-          .filter((dataFilter) => groupStudyId.includes(dataFilter.id))
-          .map((dataGroup, index) => (
-            <EnrollClick
-              key={index}
-              id={dataGroup.id}
-              thainame={dataGroup.thainame}
-              engname={dataGroup.engname}
-              group={dataGroup.group}
-              credit={dataGroup.credit}
-              NumPattern={0}
-              colorState={true}
-              type={groupData[0].type}
-            />
-          ))}
-      </div>
-    );
-  };
+  const hasCredit = dataSubject.filter((dataFilter) =>
+    groupStudyId.includes(dataFilter.id)
+  );
 
-  const hasNotCredit = () => {
-    return (
-      <div>
-        {dataSubject
-          .filter((dataFilter) => !groupStudyId.includes(dataFilter.id))
-          .map((dataGroup,index) => (
-            <EnrollClick
-              key={index}
-              id={dataGroup.id}
-              thainame={dataGroup.thainame}
-              engname={dataGroup.engname}
-              group={dataGroup.group}
-              credit={dataGroup.credit}
-              NumPattern={0}
-              colorState={false}
-              type={groupData[0].type}
-            />
-          ))}
-      </div>
-    );
-  };
+  const hasNotCredit = dataSubject.filter(
+    (dataFilter) => !groupStudyId.includes(dataFilter.id)
+  );
 
   return (
     <div>
@@ -112,11 +76,41 @@ const SearchDetail = (props) => {
             <NotFoundCustom>ไม่พบข้อมูล</NotFoundCustom>
           ) : (
             <div>
-              <CondiCustom>
-                *หมายเหตุ : สีเทาหมายถึงรายวิชาที่ผ่านการลงทะเบียน
-              </CondiCustom>
-              <div>{hasCredit()}</div>
-              <div>{hasNotCredit()}</div>
+              {hasCredit.length > 0 && (
+                <div>
+                  <CondiCustom>
+                    *หมายเหตุ : สีเทาหมายถึงรายวิชาที่ผ่านการลงทะเบียน
+                  </CondiCustom>
+                  {hasCredit.map((dataGroup, index) => (
+                    <EnrollClick
+                      key={index}
+                      id={dataGroup.id}
+                      thainame={dataGroup.thainame}
+                      engname={dataGroup.engname}
+                      group={dataGroup.group}
+                      credit={dataGroup.credit}
+                      NumPattern={0}
+                      colorState={true}
+                      type={groupData[0].type}
+                    />
+                  ))}
+                </div>
+              )}
+              <div>
+                {hasNotCredit.map((dataGroup, index) => (
+                  <EnrollClick
+                    key={index}
+                    id={dataGroup.id}
+                    thainame={dataGroup.thainame}
+                    engname={dataGroup.engname}
+                    group={dataGroup.group}
+                    credit={dataGroup.credit}
+                    NumPattern={0}
+                    colorState={false}
+                    type={groupData[0].type}
+                  />
+                ))}
+              </div>
             </div>
           )}
         </div>

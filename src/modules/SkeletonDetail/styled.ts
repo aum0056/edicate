@@ -5,7 +5,7 @@ export const Picbox = styled.div`
     padding-right: 24px;
   }
   @media (max-width: 768px) {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 `;
 

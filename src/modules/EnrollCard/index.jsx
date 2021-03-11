@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import dropdown from "../../images/down-arrow.svg";
 import EnrollClick from "../EnrollClick";
 import {
@@ -13,14 +13,8 @@ import {
 const EnrollCard = (props) => {
   const { NumPattern, subjectGroup, NameGroup, type, courseData } = props;
   const [isClick, setIsClick] = useState(false);
-  const ref = useRef(null);
   const onClickDropdown = () => {
     setIsClick(!isClick);
-    ref.current.scrollIntoView({
-      behavior: "smooth",
-      // block: 'start',
-      // inline: "nearest"
-    });
   };
 
   const allCredits = subjectGroup
@@ -36,15 +30,18 @@ const EnrollCard = (props) => {
 
   const Header = courseData[0].group
     .filter((data) => data.nameGroup === NameGroup)
-    .map((data) => data.fixedSubject);
+    .map((data) => data.fixedSubject)[0];
 
+  const checkRegEx = (id, subjectArray) => {
+    const returnRegex = subjectArray.map((data) => new RegExp(data).test(id));
+    return returnRegex
+  }
+  
   const InCludeRender = () => {
     const fixSubjectMap = (NameHeader) => {
-      const checkSubject = Header[0].filter((data) => data.name === NameHeader);
-      const Checkregex = (id) =>
-        checkSubject[0].subjectId.map((data) => new RegExp(data).test(id));
+      const checkSubject = Header.filter((data) => data.name === NameHeader);
       const renderGroup = subjectGroup.map((dataS) =>
-        Checkregex(dataS.id)
+        checkRegEx(dataS.id, checkSubject[0].subjectId)
           .filter((data) => data)
           .map((data) => dataS.id)
       );
@@ -87,9 +84,9 @@ const EnrollCard = (props) => {
 
     return (
       <div>
-        {Header[0].length > 0 ? (
+        {Header.length > 0 ? (
           <div>
-            {Header[0].map((data, index) => (
+            {Header.map((data, index) => (
               <div key={index}>
                 <EnrollHead>
                   <div>{data.name}</div>
@@ -122,13 +119,11 @@ const EnrollCard = (props) => {
     );
   };
 
-  const NotIncludeRender = (NameHeader) => {
-    const fixSubjectMap = Header[0].map((data) => data.subjectId).flat(1);
+  const NotIncludeRender = () => {
+    const fixSubjectMap = Header.map((data) => data.subjectId).flat(1);
     if (fixSubjectMap.length > 0) {
-      const checkRegEx = (id) =>
-        fixSubjectMap.map((data) => new RegExp(data).test(id));
       const renderGroup = subjectGroup.map((dataS) =>
-        checkRegEx(dataS.id)
+        checkRegEx(dataS.id, fixSubjectMap)
           .filter((data) => data)
           .map((data) => dataS.id)
       );
@@ -242,7 +237,7 @@ const EnrollCard = (props) => {
   };
 
   return (
-    <div onClick={onClickDropdown} ref={ref}>
+    <div onClick={onClickDropdown}>
       <div>{barCustom()}</div>
       {isClick ? (
         <div>

@@ -13,21 +13,25 @@ const GroupDetail = (props) => {
   const [isStart, setIsStart] = useState(false);
 
   useEffect(() => {
-    const FetchData = async () => {
-      const data = await axios({
-        method: "POST",
-        url: "http://localhost:8000/searchbygroup",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-        },
-        data: {
-          subjectGroup: subjectGroup,
-        },
-      });
-      setSubjectInGroup(data.data);
-    };
-    setIsLoading(false);
-    FetchData();
+    try {
+      const FetchData = async () => {
+        const data = await axios({
+          method: "POST",
+          url: "http://localhost:8000/searchbygroup",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+          },
+          data: {
+            subjectGroup: subjectGroup,
+          },
+        });
+        setSubjectInGroup(data.data);
+      };
+      setIsLoading(false);
+      FetchData();
+    } catch (error) {
+      console.log(error);
+    }
   }, [subjectGroup]);
 
   const onClickChoose = (event) => {
@@ -37,49 +41,13 @@ const GroupDetail = (props) => {
     }
   };
 
-  const hasCredit = () => {
-    return (
-      <div>
-        {subjectInGroup
-          .filter((dataFilter) => groupStudyId.includes(dataFilter.id))
-          .map((dataGroup, index) => (
-            <EnrollClick
-              key={index}
-              id={dataGroup.id}
-              thainame={dataGroup.thainame}
-              engname={dataGroup.engname}
-              group={dataGroup.group}
-              credit={dataGroup.credit}
-              NumPattern={0}
-              colorState={true}
-              type={groupData[0].type}
-            />
-          ))}
-      </div>
-    );
-  };
+  const hasCredit = subjectInGroup.filter((dataFilter) =>
+    groupStudyId.includes(dataFilter.id)
+  );
 
-  const hasNotCredit = () => {
-    return (
-      <div>
-        {subjectInGroup
-          .filter((dataFilter) => !groupStudyId.includes(dataFilter.id))
-          .map((dataGroup, index) => (
-            <EnrollClick
-              key={index}
-              id={dataGroup.id}
-              thainame={dataGroup.thainame}
-              engname={dataGroup.engname}
-              group={dataGroup.group}
-              credit={dataGroup.credit}
-              NumPattern={0}
-              colorState={false}
-              type={groupData[0].type}
-            />
-          ))}
-      </div>
-    );
-  };
+  const hasNotCredit = subjectInGroup.filter(
+    (dataFilter) => !groupStudyId.includes(dataFilter.id)
+  );
 
   return (
     <div>
@@ -107,11 +75,41 @@ const GroupDetail = (props) => {
                 <SkeletonEnrollClick />
               ) : (
                 <div>
-                  <CondiCustom>
-                    *หมายเหตุ : สีเทาหมายถึงรายวิชาที่ผ่านการลงทะเบียน
-                  </CondiCustom>
-                  <div>{hasCredit()}</div>
-                  <div>{hasNotCredit()}</div>
+                  {hasCredit.length > 0 && (
+                    <div>
+                      <CondiCustom>
+                        *หมายเหตุ : สีเทาหมายถึงรายวิชาที่ผ่านการลงทะเบียน
+                      </CondiCustom>
+                      {hasCredit.map((dataGroup, index) => (
+                        <EnrollClick
+                          key={index}
+                          id={dataGroup.id}
+                          thainame={dataGroup.thainame}
+                          engname={dataGroup.engname}
+                          group={dataGroup.group}
+                          credit={dataGroup.credit}
+                          NumPattern={0}
+                          colorState={true}
+                          type={groupData[0].type}
+                        />
+                      ))}
+                    </div>
+                  )}
+                  <div>
+                    {hasNotCredit.map((dataGroup, index) => (
+                      <EnrollClick
+                        key={index}
+                        id={dataGroup.id}
+                        thainame={dataGroup.thainame}
+                        engname={dataGroup.engname}
+                        group={dataGroup.group}
+                        credit={dataGroup.credit}
+                        NumPattern={0}
+                        colorState={false}
+                        type={groupData[0].type}
+                      />
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

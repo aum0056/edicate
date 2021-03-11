@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ContainerCustom,
   FormCustom,
@@ -14,6 +14,7 @@ import {
 import logo from "../../images/logoEdicate.svg";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import { DecodeExpire } from "../../utils/api.js";
 
 const Login = () => {
   const history = useHistory();
@@ -21,6 +22,14 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [fail, setFail] = useState(false);
+  console.log("D", DecodeExpire());
+  console.log("S", show);
+
+  useEffect(() => {
+    if (DecodeExpire() === false) {
+      setShow(true);
+    }
+  }, []);
 
   const OnClickSendDatatoBack = (event) => {
     axios({
@@ -56,6 +65,23 @@ const Login = () => {
         </TextModal>
         <TextModal style={{ fontSize: "16px", color: "#8B8B8B" }}>
           รหัสผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง
+        </TextModal>
+        <ButtonBox>
+          <CloseButton onClick={handleClose}>Close</CloseButton>
+        </ButtonBox>
+      </ModalCustom>
+    );
+  };
+
+  const AlertExp = () => {
+    const handleClose = () => setShow(false);
+    return (
+      <ModalCustom centered show={show} onHide={handleClose}>
+        <TextModal style={{ fontSize: "22px" }}>
+          ไม่สามารถเข้าสู่ระบบได้
+        </TextModal>
+        <TextModal style={{ fontSize: "16px", color: "#8B8B8B" }}>
+          หมดเวลาการใช้งาน กรุณาเข้าสู่ระบบใหม่อีกครั้ง
         </TextModal>
         <ButtonBox>
           <CloseButton onClick={handleClose}>Close</CloseButton>
@@ -104,6 +130,7 @@ const Login = () => {
         <a href="https://accounts.ku.ac.th/private/login">ลืมรหัสผ่าน ?</a>
       </FontCustom>
       <div>{fail ? AlertLogin() : null}</div>
+      <div>{DecodeExpire() ? null : AlertExp()}</div>
     </ContainerCustom>
   );
 };

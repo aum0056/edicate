@@ -23,6 +23,9 @@ export const FormGroup = styled(Form)`
     @media (max-width: 420px) {
       font-size: 14px;
     }
+    :focus {
+      box-shadow: 0 0 0 0.2rem rgba(2, 188, 119, .25);
+    }
   }
 `;
 

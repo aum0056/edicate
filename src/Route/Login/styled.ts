@@ -11,6 +11,9 @@ export const FormCustom = styled(Form.Control)`
   max-width: 350px;
   margin-top: 15px !important;
   color: #000000 !important;
+  :focus {
+    box-shadow: 0 0 0 0.2rem rgba(2, 188, 119, 0.25);
+  }
 `;
 
 export const FormGroup = styled(Form)`
@@ -55,7 +58,6 @@ export const ModalCustom = styled(Modal)`
     padding: 20px;
   }
 `;
-
 
 export const TextModal = styled.div`
   text-align: center;

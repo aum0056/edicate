@@ -15,9 +15,10 @@ export const DetailBox = styled.div`
   height: fit-content;
   padding: 20px;
 `;
+
 export const Picbox = styled.img`
   @media (min-width: 768px) {
-    padding-right: 24px;
+    margin-right: 24px;
   }
   @media (min-width: 992px) {
     width: 85px;
@@ -27,6 +28,10 @@ export const Picbox = styled.img`
     width: 100px;
     height: 100px;
   }
+  object-position: 50% 0%;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
 `;
 
 export const TextBox = styled.div`

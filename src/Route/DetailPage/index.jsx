@@ -15,28 +15,32 @@ const DetailPage = () => {
   });
 
   useEffect(() => {
-    const FetchData = async () => {
-      const detailBigData = await axios({
-        method: "POST",
-        url: "http://localhost:8000/detail",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-        },
-      });
-      const courseBigData = await axios({
-        method: "POST",
-        url: "http://localhost:8000/genedcourse",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-        },
-      });
-      setKeepBigData({
-        detailData: detailBigData.data,
-        courseData: courseBigData.data,
-      });
-      setIsLoading(false);
-    };
-    FetchData();
+    try {
+      const FetchData = async () => {
+        const detailBigData = await axios({
+          method: "POST",
+          url: "http://localhost:8000/detail",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+          },
+        });
+        const courseBigData = await axios({
+          method: "POST",
+          url: "http://localhost:8000/genedcourse",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+          },
+        });
+        setKeepBigData({
+          detailData: detailBigData.data,
+          courseData: courseBigData.data,
+        });
+        setIsLoading(false);
+      };
+      FetchData();
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   const GroupData = (groupName) => {
@@ -71,6 +75,7 @@ const DetailPage = () => {
             idDepartment={
               keepBigData.detailData.data.results.education[0].majorCode
             }
+            pic={keepBigData.detailData.image}
           />
         )}
         <TextBox>รายวิชาที่นิสิตลงทะเบียน</TextBox>

@@ -16,28 +16,32 @@ const SearchPage = () => {
   });
 
   useEffect(() => {
-    const FetchData = async () => {
-      const detailBigData = await axios({
-        method: "POST",
-        url: "http://localhost:8000/detail",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-        },
-      });
-      const courseBigData = await axios({
-        method: "POST",
-        url: "http://localhost:8000/genedcourse",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-        },
-      });
-      setKeepBigData({
-        detailData: detailBigData.data.subject,
-        courseData: courseBigData.data,
-      });
-      setIsLoading(false);
-    };
-    FetchData();
+    try {
+      const FetchData = async () => {
+        const detailBigData = await axios({
+          method: "POST",
+          url: "http://localhost:8000/detail",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+          },
+        });
+        const courseBigData = await axios({
+          method: "POST",
+          url: "http://localhost:8000/genedcourse",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+          },
+        });
+        setKeepBigData({
+          detailData: detailBigData.data.subject,
+          courseData: courseBigData.data,
+        });
+        setIsLoading(false);
+      };
+      FetchData();
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   const collectId = () => {
@@ -50,7 +54,9 @@ const SearchPage = () => {
   return (
     <div>
       <Navbar NamePage="รายวิชาบูรณาการ" />
-      {isLoading ? <SkeletonSearchPage /> : (
+      {isLoading ? (
+        <SkeletonSearchPage />
+      ) : (
         <ContainerCustom>
           <div style={{ display: "flex" }}>
             <ChooseButton

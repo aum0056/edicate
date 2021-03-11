@@ -30,10 +30,6 @@ export const FormCustom = styled(Form.Control)`
   margin-top: 10px;
 `;
 
-export const FormGroupCustom = styled(Form.Group)`
-  width: 100%;
-`;
-
 export const CondiCustom = styled.div`
   font-size: 18px;
   @media (max-width: 560px) {
@@ -43,5 +39,5 @@ export const CondiCustom = styled.div`
     font-size: 12px;
   }
   cursor: pointer;
-  color: #FD0404;
-`
+  color: #fd0404;
+`;
