@@ -35,13 +35,18 @@ const DetailPage = () => {
           detailData: detailBigData.data,
           courseData: courseBigData.data,
         });
+        keepBigData.detailData !== null &&
+          localStorage.setItem(
+            `image: ${keepBigData.detailData.baseDetail.idcode}`,
+            keepBigData.detailData.image
+          );
         setIsLoading(false);
       };
       FetchData();
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [keepBigData.detailData]);
 
   const GroupData = (groupName) => {
     if (isLoading === false) {
