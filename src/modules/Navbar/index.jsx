@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 const Navbar = ({ NamePage }) => {
   const history = useHistory();
   const OnClickLogin = (event) => {
-    localStorage.clear();
+    localStorage.removeItem("x-access-token");
     history.push({ pathname: "/" });
   };
   return (

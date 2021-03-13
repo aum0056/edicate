@@ -6,6 +6,7 @@ import Navbar from "../../modules/Navbar";
 import axios from "axios";
 import SkeletonDetail from "../../modules/SkeletonDetail";
 import SkeletonEnrollBoxs from "../../modules/SkeletonEnrollBoxs";
+import jwt_decode from "jwt-decode";
 
 const DetailPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,6 +14,10 @@ const DetailPage = () => {
     detailData: null,
     courseData: null,
   });
+
+  const token =
+    localStorage.getItem("x-access-token") !== null &&
+    jwt_decode(localStorage.getItem("x-access-token"));
 
   useEffect(() => {
     try {
@@ -37,7 +42,7 @@ const DetailPage = () => {
         });
         keepBigData.detailData !== null &&
           localStorage.setItem(
-            `image: ${keepBigData.detailData.baseDetail.idcode}`,
+            `image: ${token.idcode}`,
             keepBigData.detailData.image
           );
         setIsLoading(false);
@@ -46,7 +51,7 @@ const DetailPage = () => {
     } catch (error) {
       console.log(error);
     }
-  }, [keepBigData.detailData]);
+  }, [keepBigData.detailData, token.idcode]);
 
   const GroupData = (groupName) => {
     if (isLoading === false) {
@@ -65,12 +70,12 @@ const DetailPage = () => {
           <SkeletonDetail />
         ) : (
           <DetailCard
-            genderThai={keepBigData.detailData.baseDetail.titleTh}
-            ThaiFirstname={keepBigData.detailData.baseDetail.firstNameTh}
-            ThaiLastname={keepBigData.detailData.baseDetail.lastNameTh}
-            EngFirstname={keepBigData.detailData.baseDetail.firstNameEn}
-            EngLastname={keepBigData.detailData.baseDetail.lastNameEn}
-            id={keepBigData.detailData.baseDetail.idcode}
+            genderThai={token.titleTh}
+            ThaiFirstname={token.firstNameTh}
+            ThaiLastname={token.lastNameTh}
+            EngFirstname={token.firstNameEn}
+            EngLastname={token.lastNameEn}
+            id={token.idcode}
             faculty={
               keepBigData.detailData.data.results.education[0].facultyNameTh
             }
@@ -80,7 +85,7 @@ const DetailPage = () => {
             idDepartment={
               keepBigData.detailData.data.results.education[0].majorCode
             }
-            pic={keepBigData.detailData.image}
+            pic={localStorage.getItem(`image: ${token.idcode}`)}
           />
         )}
         <TextBox>รายวิชาที่นิสิตลงทะเบียน</TextBox>

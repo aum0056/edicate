@@ -21,13 +21,12 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
+  const [showExp, setShowExp] = useState(false);
   const [fail, setFail] = useState(false);
-  console.log("D", DecodeExpire());
-  console.log("S", show);
 
   useEffect(() => {
     if (DecodeExpire() === false) {
-      setShow(true);
+      setShowExp(true);
     }
   }, []);
 
@@ -74,14 +73,12 @@ const Login = () => {
   };
 
   const AlertExp = () => {
-    const handleClose = () => setShow(false);
+    const handleClose = () => setShowExp(false);
     return (
-      <ModalCustom centered show={show} onHide={handleClose}>
-        <TextModal style={{ fontSize: "22px" }}>
-          ไม่สามารถเข้าสู่ระบบได้
-        </TextModal>
+      <ModalCustom centered show={showExp} onHide={handleClose}>
+        <TextModal style={{ fontSize: "22px" }}>หมดเวลาการใช้งาน</TextModal>
         <TextModal style={{ fontSize: "16px", color: "#8B8B8B" }}>
-          หมดเวลาการใช้งาน กรุณาเข้าสู่ระบบใหม่อีกครั้ง
+          กรุณาเข้าสู่ระบบใหม่อีกครั้ง
         </TextModal>
         <ButtonBox>
           <CloseButton onClick={handleClose}>Close</CloseButton>
