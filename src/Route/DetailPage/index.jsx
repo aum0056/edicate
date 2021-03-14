@@ -65,13 +65,15 @@ const DetailPage = () => {
   }, [imgStatus]);
 
   useEffect(() => {
-    if (!imgStatus) {
-      localStorage.setItem(
-        `image: ${token.idcode}`,
-        keepBigData.detailData.image
-      );
+    if (keepBigData.detailData) {
+      if (!imgStatus) {
+        localStorage.setItem(
+          `image: ${token.idcode}`,
+          keepBigData.detailData.image
+        );
+      }
     }
-  }, [imgStatus, keepBigData.detailData.image, token.idcode]);
+  }, [imgStatus, keepBigData.detailData, token.idcode]);
 
   const GroupData = (groupName) => {
     if (isLoading === false) {

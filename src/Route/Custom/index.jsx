@@ -18,7 +18,7 @@ const Custom = () => {
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 768px)",
   });
-  
+
   return (
     <div>
       <Navbar NamePage="ระบบจัดการวิชาบูรณาการ" />
