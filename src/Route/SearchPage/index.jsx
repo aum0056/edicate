@@ -23,6 +23,7 @@ const SearchPage = () => {
           url: "http://localhost:8000/detail",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+            imgstatus: true
           },
         });
         const courseBigData = await axios({
@@ -30,7 +31,6 @@ const SearchPage = () => {
           url: "http://localhost:8000/genedcourse",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-            imgStatus: true
           },
         });
         setKeepBigData({

@@ -26,7 +26,7 @@ const DetailPage = () => {
           url: "http://localhost:8000/detail",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-            imgStatus: imgStatus
+            imgstatus: imgStatus
           },
         });
         const courseBigData = await axios({
