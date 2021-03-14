@@ -16,13 +16,10 @@ const GroupDetail = (props) => {
     try {
       const FetchData = async () => {
         const data = await axios({
-          method: "POST",
-          url: "http://localhost:8000/searchbygroup",
+          method: "GET",
+          url: `http://localhost:8000/searchbygroup?keyword=${subjectGroup}`,
           headers: {
             Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-          },
-          data: {
-            subjectGroup: subjectGroup,
           },
         });
         setSubjectInGroup(data.data);

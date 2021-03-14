@@ -19,7 +19,7 @@ const SearchPage = () => {
     try {
       const FetchData = async () => {
         const detailBigData = await axios({
-          method: "POST",
+          method: "GET",
           url: "http://localhost:8000/detail",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
@@ -27,7 +27,7 @@ const SearchPage = () => {
           },
         });
         const courseBigData = await axios({
-          method: "POST",
+          method: "GET",
           url: "http://localhost:8000/genedcourse",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,

@@ -20,14 +20,6 @@ const SearchDetail = (props) => {
     setSubjectCode(event.target.value);
     if (event.target.value.length > 4) {
       axios({
-        // method: "POST",
-        // url: "http://localhost:8000/search",
-        // headers: {
-        //   Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-        // },
-        // data: {
-        //   subjectCode: event.target.value,
-        // },
         method: "GET",
         url: `http://localhost:8000/search?keyword=${event.target.value}`,
         headers: {
