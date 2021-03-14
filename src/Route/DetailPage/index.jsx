@@ -14,7 +14,7 @@ const DetailPage = () => {
     detailData: null,
     courseData: null,
   });
-  const [imgStatus, setImgStatus] = useState(false);
+  const [imgStatus, setImgStatus] = useState();
 
   const token = jwt_decode(localStorage.getItem("x-access-token"));
 
@@ -22,47 +22,42 @@ const DetailPage = () => {
     if (localStorage.getItem(`image: ${token.idcode}`)) {
       setImgStatus(true);
     }
-    // if (
-    //   keepBigData.detailData !== null &&
-    //   localStorage.getItem(`image: ${token.idcode}`)
-    // ) {
-    //   setImgStatus(true);
-    //   localStorage.setItem(
-    //     `image: ${token.idcode}`,
-    //     keepBigData.detailData.image
-    //   );
-    // }
+    else {
+      setImgStatus(false);
+    }
   }, [token.idcode]);
 
   useEffect(() => {
     try {
-      const FetchData = async () => {
-        const detailBigData = await axios({
-          method: "POST",
-          url: "http://localhost:8000/detail",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-            imgstatus: imgStatus,
-          },
-        });
-        const courseBigData = await axios({
-          method: "POST",
-          url: "http://localhost:8000/genedcourse",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-          },
-        });
-        setKeepBigData({
-          detailData: detailBigData.data,
-          courseData: courseBigData.data,
-        });
-        setIsLoading(false);
-      };
-      FetchData();
+      if (imgStatus !== undefined) {
+        const FetchData = async () => {
+          const detailBigData = await axios({
+            method: "POST",
+            url: "http://localhost:8000/detail",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+              imgstatus: imgStatus,
+            },
+          });
+          const courseBigData = await axios({
+            method: "POST",
+            url: "http://localhost:8000/genedcourse",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+            },
+          });
+          setKeepBigData({
+            detailData: detailBigData.data,
+            courseData: courseBigData.data,
+          });
+          setIsLoading(false);
+        };
+        FetchData();
+      }
     } catch (error) {
       console.log(error);
     }
-  }, [imgStatus]);
+  }, [token.idcode, imgStatus]);
 
   useEffect(() => {
     if (keepBigData.detailData) {
@@ -76,7 +71,7 @@ const DetailPage = () => {
   }, [imgStatus, keepBigData.detailData, token.idcode]);
 
   const GroupData = (groupName) => {
-    if (isLoading === false) {
+    if (!isLoading) {
       const subjectGroup = keepBigData.detailData.subject.filter(
         (data) => data.group === groupName && data.id !== "01355111"
       );
