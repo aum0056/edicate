@@ -14,9 +14,25 @@ const DetailPage = () => {
     detailData: null,
     courseData: null,
   });
-  const [imgStatus, setImgStatus] = useState(true)
+  const [imgStatus, setImgStatus] = useState(false);
 
   const token = jwt_decode(localStorage.getItem("x-access-token"));
+
+  useEffect(() => {
+    if (localStorage.getItem(`image: ${token.idcode}`)) {
+      setImgStatus(true);
+    }
+    // if (
+    //   keepBigData.detailData !== null &&
+    //   localStorage.getItem(`image: ${token.idcode}`)
+    // ) {
+    //   setImgStatus(true);
+    //   localStorage.setItem(
+    //     `image: ${token.idcode}`,
+    //     keepBigData.detailData.image
+    //   );
+    // }
+  }, [token.idcode]);
 
   useEffect(() => {
     try {
@@ -26,7 +42,7 @@ const DetailPage = () => {
           url: "http://localhost:8000/detail",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-            imgstatus: imgStatus
+            imgstatus: imgStatus,
           },
         });
         const courseBigData = await axios({
@@ -49,17 +65,13 @@ const DetailPage = () => {
   }, [imgStatus]);
 
   useEffect(() => {
-    if (
-      keepBigData.detailData !== null &&
-      localStorage.getItem(`image: ${token.idcode}`) === null
-    ) {
-      setImgStatus(false)
+    if (!imgStatus) {
       localStorage.setItem(
         `image: ${token.idcode}`,
         keepBigData.detailData.image
       );
     }
-  }, [keepBigData.detailData, token.idcode]);
+  }, [imgStatus, keepBigData.detailData.image, token.idcode]);
 
   const GroupData = (groupName) => {
     if (isLoading === false) {
