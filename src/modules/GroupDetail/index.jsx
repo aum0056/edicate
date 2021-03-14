@@ -12,28 +12,32 @@ const GroupDetail = (props) => {
   const [subjectInGroup, setSubjectInGroup] = useState([]);
   const [isStart, setIsStart] = useState(false);
 
+  console.log(subjectGroup);
+
   useEffect(() => {
     try {
-      const FetchData = async () => {
-        const data = await axios({
-          method: "GET",
-          url: `http://localhost:8000/searchbygroup?keyword=${subjectGroup}`,
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-          },
-        });
-        setSubjectInGroup(data.data);
-      };
-      setIsLoading(false);
-      FetchData();
+      if (subjectGroup !== undefined) {
+        const FetchData = async () => {
+          const data = await axios({
+            method: "GET",
+            url: `http://localhost:8000/searchbygroup?keyword=${subjectGroup}`,
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+            },
+          });
+          setSubjectInGroup(data.data);
+        };
+        setIsLoading(false);
+        FetchData();
+      }
     } catch (error) {
       console.log(error);
     }
   }, [subjectGroup]);
 
   const onClickChoose = (event) => {
-    setsubjectGroup(event.target.value);
     if (event.target.value !== "") {
+      setsubjectGroup(event.target.value);
       setIsStart(true);
     }
   };
