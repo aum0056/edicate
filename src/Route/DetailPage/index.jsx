@@ -15,9 +15,7 @@ const DetailPage = () => {
     courseData: null,
   });
 
-  const token =
-    localStorage.getItem("x-access-token") !== null &&
-    jwt_decode(localStorage.getItem("x-access-token"));
+  const token = jwt_decode(localStorage.getItem("x-access-token"));
 
   useEffect(() => {
     try {
@@ -40,16 +38,23 @@ const DetailPage = () => {
           detailData: detailBigData.data,
           courseData: courseBigData.data,
         });
-        keepBigData.detailData !== null &&
-          localStorage.setItem(
-            `image: ${token.idcode}`,
-            keepBigData.detailData.image
-          );
         setIsLoading(false);
       };
       FetchData();
     } catch (error) {
       console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (
+      keepBigData.detailData !== null &&
+      localStorage.getItem(`image: ${token.idcode}`) === null
+    ) {
+      localStorage.setItem(
+        `image: ${token.idcode}`,
+        keepBigData.detailData.image
+      );
     }
   }, [keepBigData.detailData, token.idcode]);
 
