@@ -30,6 +30,7 @@ const SearchPage = () => {
           url: "http://localhost:8000/genedcourse",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+            imgStatus: true
           },
         });
         setKeepBigData({

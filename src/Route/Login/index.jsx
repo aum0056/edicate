@@ -78,12 +78,8 @@ const Login = () => {
     );
   };
 
-  // console.log(showExp);
   const AlertExp = () => {
     const handleClose = () => setShowExp(false);
-    // const refreshFunction = () => {
-    //   window.opener.location.reload();
-    // };
     return (
       <ModalCustom centered show={showExp} onHide={handleClose}>
         <TextModal style={{ fontSize: "22px" }}>หมดเวลาการใช้งาน</TextModal>

@@ -14,6 +14,7 @@ const DetailPage = () => {
     detailData: null,
     courseData: null,
   });
+  const [imgStatus, setImgStatus] = useState(true)
 
   const token = jwt_decode(localStorage.getItem("x-access-token"));
 
@@ -25,6 +26,7 @@ const DetailPage = () => {
           url: "http://localhost:8000/detail",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+            imgStatus: imgStatus
           },
         });
         const courseBigData = await axios({
@@ -44,13 +46,14 @@ const DetailPage = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [imgStatus]);
 
   useEffect(() => {
     if (
       keepBigData.detailData !== null &&
       localStorage.getItem(`image: ${token.idcode}`) === null
     ) {
+      setImgStatus(false)
       localStorage.setItem(
         `image: ${token.idcode}`,
         keepBigData.detailData.image
