@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Container, Form, Button, Modal } from "react-bootstrap";
+import { Container, Form, Button } from "react-bootstrap";
 
 export const ContainerCustom = styled(Container)`
   padding: 0 30px;
@@ -29,7 +29,6 @@ export const FormGroup = styled(Form)`
 `;
 
 export const FontCustom = styled.div`
-  color: #1451ee;
   font-size: 14px;
   text-align: center;
   cursor: pointer;
@@ -49,34 +48,4 @@ export const LogoBox = styled.img`
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 30px;
-`;
-
-export const ModalCustom = styled(Modal)`
-  font-family: kanit;
-  padding: 10px;
-  .modal-content {
-    padding: 20px;
-  }
-`;
-
-export const TextModal = styled.div`
-  text-align: center;
-  margin-top: 5px;
-`;
-
-export const CloseButton = styled.div`
-  background-color: #02bc77;
-  color: #ffffff;
-  padding: 7px 12px;
-  height: fit-content;
-  width: fit-content;
-  border-radius: 5px;
-`;
-
-export const ButtonBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 30px;
-  font-size: 20px;
 `;

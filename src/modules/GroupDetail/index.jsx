@@ -3,7 +3,7 @@ import { TextCustom, FormCustom, CondiCustom } from "./styled";
 import { Form } from "react-bootstrap";
 import SkeletonEnrollClick from "../SkeletonEnrollClick";
 import EnrollClick from "../EnrollClick";
-import axios from "axios";
+import { SearchbyGroup } from "../../utills/api";
 
 const GroupDetail = (props) => {
   const { groupData, groupStudyId } = props;
@@ -12,26 +12,12 @@ const GroupDetail = (props) => {
   const [subjectInGroup, setSubjectInGroup] = useState([]);
   const [isStart, setIsStart] = useState(false);
 
-  console.log(subjectGroup);
-
   useEffect(() => {
-    try {
-      if (subjectGroup !== undefined) {
-        const FetchData = async () => {
-          const data = await axios({
-            method: "GET",
-            url: `http://localhost:8000/searchbygroup?keyword=${subjectGroup}`,
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-            },
-          });
-          setSubjectInGroup(data.data);
-        };
-        setIsLoading(false);
-        FetchData();
-      }
-    } catch (error) {
-      console.log(error);
+    if (subjectGroup !== undefined) {
+      SearchbyGroup(subjectGroup, (res) => {
+        setSubjectInGroup(res.data);
+      });
+      setIsLoading(false);
     }
   }, [subjectGroup]);
 
@@ -68,9 +54,9 @@ const GroupDetail = (props) => {
       </Form.Group>
 
       <TextCustom>รายวิชาบูรณาการที่เปิดให้ลงทะเบียน</TextCustom>
-      {isLoading ? null : (
+      {!isLoading && (
         <div>
-          {isStart ? (
+          {isStart && (
             <div>
               {subjectInGroup.length === 0 ? (
                 <SkeletonEnrollClick />
@@ -114,7 +100,7 @@ const GroupDetail = (props) => {
                 </div>
               )}
             </div>
-          ) : null}
+          )}
         </div>
       )}
     </div>

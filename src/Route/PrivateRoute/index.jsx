@@ -1,17 +1,13 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { DecodeExpire } from "../../utils/api.js";
+import { DecodeExpire } from "../../utills/expCheck";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
       render={(props) =>
-        localStorage.getItem("x-access-token") && DecodeExpire() ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/" />
-        )
+        DecodeExpire() ? <Component {...props} /> : <Redirect to="/" />
       }
     />
   );

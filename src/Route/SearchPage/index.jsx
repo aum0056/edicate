@@ -4,50 +4,28 @@ import Navbar from "../../modules/Navbar";
 import SearchDetail from "../../modules/SearchDetail";
 import GroupDetail from "../../modules/GroupDetail";
 import { ContainerCustom } from "./styled";
-import axios from "axios";
 import SkeletonSearchPage from "../../modules/SkeletonSearchPage";
+import { GetDetailGened } from "../../utills/api";
 
 const SearchPage = () => {
   const [tabState, setTabState] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [keepBigData, setKeepBigData] = useState({
     detailData: null,
-    courseData: null,
   });
 
   useEffect(() => {
-    try {
-      const FetchData = async () => {
-        const detailBigData = await axios({
-          method: "GET",
-          url: "http://localhost:8000/detail",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-            imgstatus: true
-          },
-        });
-        const courseBigData = await axios({
-          method: "GET",
-          url: "http://localhost:8000/genedcourse",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-          },
-        });
-        setKeepBigData({
-          detailData: detailBigData.data.subject,
-          courseData: courseBigData.data,
-        });
-        setIsLoading(false);
-      };
-      FetchData();
-    } catch (error) {
-      console.log(error);
-    }
+    GetDetailGened((detailBigData, courseBigData) => {
+      setKeepBigData({
+        detailData: detailBigData.data,
+      });
+      setIsLoading(false);
+    });
   }, []);
 
   const collectId = () => {
     if (!isLoading) {
-      const keep = keepBigData.detailData.map((data) => data.id);
+      const keep = keepBigData.detailData.subject.map((data) => data.id);
       return keep;
     }
   };
@@ -76,12 +54,12 @@ const SearchPage = () => {
           <div>
             {tabState === 1 ? (
               <SearchDetail
-                groupData={keepBigData.courseData}
+                groupData={keepBigData.detailData.genedcourse}
                 groupStudyId={collectId()}
               />
             ) : (
               <GroupDetail
-                groupData={keepBigData.courseData}
+                groupData={keepBigData.detailData.genedcourse}
                 groupStudyId={collectId()}
               />
             )}

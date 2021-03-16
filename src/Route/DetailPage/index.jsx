@@ -3,72 +3,43 @@ import DetailCard from "../../modules/DetailCard";
 import EnrollCard from "../../modules/EnrollCard";
 import { TextBox, ContainerCustom } from "./styled";
 import Navbar from "../../modules/Navbar";
-import axios from "axios";
 import SkeletonDetail from "../../modules/SkeletonDetail";
 import SkeletonEnrollBoxs from "../../modules/SkeletonEnrollBoxs";
 import jwt_decode from "jwt-decode";
+import { GetDetailGened, GetImage } from "../../utills/api";
 
 const DetailPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [keepBigData, setKeepBigData] = useState({
     detailData: null,
-    courseData: null,
   });
-  const [imgStatus, setImgStatus] = useState();
-
+  const [imgStatus, setImgStatus] = useState(null);
   const token = jwt_decode(localStorage.getItem("x-access-token"));
 
   useEffect(() => {
     if (localStorage.getItem(`image: ${token.idcode}`)) {
       setImgStatus(true);
-    }
-    else {
+    } else {
       setImgStatus(false);
     }
   }, [token.idcode]);
 
   useEffect(() => {
-    try {
-      if (imgStatus !== undefined) {
-        const FetchData = async () => {
-          const detailBigData = await axios({
-            method: "GET",
-            url: "http://localhost:8000/detail",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-              imgstatus: imgStatus,
-            },
-          });
-          const courseBigData = await axios({
-            method: "GET",
-            url: "http://localhost:8000/genedcourse",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-            },
-          });
-          setKeepBigData({
-            detailData: detailBigData.data,
-            courseData: courseBigData.data,
-          });
-          setIsLoading(false);
-        };
-        FetchData();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }, [token.idcode, imgStatus]);
+    GetDetailGened((detailBigData, courseBigData) => {
+      setKeepBigData({
+        detailData: detailBigData.data,
+      });
+      setIsLoading(false);
+    });
+  }, []);
 
   useEffect(() => {
-    if (keepBigData.detailData) {
-      if (!imgStatus) {
-        localStorage.setItem(
-          `image: ${token.idcode}`,
-          keepBigData.detailData.image
-        );
-      }
+    if (!imgStatus) {
+      GetImage((res) => {
+        localStorage.setItem(`image: ${token.idcode}`, res.data.image);
+      });
     }
-  }, [imgStatus, keepBigData.detailData, token.idcode]);
+  }, [imgStatus, token.idcode]);
 
   const GroupData = (groupName) => {
     if (!isLoading) {
@@ -111,16 +82,18 @@ const DetailPage = () => {
             <SkeletonEnrollBoxs />
           ) : (
             <div>
-              {keepBigData.courseData[0].group.map((groupName, index) => (
-                <EnrollCard
-                  key={index}
-                  type={keepBigData.courseData[0].type}
-                  NameGroup={groupName}
-                  subjectGroup={GroupData(groupName)}
-                  NumPattern={1}
-                  courseData={keepBigData.detailData.course}
-                />
-              ))}
+              {keepBigData.detailData.genedcourse[0].group.map(
+                (groupName, index) => (
+                  <EnrollCard
+                    key={index}
+                    type={keepBigData.detailData.genedcourse[0].type}
+                    NameGroup={groupName}
+                    subjectGroup={GroupData(groupName)}
+                    NumPattern={1}
+                    courseData={keepBigData.detailData.course}
+                  />
+                )
+              )}
             </div>
           )}
         </div>

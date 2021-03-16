@@ -7,8 +7,8 @@ import {
   CondiCustom,
 } from "./styled";
 import SkeletonEnrollClick from "../SkeletonEnrollClick";
-import axios from "axios";
 import EnrollClick from "../EnrollClick";
+import { SearchbyWord } from "../../utills/api";
 
 const SearchDetail = (props) => {
   const { groupData, groupStudyId } = props;
@@ -16,16 +16,11 @@ const SearchDetail = (props) => {
   const [dataSubject, setDataSubject] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isStart, setIsStart] = useState(false);
+
   const OnChangeSetSubjectCode = (event) => {
     setSubjectCode(event.target.value);
     if (event.target.value.length > 4) {
-      axios({
-        method: "GET",
-        url: `http://localhost:8000/search?keyword=${event.target.value}`,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
-        },
-      }).then((res) => {
+      SearchbyWord(event.target.value, (res) => {
         setDataSubject(res.data);
         setIsLoading(false);
       });
@@ -66,7 +61,7 @@ const SearchDetail = (props) => {
       <TextCustom>รายวิชาบูรณาการที่เปิดให้ลงทะเบียน</TextCustom>
 
       {isLoading ? (
-        <div>{isStart ? <SkeletonEnrollClick /> : null}</div>
+        <div>{isStart && <SkeletonEnrollClick />}</div>
       ) : (
         <div>
           {isStart && dataSubject.length === 0 ? (

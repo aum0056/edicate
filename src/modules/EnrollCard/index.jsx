@@ -1,14 +1,8 @@
 import React, { useState } from "react";
 import dropdown from "../../images/down-arrow.svg";
 import EnrollClick from "../EnrollClick";
-import {
-  EnrollBox,
-  DropdownCustom,
-  EnrollBox2,
-  CondiBox,
-  DropdownClick,
-  EnrollHead,
-} from "./styled";
+import { EnrollBox, DropdownCustom, CondiBox, EnrollHead } from "./styled";
+import { Collapse } from "react-bootstrap";
 
 const EnrollCard = (props) => {
   const { NumPattern, subjectGroup, NameGroup, type, courseData } = props;
@@ -21,12 +15,9 @@ const EnrollCard = (props) => {
     .map((filterSubjectGroup) => filterSubjectGroup.credit)
     .reduce((pre, cur) => pre + cur, 0);
 
-  const totalcreditUse = () => {
-    const totalcredit = courseData[0].group.filter(
-      (data) => data.nameGroup === NameGroup
-    );
-    return totalcredit[0].credit;
-  };
+  const totalcredit = courseData[0].group.filter(
+    (data) => data.nameGroup === NameGroup
+  )[0].credit;
 
   const Header = courseData[0].group
     .filter((data) => data.nameGroup === NameGroup)
@@ -34,9 +25,9 @@ const EnrollCard = (props) => {
 
   const checkRegEx = (id, subjectArray) => {
     const returnRegex = subjectArray.map((data) => new RegExp(data).test(id));
-    return returnRegex
-  }
-  
+    return returnRegex;
+  };
+
   const InCludeRender = () => {
     const fixSubjectMap = (NameHeader) => {
       const checkSubject = Header.filter((data) => data.name === NameHeader);
@@ -62,6 +53,7 @@ const EnrollCard = (props) => {
         .reduce((pre, cur) => pre + cur, 0);
       return credit;
     };
+
     const renderSubjectInclude = (NameHeader) => {
       return (
         <div>
@@ -121,38 +113,41 @@ const EnrollCard = (props) => {
 
   const NotIncludeRender = () => {
     const fixSubjectMap = Header.map((data) => data.subjectId).flat(1);
-    if (fixSubjectMap.length > 0) {
+    const groupCheck = () => {
       const renderGroup = subjectGroup.map((dataS) =>
         checkRegEx(dataS.id, fixSubjectMap)
           .filter((data) => data)
           .map((data) => dataS.id)
       );
+      if (NameGroup === "อยู่ดีมีสุข") {
+        return [renderGroup[0][0]];
+      } else {
+        return renderGroup;
+      }
+    };
+
+    if (fixSubjectMap.length > 0) {
       const notInclude = subjectGroup.filter(
-        (data) => !renderGroup.flat(1).includes(data.id)
+        (data) => !groupCheck().flat(1).includes(data.id)
       );
 
       const creditNotInclude = notInclude
         .map((data) => data.credit)
         .reduce((pre, cur) => pre + cur, 0);
 
-      const include = subjectGroup.filter((data) =>
-        renderGroup.flat(1).includes(data.id)
-      );
-      const creditInclude = include
+      const creditInclude = subjectGroup
+        .filter((data) => groupCheck().flat(1).includes(data.id))
         .map((data) => data.credit)
         .reduce((pre, cur) => pre + cur, 0);
 
       return (
         <div>
-          {creditNotInclude > 0 ? (
+          {creditNotInclude > 0 && (
             <div>
               <EnrollHead>
                 <div>กลุ่ม{NameGroup}</div>
                 <div>
-                  {ColorNumber(
-                    creditNotInclude,
-                    totalcreditUse() - creditInclude
-                  )}
+                  {ColorNumber(creditNotInclude, totalcredit - creditInclude)}
                 </div>
               </EnrollHead>
               <div>
@@ -171,80 +166,61 @@ const EnrollCard = (props) => {
                 ))}
               </div>
             </div>
-          ) : null}
+          )}
         </div>
       );
     }
   };
 
   const ColorNumber = (credits, totalcredit) => {
+    const defineColor = (EqColor, notEq) => {
+      return (
+        <CondiBox style={{ color: `#${EqColor}` }}>
+          <div style={{ color: `#${notEq}` }}>{credits}</div>
+          <div>/{totalcredit}</div>
+        </CondiBox>
+      );
+    };
+
     if (credits === totalcredit) {
-      return (
-        <CondiBox style={{ color: "#02BC77" }}>
-          <div>{credits}</div>
-          <div>/{totalcredit}</div>
-        </CondiBox>
-      );
+      return defineColor("02BC77");
     } else if (credits < totalcredit) {
-      return (
-        <CondiBox>
-          <div style={{ color: "#8B8B8B" }}>{credits}</div>
-          <div>/{totalcredit}</div>
-        </CondiBox>
-      );
+      return defineColor("000", "8B8B8B");
     } else {
-      return (
-        <CondiBox>
-          <div style={{ color: "#FD0404" }}>{credits}</div>
-          <div>/{totalcredit}</div>
-        </CondiBox>
-      );
+      return defineColor("000", "FD0404");
     }
   };
 
   const barCustom = () => {
     return (
       <div>
-        {isClick ? (
-          <EnrollBox2>
-            <div>
-              {type}
-              {NameGroup}
-            </div>
-            <CondiBox>
-              {ColorNumber(allCredits, totalcreditUse())}
-              {allCredits === 0 ? (
-                <DropdownCustom src={dropdown} alt="dropdown" />
-              ) : (
-                <DropdownClick src={dropdown} alt="dropdownClick" />
-              )}
-            </CondiBox>
-          </EnrollBox2>
-        ) : (
-          <EnrollBox>
-            <div>
-              {type}
-              {NameGroup}
-            </div>
-            <div style={{ display: "flex" }}>
-              {ColorNumber(allCredits, totalcreditUse())}
-              <DropdownCustom src={dropdown} alt="dropdown" />
-            </div>
-          </EnrollBox>
-        )}
+        <EnrollBox isClick={isClick}>
+          <div>
+            {type}
+            {NameGroup}
+          </div>
+          <div style={{ display: "flex" }}>
+            {ColorNumber(allCredits, totalcredit)}
+            <DropdownCustom
+              isClick={isClick && allCredits > 0}
+              src={dropdown}
+              alt="dropdown"
+            />
+          </div>
+        </EnrollBox>
       </div>
     );
   };
 
   return (
-    <div onClick={onClickDropdown}>
-      <div>{barCustom()}</div>
-      {isClick ? (
+    <div>
+      <div onClick={onClickDropdown}>{barCustom()}</div>
+      <Collapse in={isClick}>
         <div>
           {InCludeRender()}
           {NotIncludeRender()}
         </div>
-      ) : null}
+      </Collapse>
     </div>
   );
 };

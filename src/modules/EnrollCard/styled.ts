@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const EnrollBox = styled.div`
+export const EnrollBox = styled.div<{ isClick: boolean }>`
   font-size: 20px;
   @media (max-width: 560px) {
     font-size: 3.57vw;
@@ -17,9 +17,11 @@ export const EnrollBox = styled.div`
   border: 0.5px solid #c4c4c4;
   margin-top: 20px;
   cursor: pointer;
+  border-bottom-left-radius: ${(props) => props.isClick && "0rem"};
+  border-bottom-right-radius: ${(props) => props.isClick && "0rem"};
 `;
 
-export const DropdownCustom = styled.img`
+export const DropdownCustom = styled.img<{ isClick: boolean }>`
   margin: 5px 0 0 20px;
   width: 20px;
   height: 20px;
@@ -33,24 +35,18 @@ export const DropdownCustom = styled.img`
     height: 14px;
     margin: 3.6px 0 0 20px;
   }
-`;
-
-export const EnrollBox2 = styled(EnrollBox)`
-  border-bottom-left-radius: 0rem;
-  border-bottom-right-radius: 0rem;
+  transform: ${(props) => props.isClick && "rotate(180deg)"};
 `;
 
 export const CondiBox = styled.div`
   display: flex;
 `;
 
-export const DropdownClick = styled(DropdownCustom)`
-  transform: rotate(180deg);
-`;
-
-export const EnrollHead = styled(EnrollBox2)`
+export const EnrollHead = styled(EnrollBox)`
+  border-bottom-left-radius: 0rem;
+  border-bottom-right-radius: 0rem;
   margin-top: 0px;
   border-top: none;
   border-top-left-radius: 0rem;
   border-top-right-radius: 0rem;
-`
+`;

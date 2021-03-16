@@ -6,15 +6,12 @@ import {
   FontCustom,
   LogoBox,
   ButtonCustom,
-  ModalCustom,
-  TextModal,
-  CloseButton,
-  ButtonBox,
 } from "./styled";
 import logo from "../../images/logoEdicate.svg";
+import AlertModal from "../../modules/AlertModal";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
-import { DecodeExpire } from "../../utils/api.js";
+import { GetLogin } from "../../utills/api";
+import { DecodeExpire } from "../../utills/expCheck";
 
 const Login = () => {
   const history = useHistory();
@@ -36,60 +33,19 @@ const Login = () => {
     }
   }, [showExp]);
 
-  const OnClickSendDatatoBack = (event) => {
-    axios({
-      method: "post",
-      headers: { "content-type": "application/json" },
-      url: "http://localhost:8000/login",
-      data: {
-        username: username,
-        password: password,
-      },
-    })
-      .then((res) => {
+  const OnClickSendDatatoBack = () => {
+    GetLogin(
+      username,
+      password,
+      (res) => {
         localStorage.setItem("x-access-token", res.data["x-access-token"]);
-        if (res.status === 200) {
-          setFail(false);
-          history.push({ pathname: "/custom" });
-        }
-      })
-      .catch((err) => {
-        if (err) {
-          setFail(true);
-          setShow(true);
-        }
-      });
-  };
-
-  const AlertLogin = () => {
-    const handleClose = () => setShow(false);
-    return (
-      <ModalCustom centered show={show} onHide={handleClose}>
-        <TextModal style={{ fontSize: "22px" }}>
-          ไม่สามารถเข้าสู่ระบบได้
-        </TextModal>
-        <TextModal style={{ fontSize: "16px", color: "#8B8B8B" }}>
-          รหัสผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง
-        </TextModal>
-        <ButtonBox>
-          <CloseButton onClick={handleClose}>Close</CloseButton>
-        </ButtonBox>
-      </ModalCustom>
-    );
-  };
-
-  const AlertExp = () => {
-    const handleClose = () => setShowExp(false);
-    return (
-      <ModalCustom centered show={showExp} onHide={handleClose}>
-        <TextModal style={{ fontSize: "22px" }}>หมดเวลาการใช้งาน</TextModal>
-        <TextModal style={{ fontSize: "16px", color: "#8B8B8B" }}>
-          กรุณาเข้าสู่ระบบใหม่อีกครั้ง
-        </TextModal>
-        <ButtonBox>
-          <CloseButton onClick={handleClose}>Close</CloseButton>
-        </ButtonBox>
-      </ModalCustom>
+        setFail(false);
+        history.push({ pathname: "/custom" });
+      },
+      (error) => {
+        setFail(true);
+        setShow(true);
+      }
     );
   };
 
@@ -132,8 +88,26 @@ const Login = () => {
       <FontCustom>
         <a href="https://accounts.ku.ac.th/private/login">ลืมรหัสผ่าน ?</a>
       </FontCustom>
-      <div>{fail ? AlertLogin() : null}</div>
-      <div>{DecodeExpire() ? null : AlertExp()}</div>
+      <div>
+        {fail && (
+          <AlertModal
+            showStatus={show}
+            onClick={setShow}
+            headerText="ไม่สามารถเข้าสู่ระบบได้"
+            detailText="รหัสผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง"
+          />
+        )}
+      </div>
+      <div>
+        {!DecodeExpire() && (
+          <AlertModal
+            showStatus={showExp}
+            onClick={setShowExp}
+            headerText="หมดเวลาการใช้งาน"
+            detailText="กรุณาเข้าสู่ระบบใหม่อีกครั้ง"
+          />
+        )}
+      </div>
     </ContainerCustom>
   );
 };
