@@ -49,4 +49,5 @@ export const EnrollHead = styled(EnrollBox)`
   border-top: none;
   border-top-left-radius: 0rem;
   border-top-right-radius: 0rem;
+  cursor: default
 `;

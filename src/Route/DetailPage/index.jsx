@@ -10,9 +10,7 @@ import { GetDetailGened, GetImage } from "../../utills/api";
 
 const DetailPage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [keepBigData, setKeepBigData] = useState({
-    detailData: null,
-  });
+  const [keepBigData, setKeepBigData] = useState(null);
   const [imgStatus, setImgStatus] = useState(null);
   const token = jwt_decode(localStorage.getItem("x-access-token"));
 
@@ -25,10 +23,8 @@ const DetailPage = () => {
   }, [token.idcode]);
 
   useEffect(() => {
-    GetDetailGened((detailBigData, courseBigData) => {
-      setKeepBigData({
-        detailData: detailBigData.data,
-      });
+    GetDetailGened((detailBigData) => {
+      setKeepBigData(detailBigData.data);
       setIsLoading(false);
     });
   }, []);
@@ -43,7 +39,7 @@ const DetailPage = () => {
 
   const GroupData = (groupName) => {
     if (!isLoading) {
-      const subjectGroup = keepBigData.detailData.subject.filter(
+      const subjectGroup = keepBigData.subject.filter(
         (data) => data.group === groupName && data.id !== "01355111"
       );
       return subjectGroup;
@@ -65,13 +61,13 @@ const DetailPage = () => {
             EngLastname={token.lastNameEn}
             id={token.idcode}
             faculty={
-              keepBigData.detailData.data.results.education[0].facultyNameTh
+              keepBigData.data.results.education[0].facultyNameTh
             }
             department={
-              keepBigData.detailData.data.results.education[0].departmentNameTh
+              keepBigData.data.results.education[0].departmentNameTh
             }
             idDepartment={
-              keepBigData.detailData.data.results.education[0].majorCode
+              keepBigData.data.results.education[0].majorCode
             }
             pic={localStorage.getItem(`image: ${token.idcode}`)}
           />
@@ -82,15 +78,15 @@ const DetailPage = () => {
             <SkeletonEnrollBoxs />
           ) : (
             <div>
-              {keepBigData.detailData.genedcourse[0].group.map(
+              {keepBigData.genedcourse[0].group.map(
                 (groupName, index) => (
                   <EnrollCard
                     key={index}
-                    type={keepBigData.detailData.genedcourse[0].type}
+                    type={keepBigData.genedcourse[0].type}
                     NameGroup={groupName}
                     subjectGroup={GroupData(groupName)}
                     NumPattern={1}
-                    courseData={keepBigData.detailData.course}
+                    courseData={keepBigData.course}
                   />
                 )
               )}

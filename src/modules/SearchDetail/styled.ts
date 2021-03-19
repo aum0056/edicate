@@ -63,6 +63,6 @@ export const CondiCustom = styled.div`
   @media (max-width: 413px) {
     font-size: 12px;
   }
-  cursor: pointer;
+  cursor: default;
   color: #FD0404;
 `

@@ -41,7 +41,7 @@ export const TextBox = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  cursor: pointer;
+  cursor: default;
   @media (max-width: 560px) {
     font-size: 3.57vw;
   }

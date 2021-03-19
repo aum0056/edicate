@@ -4,7 +4,7 @@ import { Form } from "react-bootstrap";
 export const TextCustom = styled.div`
   margin-top: 40px;
   font-size: 24px;
-  cursor: pointer;
+  cursor: default;
   @media (max-width: 560px) {
     font-size: 4.29vw;
   }
@@ -38,6 +38,15 @@ export const CondiCustom = styled.div`
   @media (max-width: 413px) {
     font-size: 12px;
   }
-  cursor: pointer;
+  cursor: default;
   color: #fd0404;
+`;
+
+export const FormCheckCustom = styled(Form.Check)`
+  font-size: 16px;
+  .custom-control-input:checked ~ .custom-control-label::before {
+    border-color: #02bc77;
+    background-color: #02bc77;
+    box-shadow: 0 0 0 0.2rem rgba(2, 188, 119, 0.25);
+  }
 `;

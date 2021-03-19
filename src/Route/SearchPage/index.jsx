@@ -10,22 +10,18 @@ import { GetDetailGened } from "../../utills/api";
 const SearchPage = () => {
   const [tabState, setTabState] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const [keepBigData, setKeepBigData] = useState({
-    detailData: null,
-  });
+  const [keepBigData, setKeepBigData] = useState(null);
 
   useEffect(() => {
     GetDetailGened((detailBigData, courseBigData) => {
-      setKeepBigData({
-        detailData: detailBigData.data,
-      });
+      setKeepBigData(detailBigData.data);
       setIsLoading(false);
     });
   }, []);
 
   const collectId = () => {
     if (!isLoading) {
-      const keep = keepBigData.detailData.subject.map((data) => data.id);
+      const keep = keepBigData.subject.map((data) => data.id);
       return keep;
     }
   };
@@ -54,12 +50,12 @@ const SearchPage = () => {
           <div>
             {tabState === 1 ? (
               <SearchDetail
-                groupData={keepBigData.detailData.genedcourse}
+                groupData={keepBigData.genedcourse}
                 groupStudyId={collectId()}
               />
             ) : (
               <GroupDetail
-                groupData={keepBigData.detailData.genedcourse}
+                groupData={keepBigData.genedcourse}
                 groupStudyId={collectId()}
               />
             )}

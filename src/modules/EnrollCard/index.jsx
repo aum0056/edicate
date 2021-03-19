@@ -7,6 +7,8 @@ import { Collapse } from "react-bootstrap";
 const EnrollCard = (props) => {
   const { NumPattern, subjectGroup, NameGroup, type, courseData } = props;
   const [isClick, setIsClick] = useState(false);
+  var overSubject = [];
+
   const onClickDropdown = () => {
     setIsClick(!isClick);
   };
@@ -23,6 +25,11 @@ const EnrollCard = (props) => {
     .filter((data) => data.nameGroup === NameGroup)
     .map((data) => data.fixedSubject)[0];
 
+  const creditForNotInclude = Header.map((data) => data.credit).reduce(
+    (pre, cur) => pre + cur,
+    0
+  );
+
   const checkRegEx = (id, subjectArray) => {
     const returnRegex = subjectArray.map((data) => new RegExp(data).test(id));
     return returnRegex;
@@ -36,15 +43,23 @@ const EnrollCard = (props) => {
           .filter((data) => data)
           .map((data) => dataS.id)
       );
+
       const include = subjectGroup.filter((data) =>
         renderGroup.flat(1).includes(data.id)
       );
 
-      if (NameHeader === "กิจกรรมพลศึกษา") {
-        return [include[0]];
-      } else {
-        return include;
+      let count = 0;
+      for (let i = 0; i < include.length; i++) {
+        count += include[i].credit;
+        if (count > checkSubject[0].credit) {
+          overSubject.push(include[i].id);
+        }
       }
+
+      const includeInScope = include.filter(
+        (data) => !overSubject.includes(data.id)
+      );
+      return includeInScope;
     };
 
     const creditInclude = (NameHeader) => {
@@ -119,24 +134,19 @@ const EnrollCard = (props) => {
           .filter((data) => data)
           .map((data) => dataS.id)
       );
-      if (NameGroup === "อยู่ดีมีสุข") {
-        return [renderGroup[0][0]];
-      } else {
-        return renderGroup;
-      }
+      const renderGroupNotOver = renderGroup
+        .flat(1)
+        .filter((data) => !overSubject.includes(data));
+
+      return renderGroupNotOver;
     };
 
     if (fixSubjectMap.length > 0) {
       const notInclude = subjectGroup.filter(
-        (data) => !groupCheck().flat(1).includes(data.id)
+        (data) => !groupCheck().includes(data.id)
       );
 
       const creditNotInclude = notInclude
-        .map((data) => data.credit)
-        .reduce((pre, cur) => pre + cur, 0);
-
-      const creditInclude = subjectGroup
-        .filter((data) => groupCheck().flat(1).includes(data.id))
         .map((data) => data.credit)
         .reduce((pre, cur) => pre + cur, 0);
 
@@ -147,7 +157,10 @@ const EnrollCard = (props) => {
               <EnrollHead>
                 <div>กลุ่ม{NameGroup}</div>
                 <div>
-                  {ColorNumber(creditNotInclude, totalcredit - creditInclude)}
+                  {ColorNumber(
+                    creditNotInclude,
+                    totalcredit - creditForNotInclude
+                  )}
                 </div>
               </EnrollHead>
               <div>

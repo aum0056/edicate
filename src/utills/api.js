@@ -11,7 +11,7 @@ export const SearchbyWord = async (keyWord, done) => {
     });
     done(res);
   } catch (error) {
-    console.log(error);
+    console.log(error.data);
   }
 };
 
@@ -71,7 +71,7 @@ export const GetImage = async (done) => {
         Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
       },
     });
-    done(res)
+    done(res);
   } catch (error) {
     console.log(error);
   }
