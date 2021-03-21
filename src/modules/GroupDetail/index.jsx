@@ -24,26 +24,31 @@ const GroupDetail = (props) => {
     }
   }, [subjectGroup, subjectInGroup]);
 
+  useEffect(() => {
+    if (subjectGroup !== null) {
+      if (checkId === "1") {
+        SearchbyGroup(subjectGroup, (res) => {
+          setSubjectInGroup(res.data);
+          setIsLoading(false);
+        });
+        setIsEqual(false);
+      } else {
+        RateSubjectGroup(
+          subjectGroup,
+          localStorage.getItem("semester"),
+          localStorage.getItem("academicYear"),
+          (res) => {
+            setMostSubject(res.data.subjects[0].subjects.slice(0, 5));
+            setIsLoading(false);
+          }
+        );
+        setIsEqual(true);
+      }
+    }
+  }, [subjectGroup, checkId]);
+
   const onChangeChoose = (event) => {
     setsubjectGroup(event.target.value);
-    if (checkId === "1") {
-      SearchbyGroup(event.target.value, (res) => {
-        setSubjectInGroup(res.data);
-        setIsLoading(false);
-      });
-      setIsEqual(false);
-    } else {
-      RateSubjectGroup(
-        event.target.value,
-        localStorage.getItem("semester"),
-        localStorage.getItem("academicYear"),
-        (res) => {
-          setMostSubject(res.data.subjects[0].subjects.slice(0, 5));
-          setIsLoading(false);
-        }
-      );
-      setIsEqual(true);
-    }
   };
 
   const onClickCheck = (event) => {
@@ -155,7 +160,7 @@ const GroupDetail = (props) => {
         </div>
       ) : (
         <div>
-          {!(isEqual === null || isLoading === null) && <SkeletonEnrollClick />}
+          {!(isEqual == null && isLoading == null) && <SkeletonEnrollClick />}
         </div>
       )}
     </div>
