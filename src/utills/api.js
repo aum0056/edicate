@@ -30,6 +30,26 @@ export const SearchbyGroup = async (keyWord, done) => {
   }
 };
 
+export const RateSubjectGroup = async (
+  keyWord,
+  semester,
+  academicYear,
+  done
+) => {
+  try {
+    const res = await axios({
+      method: "GET",
+      url: `http://localhost:8000/ratedsubject?keyword=${keyWord}&semester=${semester}&academicyear=${academicYear}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
+      },
+    });
+    done(res);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const GetLogin = async (username, password, done, doneErr) => {
   try {
     const res = await axios({

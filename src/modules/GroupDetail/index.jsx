@@ -3,7 +3,7 @@ import { TextCustom, FormCustom, CondiCustom, FormCheckCustom } from "./styled";
 import { Form } from "react-bootstrap";
 import SkeletonEnrollClick from "../SkeletonEnrollClick";
 import EnrollClick from "../EnrollClick";
-import { SearchbyGroup } from "../../utills/api";
+import { SearchbyGroup, RateSubjectGroup } from "../../utills/api";
 
 const GroupDetail = (props) => {
   const { groupData, groupStudyId } = props;
@@ -12,6 +12,7 @@ const GroupDetail = (props) => {
   const [subjectInGroup, setSubjectInGroup] = useState([]);
   const [isEqual, setIsEqual] = useState(null);
   const [checkId, setCheckId] = useState("1");
+  const [mostSubject, setMostSubject] = useState([]);
 
   useEffect(() => {
     if (subjectInGroup !== null && subjectInGroup.length > 0) {
@@ -25,11 +26,24 @@ const GroupDetail = (props) => {
 
   const onChangeChoose = (event) => {
     setsubjectGroup(event.target.value);
-    SearchbyGroup(event.target.value, (res) => {
-      setSubjectInGroup(res.data);
-      setIsLoading(false);
-    });
-    setIsEqual(false);
+    if (checkId === "1") {
+      SearchbyGroup(event.target.value, (res) => {
+        setSubjectInGroup(res.data);
+        setIsLoading(false);
+      });
+      setIsEqual(false);
+    } else {
+      RateSubjectGroup(
+        event.target.value,
+        localStorage.getItem("semester"),
+        localStorage.getItem("academicYear"),
+        (res) => {
+          setMostSubject(res.data.subjects[0].subjects.slice(0, 5));
+          setIsLoading(false);
+        }
+      );
+      setIsEqual(true);
+    }
   };
 
   const onClickCheck = (event) => {
@@ -121,7 +135,23 @@ const GroupDetail = (props) => {
                 />
               ))}
             </div>
-          ) : null}
+          ) : (
+            <div>
+              {mostSubject.map((dataGroup, index) => (
+                <EnrollClick
+                  key={index}
+                  id={dataGroup.id}
+                  thainame={dataGroup.thainame}
+                  engname={dataGroup.engname}
+                  group={dataGroup.group}
+                  credit={dataGroup.credit}
+                  NumPattern={0}
+                  colorState={false}
+                  type={groupData[0].type}
+                />
+              ))}
+            </div>
+          )}
         </div>
       ) : (
         <div>

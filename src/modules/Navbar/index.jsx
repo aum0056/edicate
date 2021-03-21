@@ -5,14 +5,16 @@ import { useHistory } from "react-router-dom";
 
 const Navbar = ({ NamePage }) => {
   const history = useHistory();
-  const OnClickLogin = (event) => {
+  const OnClickExit = (event) => {
     localStorage.removeItem("x-access-token");
+    localStorage.removeItem("semester");
+    localStorage.removeItem("academicYear");
     history.push({ pathname: "/" });
   };
   return (
     <NavCustom sticky="top" className="justify-content-center">
       <TextCustom>{NamePage}</TextCustom>
-      <ExitBotton onClick={OnClickLogin} src={Exit} alt="Exit" />
+      <ExitBotton onClick={OnClickExit} src={Exit} alt="Exit" />
     </NavCustom>
   );
 };

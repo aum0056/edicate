@@ -30,6 +30,8 @@ const Login = () => {
   useEffect(() => {
     if (showExp) {
       localStorage.removeItem("x-access-token");
+      localStorage.removeItem("semester");
+      localStorage.removeItem("academicYear");
     }
   }, [showExp]);
 
@@ -39,6 +41,8 @@ const Login = () => {
       password,
       (res) => {
         localStorage.setItem("x-access-token", res.data["x-access-token"]);
+        localStorage.setItem("semester", res.data.results[0].semester);
+        localStorage.setItem("academicYear", res.data.results[0].academicYr);
         setFail(false);
         history.push({ pathname: "/custom" });
       },
