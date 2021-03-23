@@ -5,7 +5,5 @@ export const DecodeExpire = () => {
     const token = jwt_decode(localStorage.getItem("x-access-token"));
     const expireToken = token.exp >= Date.now() / 1000;
     return expireToken;
-  } else {
-    return true;
   }
 };

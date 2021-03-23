@@ -27,6 +27,7 @@ const Login = () => {
   useEffect(() => {
     if (DecodeExpire() === false) {
       setShowExp(true);
+      setPress(false);
     }
   }, []);
 
@@ -59,6 +60,7 @@ const Login = () => {
         (error) => {
           setFail(true);
           setShow(true);
+          setPress(false);
         }
       );
     }

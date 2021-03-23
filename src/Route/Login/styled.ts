@@ -4,7 +4,7 @@ import { Container, Form, Button } from "react-bootstrap";
 export const ContainerCustom = styled(Container)`
   padding: 0 30px;
   top: 50%;
-  transform: translate(0, 25%);
+  transform: translate(0, 15%);
 `;
 
 export const FormCustom = styled(Form.Control)`
@@ -41,6 +41,10 @@ export const ButtonCustom = styled(Button)`
   margin: 30px 0px;
   width: 100%;
   max-width: 350px;
+  border-color: #00b874;
+  :focus {
+    border-color: #00ad6d !important;
+  }
 `;
 
 export const LogoBox = styled.img`
