@@ -2,11 +2,16 @@ import styled from "styled-components";
 import { Container, Button } from "react-bootstrap";
 
 export const MidContainer = styled(Container)`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
+  position: top;
+  margin-top: 7%;
+  margin-bottom: 7%;
+  @media (min-height: 600px) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export const CustomButton = styled(Button)`
@@ -24,11 +29,5 @@ export const FontBox = styled.div`
   margin-top: 50px;
   @media (max-width: 767px) {
     margin: 20px 0;
-  }
-`;
-
-export const HoverImg = styled.img`
-  &:hover {
-    color: red;
   }
 `;

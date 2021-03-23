@@ -2,7 +2,7 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 import Detail from "../../images/detail.svg";
 import eduDetail from "../../images/eduDetail.svg";
-import { CustomButton, MidContainer, FontBox, HoverImg } from "./styled";
+import { CustomButton, MidContainer, FontBox } from "./styled";
 import { useHistory } from "react-router-dom";
 import Navbar from "../../modules/Navbar";
 import { useMediaQuery } from "react-responsive";
@@ -18,7 +18,6 @@ const Custom = () => {
   const isDesktop = useMediaQuery({
     query: "(min-device-width: 768px)",
   });
-
   return (
     <div>
       <Navbar NamePage="ระบบจัดการวิชาบูรณาการ" />
@@ -31,7 +30,7 @@ const Custom = () => {
             </CustomButton>
             <Col md={1} />
             <CustomButton onClick={OnClickSubject} variant="outline-secondary">
-              <HoverImg src={eduDetail} alt="eduDetail" />
+              <img src={eduDetail} alt="eduDetail" />
               <FontBox>ข้อมูลรายวิชา</FontBox>
             </CustomButton>
           </Row>
