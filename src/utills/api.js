@@ -11,7 +11,7 @@ export const SearchbyWord = async (keyWord, done) => {
     });
     done(res);
   } catch (error) {
-    console.log(error.data);
+    console.log(error);
   }
 };
 
