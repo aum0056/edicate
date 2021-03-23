@@ -4,7 +4,7 @@ export const SearchbyWord = async (keyWord, done) => {
   try {
     const res = await axios({
       method: "GET",
-      url: `http://localhost:8000/search?keyword=${keyWord}`,
+      url: `https://edicatebackend.herokuapp.com/search?keyword=${keyWord}`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
       },
@@ -19,7 +19,7 @@ export const SearchbyGroup = async (keyWord, done) => {
   try {
     const res = await axios({
       method: "GET",
-      url: `http://localhost:8000/searchbygroup?keyword=${keyWord}`,
+      url: `https://edicatebackend.herokuapp.com/searchbygroup?keyword=${keyWord}`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
       },
@@ -39,7 +39,7 @@ export const RateSubjectGroup = async (
   try {
     const res = await axios({
       method: "GET",
-      url: `http://localhost:8000/ratedsubject?keyword=${keyWord}&semester=${semester}&academicyear=${academicYear}`,
+      url: `https://edicatebackend.herokuapp.com/ratedsubject?keyword=${keyWord}&semester=${semester}&academicyear=${academicYear}`,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
       },
@@ -55,7 +55,7 @@ export const GetLogin = async (username, password, done, doneErr) => {
     const res = await axios({
       method: "POST",
       headers: { "content-type": "application/json" },
-      url: "http://localhost:8000/login",
+      url: "https://edicatebackend.herokuapp.com/login",
       data: {
         username: username,
         password: password,
@@ -71,7 +71,7 @@ export const GetDetailGened = async (done) => {
   try {
     const detailBigData = await axios({
       method: "GET",
-      url: "http://localhost:8000/detail",
+      url: "https://edicatebackend.herokuapp.com/detail",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
       },
@@ -86,7 +86,7 @@ export const GetImage = async (done) => {
   try {
     const res = await axios({
       method: "GET",
-      url: "http://localhost:8000/image",
+      url: "https://edicatebackend.herokuapp.com/image",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("x-access-token")}`,
       },

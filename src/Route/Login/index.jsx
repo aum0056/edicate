@@ -12,6 +12,7 @@ import AlertModal from "../../modules/AlertModal";
 import { useHistory } from "react-router-dom";
 import { GetLogin } from "../../utills/api";
 import { DecodeExpire } from "../../utills/expCheck";
+import Spinner from "react-loader-spinner";
 
 const Login = () => {
   const history = useHistory();
@@ -20,6 +21,8 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const [showExp, setShowExp] = useState(false);
   const [fail, setFail] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isPress, setPress] = useState(false);
 
   useEffect(() => {
     if (DecodeExpire() === false) {
@@ -35,22 +38,34 @@ const Login = () => {
     }
   }, [showExp]);
 
+  useEffect(() => {
+    if (isLoading === false && isPress) {
+      history.push({ pathname: "/custom" });
+    }
+  }, [isLoading, history, isPress]);
+
+  useEffect(() => {
+    if (isPress) {
+      GetLogin(
+        username,
+        password,
+        (res) => {
+          localStorage.setItem("x-access-token", res.data["x-access-token"]);
+          localStorage.setItem("semester", res.data.results[0].semester);
+          localStorage.setItem("academicYear", res.data.results[0].academicYr);
+          setFail(false);
+          setIsLoading(false);
+        },
+        (error) => {
+          setFail(true);
+          setShow(true);
+        }
+      );
+    }
+  }, [isPress, password, username]);
+
   const OnClickSendDatatoBack = () => {
-    GetLogin(
-      username,
-      password,
-      (res) => {
-        localStorage.setItem("x-access-token", res.data["x-access-token"]);
-        localStorage.setItem("semester", res.data.results[0].semester);
-        localStorage.setItem("academicYear", res.data.results[0].academicYr);
-        setFail(false);
-        history.push({ pathname: "/custom" });
-      },
-      (error) => {
-        setFail(true);
-        setShow(true);
-      }
-    );
+    setPress(true);
   };
 
   const OnChangeSetUsername = (event) => {
@@ -87,7 +102,13 @@ const Login = () => {
         />
       </FormGroup>
       <div onClick={OnClickSendDatatoBack} style={{ textAlign: "center" }}>
-        <ButtonCustom variant="success">เข้าสู่ระบบ</ButtonCustom>
+        {isLoading && isPress ? (
+          <ButtonCustom variant="success">
+            <Spinner type="ThreeDots" color="#fff" height={10} />
+          </ButtonCustom>
+        ) : (
+          <ButtonCustom variant="success">เข้าสู่ระบบ</ButtonCustom>
+        )}
       </div>
       <FontCustom>
         <a href="https://accounts.ku.ac.th/private/login">ลืมรหัสผ่าน ?</a>

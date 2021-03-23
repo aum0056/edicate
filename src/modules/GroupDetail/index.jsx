@@ -25,6 +25,16 @@ const GroupDetail = (props) => {
   }, [subjectGroup, subjectInGroup]);
 
   useEffect(() => {
+    if (mostSubject !== null && mostSubject.length > 0) {
+      if (subjectGroup !== mostSubject[0].group) {
+        setIsLoading(true);
+      } else {
+        setIsEqual(true);
+      }
+    }
+  }, [subjectGroup, mostSubject]);
+
+  useEffect(() => {
     if (subjectGroup !== null) {
       if (checkId === "1") {
         SearchbyGroup(subjectGroup, (res) => {
@@ -42,7 +52,7 @@ const GroupDetail = (props) => {
             setIsLoading(false);
           }
         );
-        setIsEqual(true);
+        setIsEqual(false);
       }
     }
   }, [subjectGroup, checkId]);
@@ -102,6 +112,7 @@ const GroupDetail = (props) => {
           id="2"
         />
       </Form>
+
       {isEqual && !isLoading ? (
         <div>
           {checkId === "1" ? (
