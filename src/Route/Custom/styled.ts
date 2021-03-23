@@ -7,6 +7,8 @@ export const MidContainer = styled(Container)`
   margin-bottom: 7%;
   @media (min-height: 600px) {
     position: absolute;
+    margin-top: 0;
+    margin-bottom: 0;
     top: 50%;
     left: 50%;
     margin-right: -50%;
